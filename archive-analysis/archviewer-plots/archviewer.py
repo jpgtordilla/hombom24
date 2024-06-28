@@ -1,9 +1,10 @@
 import numpy as np
-import pandas as pd # type: ignore
+import pandas as pd 
 from collections import Counter
 import matplotlib.pyplot as plt
 import matplotlib as matplotlib
 import matplotlib.ticker as ticker
+from scipy.signal import find_peaks
 import datetime
 import re
 
@@ -123,6 +124,33 @@ class ArchViewer:
                 col_ind += 1 # keep track of which column is being plotted
 
         plt.show()
+
+    # FILTERING
+
+    """plot and return dictionary of indices/peak heights for a df, specified columns, specified x range, and peak parameters"""
+    def plot_return_peaks_ts(self, df_name, x_col, y_col, y_label, x_start, x_end, peak_height, peak_dist):
+        # plot peaks based on parameters
+        fig, ax = plt.subplots(2, 1, figsize=(12, 8))
+        plt.subplots_adjust(wspace=0.4, hspace=0.3)
+        y = df_name.loc[x_start:x_end, [y_col]][y_col]
+        all_peaks, peak_heights = find_peaks(y, height=peak_height, distance=peak_dist)
+        ax[0].plot(df_name.loc[x_start:x_end, [x_col]][x_col], y) 
+        ax[0].plot(all_peaks, y[all_peaks], "x")
+        ax[0].plot(np.zeros_like(y), "--", color="gray")
+        # plot only peak points with x axis showing index corresponding to the returned dict
+        ax[1].scatter(all_peaks, y[all_peaks])
+        # match limits with the first plot
+        ax[1].set_xlim(0, len(df_name.loc[x_start:x_end, [x_col]][x_col]))
+        ax[1].set_ylim(-max(peak_heights["peak_heights"].tolist())*1.1, max(peak_heights["peak_heights"].tolist())*1.1)
+        # set labels
+        for i in range(2): 
+            ax[i].set_xlabel(x_col)
+            ax[i].set_ylabel(y_label)
+            ax[i].xaxis.set_major_locator(ticker.LinearLocator(5))
+            ax[i].set_title(f"{y_label} vs. Time for {y_col}")
+        plt.show()
+        result = {all_peaks.tolist()[i]: peak_heights["peak_heights"].tolist()[i] for i in range(len(all_peaks))}
+        return result
 
     # CORRELATIONS
 
