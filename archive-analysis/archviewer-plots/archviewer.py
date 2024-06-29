@@ -19,10 +19,12 @@ class ArchViewer:
         return pd.read_csv(file_path)
 
     """Returns the ratio of normal elements to total cells"""
+    """
     def get_non_na_ratio(self, df_name, col_name): 
         tot_len = len(df_name[col_name])
         na_len = tot_len - len(df_name[col_name].dropna())
         return (tot_len - na_len) / tot_len
+    """
 
     """Returns a df with irrelevant (only applies to small time frames) rows removed"""
     def remove_irrelevant_dates(self, df_name): 
@@ -70,8 +72,8 @@ class ArchViewer:
     # PLOTTING
 
     """Grid plotter helper function for megaplots"""
-    def plot_mega(self, ax, df_name, y_axis_title, i, j, col_ind): 
-        # df_rows = self.remove_irrelevant_dates(df_name) # remove irrelevant rows
+    def plot_mega(self, ax, df_name, y_axis_title, i, j, col_ind, start, end): 
+        # df_rows = remove_irrelevant_dates(df_name) # remove irrelevant rows
 
         if col_ind >= len(df_name.columns): # ends execution of for loop if no more columns to render
             return
@@ -79,7 +81,7 @@ class ArchViewer:
         df_cols = self.remove_nan_from_col(df_name, df_name.columns[col_ind]) # remove unwanted columns
         df_plot = self.remove_date(df_cols) # modify timestamp text to only include the hour, min, and sec
 
-        ax[i, j].scatter(df_plot["Timestamp"], df_plot[df_name.columns[col_ind]], s=10)
+        ax[i, j].scatter(df_plot.loc[start:end, ["Timestamp"]]["Timestamp"], df_plot.loc[start:end, [df_name.columns[col_ind]]][df_name.columns[col_ind]], s=10)
         ax[i, j].xaxis.set_major_locator(ticker.LinearLocator(3))
         ax[i, j].xaxis.set_minor_locator(ticker.LinearLocator(0))
         ax[i, j].tick_params(axis='y', which='major', labelsize=8)
@@ -91,26 +93,25 @@ class ArchViewer:
         ax[i, j].set_title(f"{y_axis_title} vs. Time for {df_name.columns[col_ind]}", {'fontsize': 7})
 
     """Plot of a specific column in a df"""
-    def specific_col_plot(self, df_name, col_name, y_axis_title): 
+    def specific_col_plot(self, df_name, col_name, y_axis_title, start, end): 
         fig, ax = plt.subplots(figsize=(12, 4))
-        print(f"Normal element to total ratio: {self.get_non_na_ratio(df_name, col_name)}") # get normal/total ratio
-        # df_rows = self.remove_irrelevant_dates(df_name) # remove irrelevant rows
+        # print(f"Normal element to total ratio: {self.get_non_na_ratio(df_name, col_name)}") # get normal/total ratio
+        # df_rows = remove_irrelevant_dates(df_name) # remove irrelevant rows
         df_cols = self.remove_nan_from_col(df_name, col_name) # remove unwanted columns
         df_plot = self.remove_date(df_cols) # modify timestamp text to only include the hour, min, and sec
 
-        ax.scatter(df_plot["Timestamp"], df_plot[col_name])
+        ax.scatter(df_plot.loc[start:end, ["Timestamp"]]["Timestamp"], df_plot.loc[start:end, [col_name]][col_name])
 
         # x label is always in seconds, but y label must be specified by the user as it is not given in the csv file
         ax.set_xlabel("Time (s)")
         ax.set_ylabel(y_axis_title)
         ax.set_title(f"{y_axis_title} vs. Time for {col_name}")
+
         ax.xaxis.set_major_locator(ticker.AutoLocator())
         ax.xaxis.set_minor_locator(ticker.AutoMinorLocator())
 
-        plt.show()
-
     """Megaplot of all the columns from the df"""
-    def megaplot_all_cols(self, df_name, y_axis_title): 
+    def megaplot_all_cols(self, df_name, y_axis_title, start, end): 
         # want to create a grid of subplots
         col_len = len(df_name.columns) - 1
         dim = int(np.sqrt(col_len))
@@ -120,15 +121,13 @@ class ArchViewer:
         col_ind = 1 # track index of the columns in the df that will be cleaned in the for loop
         for i in range(0, dim + 1): 
             for j in range(0, dim):
-                self.plot_mega(ax, df_name, y_axis_title, i, j, col_ind)
+                self.plot_mega(ax, df_name, y_axis_title, i, j, col_ind, start, end)
                 col_ind += 1 # keep track of which column is being plotted
-
-        plt.show()
 
     # FILTERING
 
     """plot and return dictionary of indices/peak heights for a df, specified columns, specified x range, and peak parameters"""
-    def plot_return_peaks_ts(self, df_name, x_col, y_col, y_label, x_start, x_end, peak_height, peak_dist):
+    def plot_return_peaks(self, df_name, x_col, y_col, y_label, peak_height, peak_dist, x_start, x_end):
         # plot peaks based on parameters
         fig, ax = plt.subplots(2, 1, figsize=(12, 8))
         plt.subplots_adjust(wspace=0.4, hspace=0.3)
@@ -151,19 +150,26 @@ class ArchViewer:
         plt.show()
         result = {all_peaks.tolist()[i]: peak_heights["peak_heights"].tolist()[i] for i in range(len(all_peaks))}
         return result
+    
+    """only return dictionary of indices/peak heights for a df, specified column, specified x range, and peak parameters"""
+    def return_peaks(self, df_name, y_col, x_start, x_end, peak_height, peak_dist):
+        y = df_name.loc[x_start:x_end, [y_col]][y_col]
+        all_peaks, peak_heights = find_peaks(y, height=peak_height, distance=peak_dist)
+        result = {all_peaks.tolist()[i]: peak_heights["peak_heights"].tolist()[i] for i in range(len(all_peaks))}
+        return result
 
     # CORRELATIONS
 
     """Plot of a specific correlation between two specific dataframes and their specified columns"""
-    def spec_correl(self, df_x, df_y, df_col_x, df_col_y): 
+    def spec_correl(self, df_x, df_y, df_col_x, df_col_y, start, end): 
         # clean both dfs
         df_plot_x = self.clean_df(df_x, df_col_x)
         df_plot_y = self.clean_df(df_y, df_col_y)
         # plot dfs
         fig, ax = plt.subplots(figsize=(12, 4))
-        print(f"Normal element to total ratio x: {self.get_non_na_ratio(df_x, df_col_x)}") # get normal/total ratio
-        print(f"Normal element to total ratio y: {self.get_non_na_ratio(df_y, df_col_y)}") 
-        ax.scatter(df_plot_x[df_col_x], df_plot_y[df_col_y])
+        # print(f"Normal element to total ratio x: {self.get_non_na_ratio(df_x, df_col_x)}") # get normal/total ratio
+        # print(f"Normal element to total ratio y: {self.get_non_na_ratio(df_y, df_col_y)}") 
+        ax.scatter(df_plot_x.loc[start:end, [df_col_x]][df_col_x], df_plot_y.loc[start:end, [df_col_y]][df_col_y]) # must specify indices to plot
         # x label is always in seconds, but y label must be specified by the user as it is not given in the csv file
         ax.set_xlabel(df_col_x)
         ax.set_ylabel(df_col_y)
@@ -171,17 +177,8 @@ class ArchViewer:
         ax.xaxis.set_major_locator(ticker.AutoLocator())
         ax.xaxis.set_minor_locator(ticker.AutoMinorLocator())
 
-        plt.show()
-
-    """Helper function to clean df for correlation function"""
-    def clean_df(self, df, col): 
-        df_rows = self.remove_irrelevant_dates(df) # remove irrelevant rows 
-        df_cols = self.remove_nan_from_col(df_rows, col) # df with only the one specified col df_col_x
-        return self.remove_date(df_cols) # modify timestamp text to only include the hour, min, and sec
-    
-    """Plot a correlation between a specific column from a df and all the columns in the other df
-        if is_x is true, df_y is plotted on y-axis and all columns from df_x are plotted"""
-    def correl(self, df_y, df_y_col, df_x, df_x_col, is_x): 
+    """Plot a correlation between a specific column from a df and all the columns in the other df"""
+    def correl(self, df_y, df_y_col, df_x, df_x_col, is_x, start, end): 
         # want to create a grid of subplots
         col_len = len(df_x.columns) - 1
         dim = int(np.sqrt(col_len))
@@ -192,16 +189,19 @@ class ArchViewer:
         for i in range(0, dim + 1): 
             for j in range(0, dim):
                 if is_x: # if this is true, df_y is plotted on y-axis and all columns from df_x are plotted
-                    self.plot_correl_mega(ax, df_y, df_y_col, df_x, i, j, col_ind)
+                    self.plot_correl_mega(ax, df_y, df_y_col, df_x, i, j, col_ind, start, end)
                 else: # if this is true, df_x is plotted on y-axis and all columns from df_y are plotted
-                    self.plot_correl_mega(ax, df_x, df_x_col, df_y, i, j, col_ind)
+                    self.plot_correl_mega(ax, df_x, df_x_col, df_y, i, j, col_ind, start, end)
 
                 col_ind += 1 # keep track of which column is being plotted
 
+    """Helper function to clean df"""
+    def clean_df(self, df, col): 
+        df_cols = self.remove_nan_from_col(df, col) # df with only the one specified col df_col_x
+        return self.remove_date(df_cols) # modify timestamp text to only include the hour, min, and sec
 
     """Helper function for correlation megaplots"""
-    def plot_correl_mega(self, ax, df_y, df_y_col, df_x, i, j, col_ind): 
-        # df_rows = remove_irrelevant_dates(df_name) # remove irrelevant rows
+    def plot_correl_mega(self, ax, df_y, df_y_col, df_x, i, j, col_ind, start, end): 
 
         if col_ind >= len(df_x.columns): # ends execution of for loop if no more columns to render
             return
@@ -213,7 +213,7 @@ class ArchViewer:
         if len(df_y[df_y_col]) != len(df_plot[df_x.columns[col_ind]]): 
             return
         
-        ax[i, j].scatter(df_y[df_y_col], df_plot[df_x.columns[col_ind]], s=10)
+        ax[i, j].scatter(df_y.loc[start:end, [df_y_col]][df_y_col], df_plot.loc[start:end, [df_x.columns[col_ind]]][df_x.columns[col_ind]], s=10)
         ax[i, j].xaxis.set_major_locator(ticker.LinearLocator(3))
         ax[i, j].xaxis.set_minor_locator(ticker.LinearLocator(0))
         ax[i, j].tick_params(axis='y', which='major', labelsize=8)
@@ -223,4 +223,4 @@ class ArchViewer:
         ax[i, j].set_xlabel(df_x.columns[col_ind])
         ax[i, j].set_ylabel(df_y_col)
         ax[i, j].set_title(f"{df_y_col} vs. {df_x.columns[col_ind]}", {'fontsize': 7})
-            
+        
