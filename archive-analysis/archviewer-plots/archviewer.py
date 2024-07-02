@@ -123,6 +123,7 @@ class ArchViewer:
             for j in range(0, dim):
                 self.plot_mega(ax, df_name, y_axis_title, i, j, col_ind, start, end)
                 col_ind += 1 # keep track of which column is being plotted
+        plt.show()
 
     # FILTERING
 
@@ -167,8 +168,8 @@ class ArchViewer:
         df_plot_y = self.clean_df(df_y, df_col_y)
         # plot dfs
         fig, ax = plt.subplots(figsize=(12, 4))
-        # print(f"Normal element to total ratio x: {self.get_non_na_ratio(df_x, df_col_x)}") # get normal/total ratio
-        # print(f"Normal element to total ratio y: {self.get_non_na_ratio(df_y, df_col_y)}") 
+        # print(f"Normal element to total ratio x: {get_non_na_ratio(df_x, df_col_x)}") # get normal/total ratio
+        # print(f"Normal element to total ratio y: {get_non_na_ratio(df_y, df_col_y)}") 
         ax.scatter(df_plot_x.loc[start:end, [df_col_x]][df_col_x], df_plot_y.loc[start:end, [df_col_y]][df_col_y]) # must specify indices to plot
         # x label is always in seconds, but y label must be specified by the user as it is not given in the csv file
         ax.set_xlabel(df_col_x)
@@ -176,9 +177,10 @@ class ArchViewer:
         ax.set_title(f"{df_col_y} vs. {df_col_x}")
         ax.xaxis.set_major_locator(ticker.AutoLocator())
         ax.xaxis.set_minor_locator(ticker.AutoMinorLocator())
+        plt.show()
 
     """Plot a correlation between a specific column from a df and all the columns in the other df"""
-    def correl(self, df_y, df_y_col, df_x, df_x_col, is_x, start, end): 
+    def correl(self, df_y, df_y_col, df_x, start, end): 
         # want to create a grid of subplots
         col_len = len(df_x.columns) - 1
         dim = int(np.sqrt(col_len))
@@ -188,32 +190,43 @@ class ArchViewer:
         col_ind = 1 # track index of the columns in the df that will be cleaned in the for loop
         for i in range(0, dim + 1): 
             for j in range(0, dim):
-                if is_x: # if this is true, df_y is plotted on y-axis and all columns from df_x are plotted
-                    self.plot_correl_mega(ax, df_y, df_y_col, df_x, i, j, col_ind, start, end)
-                else: # if this is true, df_x is plotted on y-axis and all columns from df_y are plotted
-                    self.plot_correl_mega(ax, df_x, df_x_col, df_y, i, j, col_ind, start, end)
+                if col_ind >= len(df_x.columns): 
+                    break
+                self.plot_correl_mega(ax, df_y, df_y_col, df_x, i, j, col_ind, start, end)
 
                 col_ind += 1 # keep track of which column is being plotted
+        plt.show()
 
     """Helper function to clean df"""
     def clean_df(self, df, col): 
         df_cols = self.remove_nan_from_col(df, col) # df with only the one specified col df_col_x
         return self.remove_date(df_cols) # modify timestamp text to only include the hour, min, and sec
 
+    """Helper function to clean both dfs"""
+    def clean_df_both(self, df_1, df_2, col_1, col_2): 
+        df1_copy = df_1.copy()
+        df2_copy = df_2.copy()
+        df1_clean = self.remove_nan_from_col(df1_copy, col_1)
+        df2_clean = self.remove_nan_from_col(df2_copy, col_2)   
+        # merge only when Timestamp values match
+        # citation: https://www.shanelynn.ie/merge-join-dataframes-python-pandas-index-1/
+        result = pd.merge(df1_clean, df2_clean[["Timestamp", col_2]], on='Timestamp')
+        return result
+
     """Helper function for correlation megaplots"""
     def plot_correl_mega(self, ax, df_y, df_y_col, df_x, i, j, col_ind, start, end): 
 
-        if col_ind >= len(df_x.columns): # ends execution of for loop if no more columns to render
-            return
-        
-        df_cols = self.remove_nan_from_col(df_x, df_x.columns[col_ind]) # remove unwanted columns and keep the specified one
-        df_plot = self.remove_date(df_cols) # modify timestamp text to only include the hour, min, and sec
+        # want to clean both dfs simultaneously, so that only non-NaN rows are maintained
 
-        # plots are only generated if the x and y axis have the same amount of points
-        if len(df_y[df_y_col]) != len(df_plot[df_x.columns[col_ind]]): 
-            return
-        
-        ax[i, j].scatter(df_y.loc[start:end, [df_y_col]][df_y_col], df_plot.loc[start:end, [df_x.columns[col_ind]]][df_x.columns[col_ind]], s=10)
+        df_plot = self.clean_df_both(df_y, df_x, df_y_col, df_x.columns[col_ind])
+
+        if df_y_col == df_x.columns[col_ind]: 
+            ax[i, j].scatter(df_plot.loc[start:end, [f"{df_y_col}_y"]][f"{df_y_col}_y"], 
+                            df_plot.loc[start:end, [f"{df_x.columns[col_ind]}_x"]][f"{df_x.columns[col_ind]}_x"], s=10)
+        else: 
+            ax[i, j].scatter(df_plot.loc[start:end, [df_y_col]][df_y_col], 
+                            df_plot.loc[start:end, [df_x.columns[col_ind]]][df_x.columns[col_ind]], s=10)
+
         ax[i, j].xaxis.set_major_locator(ticker.LinearLocator(3))
         ax[i, j].xaxis.set_minor_locator(ticker.LinearLocator(0))
         ax[i, j].tick_params(axis='y', which='major', labelsize=8)
@@ -223,4 +236,3 @@ class ArchViewer:
         ax[i, j].set_xlabel(df_x.columns[col_ind])
         ax[i, j].set_ylabel(df_y_col)
         ax[i, j].set_title(f"{df_y_col} vs. {df_x.columns[col_ind]}", {'fontsize': 7})
-        
