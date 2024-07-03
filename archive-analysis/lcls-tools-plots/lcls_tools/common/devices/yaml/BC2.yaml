@@ -1,0 +1,286 @@
+magnets:
+  BX21:
+    controls_information:
+      PVs:
+        bact: BEND:LI24:720:BACT
+        bcon: BEND:LI24:720:BCON
+        bctrl: BEND:LI24:720:BCTRL
+        bdes: BEND:LI24:720:BDES
+        bmax: BEND:LI24:720:BMAX
+        bmin: BEND:LI24:720:BMIN
+        ctrl: BEND:LI24:720:CTRL
+      control_name: BEND:LI24:720
+    metadata:
+      area: BC2
+      beam_path:
+      - CU_ALINE
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SXR
+      sum_l_meters: 398.987
+      type: BEND
+  BX22:
+    controls_information:
+      PVs:
+        bact: BEND:LI24:790:BACT
+        bcon: BEND:LI24:790:BCON
+        bctrl: BEND:LI24:790:BCTRL
+        bdes: BEND:LI24:790:BDES
+        bmax: BEND:LI24:790:BMAX
+        bmin: BEND:LI24:790:BMIN
+        ctrl: BEND:LI24:790:CTRL
+      control_name: BEND:LI24:790
+    metadata:
+      area: BC2
+      beam_path:
+      - CU_ALINE
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SXR
+      sum_l_meters: 409.403
+      type: BEND
+  BX23:
+    controls_information:
+      PVs:
+        bact: BEND:LI24:810:BACT
+        bcon: BEND:LI24:810:BCON
+        bctrl: BEND:LI24:810:BCTRL
+        bdes: BEND:LI24:810:BDES
+        bmax: BEND:LI24:810:BMAX
+        bmin: BEND:LI24:810:BMIN
+        ctrl: BEND:LI24:810:CTRL
+      control_name: BEND:LI24:810
+    metadata:
+      area: BC2
+      beam_path:
+      - CU_ALINE
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SXR
+      sum_l_meters: 411.045
+      type: BEND
+  BX24:
+    controls_information:
+      PVs:
+        bact: BEND:LI24:880:BACT
+        bcon: BEND:LI24:880:BCON
+        bctrl: BEND:LI24:880:BCTRL
+        bdes: BEND:LI24:880:BDES
+        bmax: BEND:LI24:880:BMAX
+        bmin: BEND:LI24:880:BMIN
+        ctrl: BEND:LI24:880:CTRL
+      control_name: BEND:LI24:880
+    metadata:
+      area: BC2
+      beam_path:
+      - CU_ALINE
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SXR
+      sum_l_meters: 421.461
+      type: BEND
+  CQ21:
+    controls_information:
+      PVs:
+        bact: QUAD:LI24:740:BACT
+        bcon: QUAD:LI24:740:BCON
+        bctrl: QUAD:LI24:740:BCTRL
+        bdes: QUAD:LI24:740:BDES
+        bmax: QUAD:LI24:740:BMAX
+        bmin: QUAD:LI24:740:BMIN
+        ctrl: QUAD:LI24:740:CTRL
+      control_name: QUAD:LI24:740
+    metadata:
+      area: BC2
+      beam_path:
+      - CU_ALINE
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SXR
+      sum_l_meters: 401.272
+      type: QUAD
+  CQ22:
+    controls_information:
+      PVs:
+        bact: QUAD:LI24:860:BACT
+        bcon: QUAD:LI24:860:BCON
+        bctrl: QUAD:LI24:860:BCTRL
+        bdes: QUAD:LI24:860:BDES
+        bmax: QUAD:LI24:860:BMAX
+        bmin: QUAD:LI24:860:BMIN
+        ctrl: QUAD:LI24:860:CTRL
+      control_name: QUAD:LI24:860
+    metadata:
+      area: BC2
+      beam_path:
+      - CU_ALINE
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SXR
+      sum_l_meters: 419.175
+      type: QUAD
+  Q24701A:
+    controls_information:
+      PVs:
+        bact: QUAD:LI24:701:BACT
+        bcon: QUAD:LI24:701:BCON
+        bctrl: QUAD:LI24:701:BCTRL
+        bdes: QUAD:LI24:701:BDES
+        bmax: QUAD:LI24:701:BMAX
+        bmin: QUAD:LI24:701:BMIN
+        ctrl: QUAD:LI24:701:CTRL
+      control_name: QUAD:LI24:701
+    metadata:
+      area: BC2
+      beam_path:
+      - CU_ALINE
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SXR
+      sum_l_meters: 396.107
+      type: QUAD
+  Q24701B:
+    controls_information:
+      PVs:
+        bact: QUAD:LI24:702:BACT
+        bcon: QUAD:LI24:702:BCON
+        bctrl: QUAD:LI24:702:BCTRL
+        bdes: QUAD:LI24:702:BDES
+        bmax: QUAD:LI24:702:BMAX
+        bmin: QUAD:LI24:702:BMIN
+        ctrl: QUAD:LI24:702:CTRL
+      control_name: QUAD:LI24:702
+    metadata:
+      area: BC2
+      beam_path:
+      - CU_ALINE
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SXR
+      sum_l_meters: 396.34
+      type: QUAD
+  Q24901A:
+    controls_information:
+      PVs:
+        bact: QUAD:LI24:901:BACT
+        bcon: QUAD:LI24:901:BCON
+        bctrl: QUAD:LI24:901:BCTRL
+        bdes: QUAD:LI24:901:BDES
+        bmax: QUAD:LI24:901:BMAX
+        bmin: QUAD:LI24:901:BMIN
+        ctrl: QUAD:LI24:901:CTRL
+      control_name: QUAD:LI24:901
+    metadata:
+      area: BC2
+      beam_path:
+      - CU_ALINE
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SXR
+      sum_l_meters: 423.308
+      type: QUAD
+  Q24901B:
+    controls_information:
+      PVs:
+        bact: QUAD:LI24:902:BACT
+        bcon: QUAD:LI24:902:BCON
+        bctrl: QUAD:LI24:902:BCTRL
+        bdes: QUAD:LI24:902:BDES
+        bmax: QUAD:LI24:902:BMAX
+        bmin: QUAD:LI24:902:BMIN
+        ctrl: QUAD:LI24:902:CTRL
+      control_name: QUAD:LI24:902
+    metadata:
+      area: BC2
+      beam_path:
+      - CU_ALINE
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SXR
+      sum_l_meters: 423.521
+      type: QUAD
+  QM21:
+    controls_information:
+      PVs:
+        bact: QUAD:LI24:713:BACT
+        bcon: QUAD:LI24:713:BCON
+        bctrl: QUAD:LI24:713:BCTRL
+        bdes: QUAD:LI24:713:BDES
+        bmax: QUAD:LI24:713:BMAX
+        bmin: QUAD:LI24:713:BMIN
+        ctrl: QUAD:LI24:713:CTRL
+      control_name: QUAD:LI24:713
+    metadata:
+      area: BC2
+      beam_path:
+      - CU_ALINE
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SXR
+      sum_l_meters: 398.147
+      type: QUAD
+  QM22:
+    controls_information:
+      PVs:
+        bact: QUAD:LI24:892:BACT
+        bcon: QUAD:LI24:892:BCON
+        bctrl: QUAD:LI24:892:BCTRL
+        bdes: QUAD:LI24:892:BDES
+        bmax: QUAD:LI24:892:BMAX
+        bmin: QUAD:LI24:892:BMIN
+        ctrl: QUAD:LI24:892:CTRL
+      control_name: QUAD:LI24:892
+    metadata:
+      area: BC2
+      beam_path:
+      - CU_ALINE
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SXR
+      sum_l_meters: 422.646
+      type: QUAD
+screens:
+  OTR21:
+    controls_information:
+      PVs:
+        image: OTRS:LI24:807:IMAGE
+        n_bits: OTRS:LI24:807:N_OF_BITS
+        n_col: OTRS:LI24:807:N_OF_COL
+        n_row: OTRS:LI24:807:N_OF_ROW
+        resolution: OTRS:LI24:807:RESOLUTION
+      control_name: OTRS:LI24:807
+    metadata:
+      area: BC2
+      beam_path:
+      - CU_ALINE
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SXR
+      sum_l_meters: 410.405
+      type: PROF

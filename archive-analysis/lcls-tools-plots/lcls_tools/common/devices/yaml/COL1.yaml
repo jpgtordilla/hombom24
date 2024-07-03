@@ -1,0 +1,553 @@
+magnets:
+  QC101:
+    controls_information:
+      PVs:
+        bact: QUAD:COL1:120:BACT
+        bcon: QUAD:COL1:120:BCON
+        bctrl: QUAD:COL1:120:BCTRL
+        bdes: QUAD:COL1:120:BDES
+        bmax: QUAD:COL1:120:BMAX
+        bmin: QUAD:COL1:120:BMIN
+        ctrl: QUAD:COL1:120:CTRL
+      control_name: QUAD:COL1:120
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 140.271
+      type: QUAD
+  QC102:
+    controls_information:
+      PVs:
+        bact: QUAD:COL1:260:BACT
+        bcon: QUAD:COL1:260:BCON
+        bctrl: QUAD:COL1:260:BCTRL
+        bdes: QUAD:COL1:260:BDES
+        bmax: QUAD:COL1:260:BMAX
+        bmin: QUAD:COL1:260:BMIN
+        ctrl: QUAD:COL1:260:CTRL
+      control_name: QUAD:COL1:260
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 148.329
+      type: QUAD
+  QC103:
+    controls_information:
+      PVs:
+        bact: QUAD:COL1:280:BACT
+        bcon: QUAD:COL1:280:BCON
+        bctrl: QUAD:COL1:280:BCTRL
+        bdes: QUAD:COL1:280:BDES
+        bmax: QUAD:COL1:280:BMAX
+        bmin: QUAD:COL1:280:BMIN
+        ctrl: QUAD:COL1:280:CTRL
+      control_name: QUAD:COL1:280
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 149.237
+      type: QUAD
+  QC104:
+    controls_information:
+      PVs:
+        bact: QUAD:COL1:320:BACT
+        bcon: QUAD:COL1:320:BCON
+        bctrl: QUAD:COL1:320:BCTRL
+        bdes: QUAD:COL1:320:BDES
+        bmax: QUAD:COL1:320:BMAX
+        bmin: QUAD:COL1:320:BMIN
+        ctrl: QUAD:COL1:320:CTRL
+      control_name: QUAD:COL1:320
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 152.095
+      type: QUAD
+  QC105:
+    controls_information:
+      PVs:
+        bact: QUAD:COL1:400:BACT
+        bcon: QUAD:COL1:400:BCON
+        bctrl: QUAD:COL1:400:BCTRL
+        bdes: QUAD:COL1:400:BDES
+        bmax: QUAD:COL1:400:BMAX
+        bmin: QUAD:COL1:400:BMIN
+        ctrl: QUAD:COL1:400:CTRL
+      control_name: QUAD:COL1:400
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 156.52
+      type: QUAD
+  QC106:
+    controls_information:
+      PVs:
+        bact: QUAD:COL1:480:BACT
+        bcon: QUAD:COL1:480:BCON
+        bctrl: QUAD:COL1:480:BCTRL
+        bdes: QUAD:COL1:480:BDES
+        bmax: QUAD:COL1:480:BMAX
+        bmin: QUAD:COL1:480:BMIN
+        ctrl: QUAD:COL1:480:CTRL
+      control_name: QUAD:COL1:480
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 160.52
+      type: QUAD
+  QC107:
+    controls_information:
+      PVs:
+        bact: QUAD:COL1:560:BACT
+        bcon: QUAD:COL1:560:BCON
+        bctrl: QUAD:COL1:560:BCTRL
+        bdes: QUAD:COL1:560:BDES
+        bmax: QUAD:COL1:560:BMAX
+        bmin: QUAD:COL1:560:BMIN
+        ctrl: QUAD:COL1:560:CTRL
+      control_name: QUAD:COL1:560
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 164.52
+      type: QUAD
+  QC108:
+    controls_information:
+      PVs:
+        bact: QUAD:COL1:640:BACT
+        bcon: QUAD:COL1:640:BCON
+        bctrl: QUAD:COL1:640:BCTRL
+        bdes: QUAD:COL1:640:BDES
+        bmax: QUAD:COL1:640:BMAX
+        bmin: QUAD:COL1:640:BMIN
+        ctrl: QUAD:COL1:640:CTRL
+      control_name: QUAD:COL1:640
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 168.52
+      type: QUAD
+  QC109:
+    controls_information:
+      PVs:
+        bact: QUAD:COL1:720:BACT
+        bcon: QUAD:COL1:720:BCON
+        bctrl: QUAD:COL1:720:BCTRL
+        bdes: QUAD:COL1:720:BDES
+        bmax: QUAD:COL1:720:BMAX
+        bmin: QUAD:COL1:720:BMIN
+        ctrl: QUAD:COL1:720:CTRL
+      control_name: QUAD:COL1:720
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 172.52
+      type: QUAD
+  QC110:
+    controls_information:
+      PVs:
+        bact: QUAD:COL1:800:BACT
+        bcon: QUAD:COL1:800:BCON
+        bctrl: QUAD:COL1:800:BCTRL
+        bdes: QUAD:COL1:800:BDES
+        bmax: QUAD:COL1:800:BMAX
+        bmin: QUAD:COL1:800:BMIN
+        ctrl: QUAD:COL1:800:CTRL
+      control_name: QUAD:COL1:800
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 176.52
+      type: QUAD
+  QC111:
+    controls_information:
+      PVs:
+        bact: QUAD:COL1:880:BACT
+        bcon: QUAD:COL1:880:BCON
+        bctrl: QUAD:COL1:880:BCTRL
+        bdes: QUAD:COL1:880:BDES
+        bmax: QUAD:COL1:880:BMAX
+        bmin: QUAD:COL1:880:BMIN
+        ctrl: QUAD:COL1:880:CTRL
+      control_name: QUAD:COL1:880
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 180.52
+      type: QUAD
+  QC112:
+    controls_information:
+      PVs:
+        bact: QUAD:COL1:960:BACT
+        bcon: QUAD:COL1:960:BCON
+        bctrl: QUAD:COL1:960:BCTRL
+        bdes: QUAD:COL1:960:BDES
+        bmax: QUAD:COL1:960:BMAX
+        bmin: QUAD:COL1:960:BMIN
+        ctrl: QUAD:COL1:960:CTRL
+      control_name: QUAD:COL1:960
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 184.52
+      type: QUAD
+  XCC101:
+    controls_information:
+      PVs:
+        bact: XCOR:COL1:128:BACT
+        bcon: XCOR:COL1:128:BCON
+        bctrl: XCOR:COL1:128:BCTRL
+        bdes: XCOR:COL1:128:BDES
+        bmax: XCOR:COL1:128:BMAX
+        bmin: XCOR:COL1:128:BMIN
+        ctrl: XCOR:COL1:128:CTRL
+      control_name: XCOR:COL1:128
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 140.709
+      type: XCOR
+  XCC104:
+    controls_information:
+      PVs:
+        bact: XCOR:COL1:328:BACT
+        bcon: XCOR:COL1:328:BCON
+        bctrl: XCOR:COL1:328:BCTRL
+        bdes: XCOR:COL1:328:BDES
+        bmax: XCOR:COL1:328:BMAX
+        bmin: XCOR:COL1:328:BMIN
+        ctrl: XCOR:COL1:328:CTRL
+      control_name: XCOR:COL1:328
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 152.533
+      type: XCOR
+  XCC106:
+    controls_information:
+      PVs:
+        bact: XCOR:COL1:488:BACT
+        bcon: XCOR:COL1:488:BCON
+        bctrl: XCOR:COL1:488:BCTRL
+        bdes: XCOR:COL1:488:BDES
+        bmax: XCOR:COL1:488:BMAX
+        bmin: XCOR:COL1:488:BMIN
+        ctrl: XCOR:COL1:488:CTRL
+      control_name: XCOR:COL1:488
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 160.958
+      type: XCOR
+  XCC108:
+    controls_information:
+      PVs:
+        bact: XCOR:COL1:648:BACT
+        bcon: XCOR:COL1:648:BCON
+        bctrl: XCOR:COL1:648:BCTRL
+        bdes: XCOR:COL1:648:BDES
+        bmax: XCOR:COL1:648:BMAX
+        bmin: XCOR:COL1:648:BMIN
+        ctrl: XCOR:COL1:648:CTRL
+      control_name: XCOR:COL1:648
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 168.958
+      type: XCOR
+  XCC110:
+    controls_information:
+      PVs:
+        bact: XCOR:COL1:808:BACT
+        bcon: XCOR:COL1:808:BCON
+        bctrl: XCOR:COL1:808:BCTRL
+        bdes: XCOR:COL1:808:BDES
+        bmax: XCOR:COL1:808:BMAX
+        bmin: XCOR:COL1:808:BMIN
+        ctrl: XCOR:COL1:808:CTRL
+      control_name: XCOR:COL1:808
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 176.958
+      type: XCOR
+  XCC112:
+    controls_information:
+      PVs:
+        bact: XCOR:COL1:968:BACT
+        bcon: XCOR:COL1:968:BCON
+        bctrl: XCOR:COL1:968:BCTRL
+        bdes: XCOR:COL1:968:BDES
+        bmax: XCOR:COL1:968:BMAX
+        bmin: XCOR:COL1:968:BMIN
+        ctrl: XCOR:COL1:968:CTRL
+      control_name: XCOR:COL1:968
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 184.958
+      type: XCOR
+  YCC101:
+    controls_information:
+      PVs:
+        bact: YCOR:COL1:129:BACT
+        bcon: YCOR:COL1:129:BCON
+        bctrl: YCOR:COL1:129:BCTRL
+        bdes: YCOR:COL1:129:BDES
+        bmax: YCOR:COL1:129:BMAX
+        bmin: YCOR:COL1:129:BMIN
+        ctrl: YCOR:COL1:129:CTRL
+      control_name: YCOR:COL1:129
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 140.959
+      type: YCOR
+  YCC105:
+    controls_information:
+      PVs:
+        bact: YCOR:COL1:409:BACT
+        bcon: YCOR:COL1:409:BCON
+        bctrl: YCOR:COL1:409:BCTRL
+        bdes: YCOR:COL1:409:BDES
+        bmax: YCOR:COL1:409:BMAX
+        bmin: YCOR:COL1:409:BMIN
+        ctrl: YCOR:COL1:409:CTRL
+      control_name: YCOR:COL1:409
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 156.958
+      type: YCOR
+  YCC107:
+    controls_information:
+      PVs:
+        bact: YCOR:COL1:569:BACT
+        bcon: YCOR:COL1:569:BCON
+        bctrl: YCOR:COL1:569:BCTRL
+        bdes: YCOR:COL1:569:BDES
+        bmax: YCOR:COL1:569:BMAX
+        bmin: YCOR:COL1:569:BMIN
+        ctrl: YCOR:COL1:569:CTRL
+      control_name: YCOR:COL1:569
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 164.958
+      type: YCOR
+  YCC109:
+    controls_information:
+      PVs:
+        bact: YCOR:COL1:729:BACT
+        bcon: YCOR:COL1:729:BCON
+        bctrl: YCOR:COL1:729:BCTRL
+        bdes: YCOR:COL1:729:BDES
+        bmax: YCOR:COL1:729:BMAX
+        bmin: YCOR:COL1:729:BMIN
+        ctrl: YCOR:COL1:729:CTRL
+      control_name: YCOR:COL1:729
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 172.958
+      type: YCOR
+  YCC111:
+    controls_information:
+      PVs:
+        bact: YCOR:COL1:889:BACT
+        bcon: YCOR:COL1:889:BCON
+        bctrl: YCOR:COL1:889:BCTRL
+        bdes: YCOR:COL1:889:BDES
+        bmax: YCOR:COL1:889:BMAX
+        bmin: YCOR:COL1:889:BMIN
+        ctrl: YCOR:COL1:889:CTRL
+      control_name: YCOR:COL1:889
+    metadata:
+      area: COL1
+      beam_path:
+      - SC_BSYD
+      - SC_DASEL
+      - SC_HXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 180.958
+      type: YCOR

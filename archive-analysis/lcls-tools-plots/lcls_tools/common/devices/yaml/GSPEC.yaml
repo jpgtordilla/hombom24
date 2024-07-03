@@ -1,0 +1,136 @@
+magnets:
+  BXG:
+    controls_information:
+      PVs:
+        bact: BEND:IN20:231:BACT
+        bcon: BEND:IN20:231:BCON
+        bctrl: BEND:IN20:231:BCTRL
+        bdes: BEND:IN20:231:BDES
+        bmax: BEND:IN20:231:BMAX
+        bmin: BEND:IN20:231:BMIN
+        ctrl: BEND:IN20:231:CTRL
+      control_name: BEND:IN20:231
+    metadata:
+      area: GSPEC
+      beam_path:
+      - CU_GSPEC
+      sum_l_meters: 1.123
+      type: BEND
+  QG02:
+    controls_information:
+      PVs:
+        bact: QUAD:IN20:811:BACT
+        bcon: QUAD:IN20:811:BCON
+        bctrl: QUAD:IN20:811:BCTRL
+        bdes: QUAD:IN20:811:BDES
+        bmax: QUAD:IN20:811:BMAX
+        bmin: QUAD:IN20:811:BMIN
+        ctrl: QUAD:IN20:811:CTRL
+      control_name: QUAD:IN20:811
+    metadata:
+      area: GSPEC
+      beam_path:
+      - CU_GSPEC
+      sum_l_meters: 1.443
+      type: QUAD
+  QG03:
+    controls_information:
+      PVs:
+        bact: QUAD:IN20:831:BACT
+        bcon: QUAD:IN20:831:BCON
+        bctrl: QUAD:IN20:831:BCTRL
+        bdes: QUAD:IN20:831:BDES
+        bmax: QUAD:IN20:831:BMAX
+        bmin: QUAD:IN20:831:BMIN
+        ctrl: QUAD:IN20:831:CTRL
+      control_name: QUAD:IN20:831
+    metadata:
+      area: GSPEC
+      beam_path:
+      - CU_GSPEC
+      sum_l_meters: 1.673
+      type: QUAD
+  XCG1:
+    controls_information:
+      PVs:
+        bact: XCOR:IN20:811:BACT
+        bcon: XCOR:IN20:811:BCON
+        bctrl: XCOR:IN20:811:BCTRL
+        bdes: XCOR:IN20:811:BDES
+        bmax: XCOR:IN20:811:BMAX
+        bmin: XCOR:IN20:811:BMIN
+        ctrl: XCOR:IN20:811:CTRL
+      control_name: XCOR:IN20:811
+    metadata:
+      area: GSPEC
+      beam_path:
+      - CU_GSPEC
+      sum_l_meters: 1.443
+      type: XCOR
+  XCG2:
+    controls_information:
+      PVs:
+        bact: XCOR:IN20:831:BACT
+        bcon: XCOR:IN20:831:BCON
+        bctrl: XCOR:IN20:831:BCTRL
+        bdes: XCOR:IN20:831:BDES
+        bmax: XCOR:IN20:831:BMAX
+        bmin: XCOR:IN20:831:BMIN
+        ctrl: XCOR:IN20:831:CTRL
+      control_name: XCOR:IN20:831
+    metadata:
+      area: GSPEC
+      beam_path:
+      - CU_GSPEC
+      sum_l_meters: 1.673
+      type: XCOR
+  YCG1:
+    controls_information:
+      PVs:
+        bact: YCOR:IN20:812:BACT
+        bcon: YCOR:IN20:812:BCON
+        bctrl: YCOR:IN20:812:BCTRL
+        bdes: YCOR:IN20:812:BDES
+        bmax: YCOR:IN20:812:BMAX
+        bmin: YCOR:IN20:812:BMIN
+        ctrl: YCOR:IN20:812:CTRL
+      control_name: YCOR:IN20:812
+    metadata:
+      area: GSPEC
+      beam_path:
+      - CU_GSPEC
+      sum_l_meters: 1.443
+      type: YCOR
+  YCG2:
+    controls_information:
+      PVs:
+        bact: YCOR:IN20:832:BACT
+        bcon: YCOR:IN20:832:BCON
+        bctrl: YCOR:IN20:832:BCTRL
+        bdes: YCOR:IN20:832:BDES
+        bmax: YCOR:IN20:832:BMAX
+        bmin: YCOR:IN20:832:BMIN
+        ctrl: YCOR:IN20:832:CTRL
+      control_name: YCOR:IN20:832
+    metadata:
+      area: GSPEC
+      beam_path:
+      - CU_GSPEC
+      sum_l_meters: 1.673
+      type: YCOR
+screens:
+  YAGG1:
+    controls_information:
+      PVs:
+        image: YAGS:IN20:841:IMAGE
+        n_bits: YAGS:IN20:841:N_OF_BITS
+        n_col: YAGS:IN20:841:N_OF_COL
+        n_row: YAGS:IN20:841:N_OF_ROW
+        resolution: YAGS:IN20:841:RESOLUTION
+      control_name: YAGS:IN20:841
+    metadata:
+      area: GSPEC
+      beam_path:
+      - CU_GSPEC
+      sum_l_meters: 1.839
+      type: PROF
