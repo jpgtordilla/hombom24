@@ -43,10 +43,19 @@ class TestLclsToolsPlotter():
         self.lptool.plot_correlation("SOLN:GUNB:100:BACT", "BPMS:L0B:0183:FW:X_SLOW", start="2024/07/02 14:42:36", end="2024/07/02 15:42:36")
         self.lptool.plot_return_peaks(pv_list=["SOLN:GUNB:100:BACT", "BPMS:L0B:0183:FW:X_SLOW"], start="2024/07/02 14:42:36", end="2024/07/02 15:42:36", peak_height=0.2, peak_spacing=1, is_correl=True)
 
+    def test_mega_correlation(self): 
+        # megaplot with 1 PV
+        self.lptool.megaplot_correlation(pv_y="BPMS:GUNB:925:X", pv_list=["TORO:GUNB:360:CHRG"], start="2024/07/02 14:42:36", end="2024/07/02 14:52:36")
+        # megaplot with 2 PVs
+        self.lptool.megaplot_correlation(pv_y="BPMS:GUNB:925:X", pv_list=["TORO:GUNB:360:CHRG", "SOLN:GUNB:100:BACT"], start="2024/07/02 14:42:36", end="2024/07/02 14:52:36")
+        # megaplot with 4 PVs
+        self.lptool.megaplot_correlation(pv_y="BPMS:GUNB:925:X", pv_list=["TORO:GUNB:360:CHRG", "SOLN:GUNB:100:BACT", "QUAD:GUNB:212:1:BACT", "SOLN:GUNB:212:BACT"], start="2024/07/02 14:42:36", end="2024/07/02 14:52:36")
+
 if __name__ == "__main__": 
     test = TestLclsToolsPlotter(lp.LclsToolsPlotter())
     # TESTS
-    # test.test_plot()
-    # test.test_mega()
-    # test.test_peaks()
-    # test.test_correlation()
+    test.test_plot()
+    test.test_mega()
+    test.test_peaks()
+    test.test_correlation()
+    test.test_mega_correlation()

@@ -95,6 +95,7 @@ class LclsToolsPlotter():
         ax[i, j].xaxis.set_major_locator(ticker.LinearLocator(3))
         ax[i, j].set_xlabel("Timestamp")
         ax[i, j].set_title(f"PV vs. Time for {df_name.columns[1]}", {'fontsize': 10})
+        return
 
     """Return peaks for a list of PVs as a 2D dictionary (similar to a JSON file)"""
     def return_peaks(self, pv_list: list, start: str, end: str, peak_height: float, peak_spacing: float): 
@@ -178,26 +179,98 @@ class LclsToolsPlotter():
         fig, ax = plt.subplots(figsize=(10, 7), layout='constrained')
         df = self.create_correlation_df(pv_one, pv_two, start, end)
         ax.scatter(df[pv_one], df[pv_two], label=f"{pv_two} vs. {pv_one}")
+        # tick settings
+        x_ticks = [np.format_float_scientific(i, precision=3, min_digits=2) for i in df[pv_one]] # convert to scientific notation
+        y_ticks = [np.format_float_scientific(i, precision=3, min_digits=2) for i in df[pv_two]]
+        ax.set_xticklabels(x_ticks, fontsize=10) # set tick labels
+        ax.set_yticklabels(y_ticks, fontsize=10) 
+        ax.xaxis.set_major_locator(ticker.LinearLocator(5))
+        ax.yaxis.set_major_locator(ticker.LinearLocator(5))
+        # plot labels
         ax.set_xlabel(f"{pv_one}")
         ax.set_ylabel(f"{pv_two}")
-        ax.xaxis.set_major_locator(ticker.LinearLocator(5))
         ax.set_title(f"{pv_two} vs. {pv_one}") 
         ax.legend() 
         plt.show()
+        return
 
-    """Megaplot of correlation between a PV and a list of PVs"""
-    def megaplot_correlation(self, pv_y: str, pv_list: str, start: str, end: str): 
-        pass
+    """Megaplot of correlation between a PV vs. a list of PVs"""
+    def megaplot_correlation(self, pv_y: str, pv_list: str, start: str, end: str, w_margin=0.4, h_margin=1): 
+        if len(pv_list) < 1: 
+            return IndexError("Could not plot PVs because an empty list was given")
+        # if the length of pv_list is only 1, call the non-megaplot correlation function 
+        if len(pv_list) == 1: 
+            self.plot_correlation(pv_list[0], pv_y, start, end)
+            return
+        # want to create a grid of subplots
+        col_len = len(pv_list)
+        dim = int(np.round(np.sqrt(col_len))) # dimension of the grid
+
+        # IF DIMENSION < 2: create two subplots side by side
+        if dim < 2: 
+            fig, (ax0, ax1) = plt.subplots(1, 2)
+            fig.suptitle("PV Correlations")
+            # generate dfs and axes for each pv
+            for i in range(2): 
+                curr_ax = fig.get_axes()[i]
+                curr_pv_x = pv_list[i] # the current pv in the pv_list 
+                df = self.create_correlation_df(pv_y, curr_pv_x, start, end) # create single df with aligned timestamps
+                curr_ax.scatter(df[curr_pv_x], df[pv_y], label=curr_pv_x)
+                # tick settings
+                x_ticks = [np.format_float_scientific(i, precision=3, min_digits=2) for i in df[curr_pv_x]] # convert to scientific notation
+                y_ticks = [np.format_float_scientific(i, precision=3, min_digits=2) for i in df[pv_y]]
+                curr_ax.set_xticklabels(x_ticks, fontsize=5)
+                curr_ax.set_yticklabels(y_ticks, fontsize=5)
+                curr_ax.xaxis.set_major_locator(ticker.LinearLocator(5))
+                curr_ax.yaxis.set_major_locator(ticker.LinearLocator(5))
+                # set labels
+                curr_ax.set_xlabel(f"{curr_pv_x}", fontsize=10)
+                curr_ax.set_ylabel(f"{pv_y}", fontsize=10)
+                curr_ax.set_title(f"{pv_y} vs. {curr_pv_x}", fontsize=5)
+            plt.subplots_adjust(wspace=w_margin, hspace=h_margin)
+
+        # IF DIMENSION >= 2: create a grid of subplots that are indexed in a loop 
+        else: 
+            fig, ax = plt.subplots(dim + 1, dim, figsize=(17, 15)) # add an extra row to account for rounding 
+            fig.suptitle("PV Correlations")
+            plt.subplots_adjust(wspace=w_margin, hspace=h_margin) # can set if needed using optional parameters
+            pv_ind = 0 # track index of the which pv is being plotted
+            
+            # iterate through the grid 
+            for i in range(0, dim + 1): # for every row in the grid
+                for j in range(0, dim): # for every column in the grid
+                    if pv_ind >= len(pv_list): 
+                        break
+                    self.plot_correl_mega(ax, pv_y, i, j, pv_list, pv_ind, start, end)
+                    pv_ind += 1 # go to the next df in the list
+        plt.show()
+        return 
+    
+    """Grid plotter helper function for megaplots"""
+    def plot_correl_mega(self, ax: any, pv_y: str, i: int, j: int, pv_list: list, pv_ind: int, start: str, end: str): 
+        x_col = pv_list[pv_ind]
+        y_col = pv_y
+        df = self.create_correlation_df(pv_list[pv_ind], pv_y, start, end)
+        ax[i, j].scatter(df[x_col], df[y_col], s=10)
+        # tick settings
+        x_ticks = [np.format_float_scientific(i, precision=3, min_digits=2) for i in df[x_col]] # convert to scientific notation
+        y_ticks = [np.format_float_scientific(i, precision=3, min_digits=2) for i in df[y_col]]
+        ax[i, j].set_xticklabels(x_ticks, fontsize=5)
+        ax[i, j].set_yticklabels(y_ticks, fontsize=5)
+        ax[i, j].xaxis.set_major_locator(ticker.LinearLocator(5))
+        ax[i, j].yaxis.set_major_locator(ticker.LinearLocator(5))
+        # set labels
+        ax[i, j].set_xlabel(f"{x_col}")
+        ax[i, j].set_ylabel(f"{y_col}") 
+        ax[i, j].set_title(f"{y_col} vs. {x_col}", {'fontsize': 10})
+        return
 
 # TODO: 
 # High Priority
-# - megaplot a correlation between a PV and a list of PVs
-# - charge and magnet plots
-# - HOM plots... 
+# - HOM plots (define Thursday)
 # Low Priority
 # - get units for a specific PV
-# - add axis labels for method "plot_pv_over_time"
-# - enable correlation peak finding (pick columns with calling scatter with an index instead of by name)
+# Very Low Priority
 # - determine how the following two lines are subject to change with increasing dimension (megaplot_pvs_over_time)
     # fig, ax = plt.subplots(dim + 1, dim, figsize=(17, 15))
     # plt.subplots_adjust(wspace=0.4, hspace=1)
