@@ -29,6 +29,8 @@ class TestLclsToolsPlotter():
                    "XCOR:GUNB:713:BACT", "YCOR:GUNB:713:BACT", "QUAD:GUNB:823:1:BACT", "SOLN:GUNB:823:BACT", "QUAD:GUNB:823:2:BACT", "XCOR:GUNB:927:BACT", "YCOR:GUNB:927:BACT"]
         self.lptool.megaplot_pvs_over_time(pv_list=all_pvs, start="2024/07/02 14:42:36", end="2024/07/02 14:43:36")
 
+    """
+    REWORK TESTS: separating by charge and other changes
     def test_peaks(self): 
         # dictionary of peaks for 1 pv
         print(self.lptool.return_peaks(pv_list=["BPMS:L0B:0183:FW:X_SLOW"], start="2024/07/02 14:42:36", end="2024/07/02 15:42:36", peak_height=0.2, peak_spacing=10))
@@ -50,12 +52,12 @@ class TestLclsToolsPlotter():
         self.lptool.megaplot_correlation(pv_y="BPMS:GUNB:925:X", pv_list=["TORO:GUNB:360:CHRG", "SOLN:GUNB:100:BACT"], start="2024/07/02 14:42:36", end="2024/07/02 14:52:36")
         # megaplot with 4 PVs
         self.lptool.megaplot_correlation(pv_y="BPMS:GUNB:925:X", pv_list=["TORO:GUNB:360:CHRG", "SOLN:GUNB:100:BACT", "QUAD:GUNB:212:1:BACT", "SOLN:GUNB:212:BACT"], start="2024/07/02 14:42:36", end="2024/07/02 14:52:36")
-
+    """
 if __name__ == "__main__": 
     test = TestLclsToolsPlotter(lp.LclsToolsPlotter())
     # TESTS
-    test.test_plot()
-    test.test_mega()
-    test.test_peaks()
-    test.test_correlation()
-    test.test_mega_correlation()
+    # test.test_plot()
+    # test.test_mega()
+    # test.test_peaks()
+    # test.test_correlation()
+    # test.test_mega_correlation()

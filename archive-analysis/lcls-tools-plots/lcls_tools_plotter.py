@@ -68,6 +68,10 @@ class LclsToolsPlotter():
                 curr_ax.set_xlabel("Timestamp", fontsize=10)
                 curr_ax.xaxis.set_major_locator(ticker.LinearLocator(3))
                 curr_ax.set_xticklabels(df["timestamps"], fontsize=5)
+                # y tick scientific notation
+                curr_ax.yaxis.set_major_locator(ticker.LinearLocator(5))
+                y_ticks = [np.format_float_scientific(i, precision=3, min_digits=2) for i in df[pv_str]]
+                curr_ax.set_yticklabels(y_ticks, fontsize=5)
             plt.subplots_adjust(wspace=w_margin, hspace=h_margin)
 
         # IF DIMENSION >= 2: create a grid of subplots that are indexed in a loop 
@@ -94,21 +98,44 @@ class LclsToolsPlotter():
         ax[i, j].scatter(df_name["timestamps"], df_name[df_name.columns[1]], s=10)
         ax[i, j].xaxis.set_major_locator(ticker.LinearLocator(3))
         ax[i, j].set_xlabel("Timestamp")
+        # y tick scientific notation
+        y_ticks = [np.format_float_scientific(i, precision=3, min_digits=2) for i in df_name[df_name.columns[1]]]
+        ax[i, j].set_yticklabels(y_ticks, fontsize=5)
+        ax[i, j].yaxis.set_major_locator(ticker.LinearLocator(5))
         ax[i, j].set_title(f"PV vs. Time for {df_name.columns[1]}", {'fontsize': 10})
         return
+    
+    """Helper method to return a DataFrame of peaks over time given lists for peak indices and peak heights"""
+    def create_peaks_df(self, df_curr, pv_name, peak_indices, peak_heights): 
+        all_timestamps_list = df_curr["timestamps"].tolist()
+        peak_timestamps_list = [all_timestamps_list[x] for x in peak_indices]
+        peak_df_data = {"timestamps": peak_timestamps_list, pv_name: peak_heights}
+        peak_df = pd.DataFrame(data=peak_df_data, index=[x for x in range(len("timestamps"))])
+        return peak_df
 
-    """Return peaks for a list of PVs as a 2D dictionary (similar to a JSON file)"""
+    """Return peaks for a list of PVs as a DataFrame over time"""
     def return_peaks(self, pv_list: list, start: str, end: str, peak_height: float, peak_spacing: float): 
         if len(pv_list) < 1: 
             return IndexError("Could not plot PVs because an empty list was given")
-        result_dict = {} # 2D dictionary, keys for each pv, with keys for each peak index and its height
+        peak_df_list = [] # list of DataFrames containing peak data 
         for pv_name in pv_list: 
             df_curr = self.create_df(pv_name, start, end)
             y_axis = df_curr[pv_name] # get the column that corresponds with the pv values
-            all_peaks, peak_heights = find_peaks(y_axis, height=peak_height, distance=peak_spacing) # use scipy to generate lists of peak indices and their heights
-            result = {all_peaks.tolist()[i]: peak_heights["peak_heights"].tolist()[i] for i in range(len(all_peaks))}
-            result_dict[pv_name] = result # add to 2D dictionary
-        return result_dict
+            peak_indices, peak_heights = find_peaks(y_axis, height=peak_height, distance=peak_spacing) # use scipy to generate lists of peak indices and their heights
+            peak_indices_2, peak_heights_2 = find_peaks(-y_axis, height=peak_height, distance=peak_spacing) # find minima
+            # combine lists of maxima and minima
+            all_peak_indices = np.concatenate((peak_indices, peak_indices_2), axis=None)
+            all_peak_heights = np.concatenate((peak_heights["peak_heights"], peak_heights_2["peak_heights"]), axis=None)
+            # return a DataFrame with timestamps and peaks
+            peak_df = self.create_peaks_df(df_curr, pv_name, all_peak_indices.tolist(), all_peak_heights.tolist())
+            peak_df_list.append(peak_df)
+
+            # result = {all_peaks.tolist()[i]: peak_heights["peak_heights"].tolist()[i] for i in range(len(all_peaks))}
+            # result_dict[pv_name] = result # add to 2D dictionary
+
+        # return result_dict
+        
+        return peak_df_list
     
     """Plot peaks on a PV graph as well as the individual data points and return the 2D dictionary"""
     """If is_correl is set to True, then it plots the correlation between the second item in the list vs. the first item: [x, y]"""
@@ -169,15 +196,32 @@ class LclsToolsPlotter():
         return self.return_peaks(pv_list, start, end, peak_height, peak_spacing)
     
     """Given two PVs, return a single DataFrame with matching and aligned timestamps"""
-    def create_correlation_df(self, pv_one, pv_two, start, end): 
+    def create_correlation_df(self, pv_one: str, pv_two: str, start: str, end: str): 
         df_one = self.create_df(pv_one, start, end)
         df_two = self.create_df(pv_two, start, end)
         return pd.merge(df_one, df_two, on="timestamps") # merge DataFrames on equal timestamp strings
     
-    """Plot the correlation of pv_two vs. pv_one"""
-    def plot_correlation(self, pv_one: str, pv_two: str, start: str, end: str): 
+    """Given three PVs, return a single DataFrame with matching and aligned timestamps, by a specific charge"""
+    def create_correlation_charge_df(self, pv_charge: str, pv_one: str, pv_two: str, start: str, end: str, charge: float, tolerance: float): 
+        # align all three PVs with each other by timestamp
+        df_charge_pv_one = self.create_correlation_df(pv_charge, pv_one, start, end)
+        df_all_correl = self.create_correlation_df(df_charge_pv_one, pv_two, start, end)
+        # eliminate rows with charge values outside of the tolerance percentage
+        df_filtered = df_all_correl[(df_all_correl[pv_charge] > (charge - (tolerance*charge))) & (df_all_correl[pv_charge] < (charge + (tolerance*charge)))]
+        return df_filtered
+    
+    """Plot the correlation of the first two PVs in pv_list: if there are more than two, 1-2 are the plotted PVs and 3 is the charge value"""
+    def plot_correlation(self, pv_list: list, start: str, end: str, charge=20, tolerance=0.05): 
         fig, ax = plt.subplots(figsize=(10, 7), layout='constrained')
-        df = self.create_correlation_df(pv_one, pv_two, start, end)
+        # define what PVs will be plotted and use conditionals to determine whether or not to separate by charge
+        pv_one = pv_list[0]
+        pv_two = pv_list[1]
+        df = None
+        if len(pv_list) > 2: # if there is a charge PV, filter out unwanted values
+            pv_charge = pv_list[2]
+            df = self.create_correlation_charge_df(pv_charge, pv_one, pv_two, start, end, charge, tolerance)
+        else: 
+            df = self.create_correlation_df(pv_one, pv_two, start, end)
         ax.scatter(df[pv_one], df[pv_two], label=f"{pv_two} vs. {pv_one}")
         # tick settings
         x_ticks = [np.format_float_scientific(i, precision=3, min_digits=2) for i in df[pv_one]] # convert to scientific notation
@@ -266,8 +310,6 @@ class LclsToolsPlotter():
         return
 
 # TODO: 
-# High Priority
-# - HOM plots (define Thursday)
 # Low Priority
 # - get units for a specific PV
 # Very Low Priority
@@ -275,5 +317,7 @@ class LclsToolsPlotter():
     # fig, ax = plt.subplots(dim + 1, dim, figsize=(17, 15))
     # plt.subplots_adjust(wspace=0.4, hspace=1)
 # - plot peaks with the same xlim and ylim of the original graph
+
+
 
 
