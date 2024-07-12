@@ -1,0 +1,25 @@
+peek at what someone has: 
+
+ls -l /u/ad/<username>
+OR 
+ls -l /u/gu/<username> 
+
+search for a bash file: 
+
+ls -l /u/ad/<username>/.bash* 
+
+copy a file into your directory: 
+
+cp /u/ad/<username>/<filename>
+
+source a bash file: 
+
+source .bashrc
+
+ssh a file from LOCAL into your directory: 
+
+scp <filename> <remotename>:
+
+
+
+
