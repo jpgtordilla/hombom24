@@ -26,26 +26,24 @@ class TestLclsToolsPlotter:
         self.bpm_pvs = ["BPMS:GUNB:925:X", "BPMS:GUNB:925:Y", "BPMS:L0B:0183:FW:X_SLOW", "BPMS:L0B:0183:FW:Y_SLOW",
                         "BPMS:HTR:120:FW:X_SLOW",
                         "BPMS:HTR:120:FW:Y_SLOW", "BPMS:GUNB:925:FW:X_SLOW", "BPMS:GUNB:925:FW:Y_SLOW"]
-        self.charge_pv = "SOLN:GUNB:360:CHRG"
+        self.charge_pv = "TORO:GUNB:360:CHRG"
         self.start_date = "2024/07/02 14:42:36"
         self.end_date = "2024/07/02 15:42:36"
 
     """PEAK FILTERING TESTS"""
 
     def test_return_peaks(self):
-        df_peak_list = self.lptool.test_return_peaks(pv_list=self.bpm_pvs, start=self.start_date, end=self.end_date,
-                                                     peak_height=1, peak_spacing=10)
-        print(df_peak_list)  # print the list
-        print(df_peak_list[0].head(10))  # see the first 10 entries of the first item
+        df_peak_list = self.lptool.return_peaks(pv_list=self.bpm_pvs, start=self.start_date, end=self.end_date,
+                                                peak_height=1, peak_spacing=10)
+        print(df_peak_list[3])  # print a DataFrame from the list
         return
 
     def test_plot_return_peaks(self):
         # test basic correlation
-        df_peak_list = self.lptool.test_return_peaks(pv_list=[self.quad_pvs[0], self.bpm_pvs[0]], start=self.start_date,
-                                                     end=self.end_date, peak_height=1, peak_spacing=10, is_correl=True)
-        print(df_peak_list)  # print the list
-        print(df_peak_list[0].head(10))  # see the first 10 entries of the first item
-        # test charge correlation
+        df_peak_list = self.lptool.plot_return_peaks(pv_list=[self.bpm_pvs[4], self.bpm_pvs[5]], start=self.start_date,
+                                                     end=self.end_date, peak_height=1, peak_spacing=10,
+                                                     is_correl=True)
+        print(df_peak_list)
         return
 
     def test_return_peaks_from_df(self):
@@ -63,8 +61,8 @@ class TestLclsToolsPlotter:
 
         # TEST CHARGE CORRELATION DATAFRAME
         # TODO: replace with actual charge value
-        df_charge_all = self.lptool.create_correlation_charge_df(pv_charge=self.charge_pv, pv_one=self.cor_pvs[0],
-                                                                 pv_two=self.bpm_pvs[0], start=self.start_date,
+        df_charge_all = self.lptool.create_correlation_charge_df(pv_charge=self.charge_pv, pv_y=self.cor_pvs[0],
+                                                                 pv_x=self.bpm_pvs[0], start=self.start_date,
                                                                  end=self.end_date, charge=20.0, tolerance=0.05)
         df_peak_charge_list = self.lptool.return_peaks_from_df(df=df_charge_all, peak_height=1.0, peak_spacing=10.0)
         print(df_peak_charge_list)
@@ -76,16 +74,18 @@ class TestLclsToolsPlotter:
     def test_plot_peaks_from_df(self):
         # TEST CHARGE CORRELATION DATAFRAME
         # TODO: replace with actual charge value
-        df_charge_all = self.lptool.create_correlation_charge_df(pv_charge=self.charge_pv, pv_one=self.cor_pvs[0],
-                                                                 pv_two=self.bpm_pvs[0], start=self.start_date,
+        df_charge_all = self.lptool.create_correlation_charge_df(pv_charge=self.charge_pv, pv_y=self.cor_pvs[0],
+                                                                 pv_x=self.bpm_pvs[0], start=self.start_date,
                                                                  end=self.end_date, charge=20.0, tolerance=0.05)
-        df_peak_charge_list = self.lptool.plot_peaks_from_df(df=df_charge_all, peak_height=1.0, peak_spacing=10.0)
+        df_peak_charge_list = self.lptool.plot_peaks_from_df(df=df_charge_all, pv_y=self.cor_pvs[0],
+                                                             pv_x=self.bpm_pvs[0], peak_height=1.0, peak_spacing=10.0)
         print(df_peak_charge_list)
         print(df_peak_charge_list[0].head(10))
         # TODO: test with non-archived HOM signal
         return
 
     """CORRELATIONS"""
+
     def test_plot_correlation(self):
         self.lptool.plot_correlation([self.cor_pvs[0], self.bpm_pvs[0]], start=self.start_date, end=self.end_date)
         self.lptool.plot_correlation([self.cor_pvs[0], self.bpm_pvs[0], self.charge_pv], start=self.start_date,
@@ -101,15 +101,18 @@ class TestLclsToolsPlotter:
                                                           end=self.end_date)
         return
 
+    def test_charge_df(self):
+        self.lptool.create_correlation_df(self.charge_pv, self.bpm_pvs[0], self.start_date, self.end_date)
+
 
 if __name__ == "__main__":
     test = TestLclsToolsPlotter(lp.LclsToolsPlotter())
     # TESTS
-    test.test_return_peaks()
+    # test.test_return_peaks()
     # test.test_plot_return_peaks()
     # test.test_return_peaks_from_df()
     # test.test_plot_peaks_from_df()
+    # TODO: finish testing charges
+    # test.test_charge_df()
     # test.test_plot_correlation()
     # test.test_megaplot_correlation_charge_separated()
-
-
