@@ -14,9 +14,6 @@ from scipy.signal import find_peaks
 
 class LclsToolsPlotter:
     def __init__(self):
-        self.charge_vals = [0.2785387486219406, 0.3997775077819824, 0.4645740290482839, 0.5125857472419739,
-                            0.6366457541783651, 1.8790562972426414, 1.9854518473148346, 2.0720774275915965,
-                            65.15696843465169, 68.09078216552734]
         return
 
     """GENERAL PLOTS"""
@@ -376,14 +373,13 @@ class LclsToolsPlotter:
         tolerance -- the percent deviation between clusters of different charges (between 0 and 1)
         """
         # align all three PVs with each other by timestamp
-        df_charge_pv_y = self.create_correlation_df(pv_charge, pv_y, start, end)
-        df_all_correl = self.create_correlation_df(df_charge_pv_y, pv_x, start, end)
+        df_pv_charge_y = self.create_correlation_df(pv_charge, pv_y, start, end)
+        df_all_correl = self.create_correlation_df(df_pv_charge_y, pv_x, start, end)
         # eliminate rows with charge values outside the tolerance percentage
         df_filtered = df_all_correl[(df_all_correl[pv_charge] > (charge - (tolerance * charge))) & (
                 df_all_correl[pv_charge] < (charge + (tolerance * charge)))]
         return df_filtered
 
-    # TODO: FILL WITH CHARGE VALUES
     def plot_correlation(self, pv_list: list[str], start: str, end: str, charge=2.072, tolerance=0.05):
         """Plot the correlation of the first two PVs in pv_list, potentially separated by charge
 
@@ -416,7 +412,7 @@ class LclsToolsPlotter:
         # plot labels
         ax.set_xlabel(f"{pv_x}")
         ax.set_ylabel(f"{pv_y}")
-        ax.set_title(f"{pv_y} vs. {pv_x}")
+        ax.set_title(f"{pv_y} vs. {pv_x} for {round(charge, 2)} pC")
         ax.legend()
         plt.show()
         return
@@ -516,7 +512,7 @@ class LclsToolsPlotter:
         return
 
     def megaplot_correlation_charge_separated(self, pv_x: str, pv_y: str, pv_charge: str, start: str, end: str,
-                                              tolerance=0.05, w_margin=0.4, h_margin=1):
+                                              charge_vals: list[float], tolerance=0.05, w_margin=0.4, h_margin=1):
         """Megaplotter that creates a correlation between two PVs with respect to a charge PV, for each charge value.
 
         Keyword arguments:
@@ -530,7 +526,7 @@ class LclsToolsPlotter:
         h_margin -- vertical space between subplots
         """
         # want to create a grid of subplots
-        col_len = len(self.charge_vals)
+        col_len = len(charge_vals)
         dim = int(np.round(np.sqrt(col_len)))  # dimension of the grid
 
         fig, ax = plt.subplots(dim + 1, dim, figsize=(17, 15))  # add an extra row to account for rounding
@@ -541,15 +537,16 @@ class LclsToolsPlotter:
         # iterate through the grid 
         for i in range(0, dim + 1):  # for every row in the grid
             for j in range(0, dim):  # for every column in the grid
-                if charge_ind >= len(self.charge_vals):
+                if charge_ind >= len(charge_vals):
                     break
-                self.plot_correl_charge_mega(ax, pv_x, pv_y, pv_charge, i, j, charge_ind, start, end, tolerance)
+                self.plot_correl_charge_mega(ax, pv_x, pv_y, pv_charge, i, j, charge_ind, start, end, charge_vals,
+                                             tolerance)
                 charge_ind += 1  # go to the next df in the list
         plt.show()
         return
 
     def plot_correl_charge_mega(self, ax: plt.axes, pv_x: str, pv_y: str, pv_charge: str, i: int, j: int,
-                                charge_ind: int, start: str, end: str, tolerance: float):
+                                charge_ind: int, start: str, end: str, charge_vals: list[float], tolerance: float):
         """Helper method for megaplotter between two PVs with respect to charge. Called for each Axis in the grid.
 
         Keyword arguments:
@@ -566,7 +563,7 @@ class LclsToolsPlotter:
         """
         x_col = pv_x
         y_col = pv_y
-        charge = self.charge_vals[charge_ind]
+        charge = charge_vals[charge_ind]
         df = self.create_correlation_charge_df(pv_charge, pv_x, pv_y, start, end, charge,
                                                tolerance)  # create correlation between pv_x and pv_y for each charge
         ax[i, j].scatter(df[x_col], df[y_col], s=10)
@@ -581,6 +578,59 @@ class LclsToolsPlotter:
         # set labels
         ax[i, j].set_xlabel(f"{x_col}")
         ax[i, j].set_ylabel(f"{y_col}")
-        ax[i, j].set_title(f"{y_col} vs. {x_col} for {np.format_float_scientific(charge, precision=3, min_digits=2)} pC"
-                           , {'fontsize': 10})  # set title with a rounded charge value for each subplot
+        ax[i, j].set_title(f"{y_col} vs. {x_col} for {round(charge, 2)} pC"
+                           , {'fontsize': 8})  # set title with a rounded charge value for each subplot
         return
+
+    def get_common_charges(self, pv_charge: str, cutoff: float, tolerance: float, start: str, end: str) -> list[float]:
+        """Returns a list of common charge values (pC) for which correlations will be plotted
+
+        Keyword arguments:
+        pv_charge -- The name of the PV that contains the charge values
+        cutoff -- the minimum charge value
+        start -- The start date in YYYY/MM HH:MM:SS format
+        end -- The end date in YYYY/MM HH:MM:SS format
+        """
+        # specify timeframe with a datetime object
+        format_string = "%Y/%m/%d %H:%M:%S"
+        start_date_obj = datetime.strptime(start, format_string)
+        end_date_obj = datetime.strptime(end, format_string)
+        # submit request with a list of PVs
+        data = arch.get_values_over_time_range([pv_charge], start_date_obj, end_date_obj)
+        chrg_dict = data[pv_charge]
+        chrg_vals = chrg_dict.values  # list
+        # create clusters and return values
+        charge_tolerance = tolerance
+        charge_clusters = self.cluster(chrg_vals, charge_tolerance)
+        plot_charge_clusters = [cluster for cluster in charge_clusters if cutoff <= float(np.mean(cluster))]
+        charge_values = [float(np.mean(plot_charge_clusters[i])) for i in range(len(plot_charge_clusters))]
+        return charge_values
+
+    @staticmethod
+    def cluster(vals: list[float], tolerance: float) -> list[list[float]]:
+        """Helper clustering algorithm that groups numbers together that are within some margin of each other
+
+        Keyword arguments:
+        vals -- values in the list
+        tolerance -- the margin between the data points (in percent)
+        """
+        vals.sort()
+        clusters = [[]]
+        cluster_index = 0
+        while len(vals) > 0:
+            comparison = vals.pop(0)
+            clusters[cluster_index].append(comparison)
+            for i in range(len(vals)):
+                next_val = vals.pop(0)
+                if abs(next_val - comparison) <= (
+                        tolerance * comparison):  # if next_val is within percentage of comparison's value
+                    clusters[cluster_index].append(next_val)  # add next_val to cluster
+                else:
+                    cluster_index += 1
+                    clusters.append([])  # add a new empty list
+                    clusters[cluster_index].append(next_val)  # add next_val to the next cluster
+                    break
+
+        return clusters
+
+

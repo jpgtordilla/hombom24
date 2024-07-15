@@ -7,25 +7,55 @@ My class lcls_tools_plotter further simplifies the process of plotting PVs and r
 The lines in the main method are used for testing. 
 """
 
-# pv lists
-all_pvs = ["BPMS:GUNB:925:X", "BPMS:GUNB:925:Y", "BPMS:L0B:0183:FW:X_SLOW", "BPMS:L0B:0183:FW:Y_SLOW",
-           "BPMS:HTR:120:FW:X_SLOW",
-           "BPMS:HTR:120:FW:Y_SLOW", "BPMS:GUNB:925:FW:X_SLOW", "BPMS:GUNB:925:FW:Y_SLOW", "TORO:GUNB:360:CHRG",
-           "SOLN:GUNB:100:BACT",
-           "QUAD:GUNB:212:1:BACT", "SOLN:GUNB:212:BACT", "QUAD:GUNB:212:2:BACT", "XCOR:GUNB:293:BACT",
-           "YCOR:GUNB:293:BACT",
-           "XCOR:GUNB:388:BACT", "YCOR:GUNB:388:BACT", "XCOR:GUNB:513:BACT", "YCOR:GUNB:513:BACT", "XCOR:GUNB:713:BACT",
-           "YCOR:GUNB:713:BACT", "QUAD:GUNB:823:1:BACT", "SOLN:GUNB:823:BACT", "QUAD:GUNB:823:2:BACT",
-           "XCOR:GUNB:927:BACT",
-           "YCOR:GUNB:927:BACT"]
-soln_pvs = ["SOLN:GUNB:100:BACT", "SOLN:GUNB:212:BACT", "SOLN:GUNB:823:BACT"]
-quad_pvs = ["QUAD:GUNB:212:1:BACT", "QUAD:GUNB:212:2:BACT", "QUAD:GUNB:823:1:BACT", "QUAD:GUNB:823:2:BACT"]
-cor_pvs = ["XCOR:GUNB:293:BACT", "XCOR:GUNB:388:BACT", "XCOR:GUNB:513:BACT", "XCOR:GUNB:713:BACT", "XCOR:GUNB:927:BACT",
-           "YCOR:GUNB:293:BACT", "YCOR:GUNB:388:BACT", "YCOR:GUNB:513:BACT", "YCOR:GUNB:713:BACT", "YCOR:GUNB:927:BACT"]
-bpm_pvs = ["BPMS:GUNB:925:X", "BPMS:GUNB:925:Y", "BPMS:L0B:0183:FW:X_SLOW", "BPMS:L0B:0183:FW:Y_SLOW",
-           "BPMS:HTR:120:FW:X_SLOW",
-           "BPMS:HTR:120:FW:Y_SLOW", "BPMS:GUNB:925:FW:X_SLOW", "BPMS:GUNB:925:FW:Y_SLOW"]
+pv_names = ['BPMS:L0B:0183:FW:X_SLOW',
+            'BPMS:L0B:0183:FW:Y_SLOW',
+            'BPMS:HTR:120:FW:X_SLOW',
+            'BPMS:HTR:120:FW:Y_SLOW',
+            'BPMS:GUNB:925:FW:X_SLOW',
+            'BPMS:GUNB:925:FW:Y_SLOW',
+            'SCOP:AMRF:RF01:AI_MEAS1',
+            'SCOP:AMRF:RF01:AI_MEAS2',
+            'SCOP:AMRF:RF01:AI_MEAS3',
+            'SCOP:AMRF:RF01:AI_MEAS4',
+            'SCOP:AMRF:RF03:AI_MEAS1',
+            'SCOP:AMRF:RF03:AI_MEAS2',
+            'SCOP:AMRF:RF03:AI_MEAS3',
+            'SCOP:AMRF:RF03:AI_MEAS4',
+            'TORO:GUNB:360:CHRG']
+
+plot_names = ['CM BPM X',
+              'CM BPM Y',
+              'HTR BPM X',
+              'HTR BPM Y',
+              'GUN BPM X',
+              'GUN BPM Y',
+              'HOM C1',
+              'HOM C2',
+              'HOM C3',
+              'HOM C4',
+              'HOM C5',
+              'HOM C6',
+              'HOM C7',
+              'HOM C8',
+              'Charge']
+
+timestamps = {"start": "2024/07/02 12:00:00", "end": "2024/07/02 15:00:00"}
 
 if __name__ == "__main__":
     lptool = lp.LclsToolsPlotter()
-    # Create correlations separated by charge
+    # Generate mean charge values within the given timeframe
+    charge_vals = lptool.get_common_charges(pv_charge="TORO:GUNB:360:CHRG", cutoff=0.1, tolerance=0.5,
+                                            start=timestamps["start"], end=timestamps["end"])
+    # Print charge values
+    print(charge_vals)
+    # HOM C1 vs. charge
+    lptool.plot_correlation(pv_list=['TORO:GUNB:360:CHRG', 'SCOP:AMRF:RF01:AI_MEAS1'],
+                            start=timestamps['start'], end=timestamps['end'], charge=charge_vals[5], tolerance=0.05)
+    # HOM C1 vs. CM BPM X for 67 pC
+    lptool.plot_correlation(pv_list=['BPMS:L0B:0183:FW:X_SLOW', 'SCOP:AMRF:RF01:AI_MEAS1', 'TORO:GUNB:360:CHRG'],
+                            start=timestamps['start'], end=timestamps['end'], charge=charge_vals[5], tolerance=0.05)
+    lptool.megaplot_correlation_charge_separated(pv_x='BPMS:L0B:0183:FW:X_SLOW', pv_y='SCOP:AMRF:RF01:AI_MEAS1',
+                                                 pv_charge='TORO:GUNB:360:CHRG', start=timestamps['start'],
+                                                 end=timestamps['end'], charge_vals=charge_vals)
+
+

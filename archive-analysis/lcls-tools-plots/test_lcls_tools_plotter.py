@@ -29,9 +29,9 @@ class TestLclsToolsPlotter:
         self.charge_pv = "TORO:GUNB:360:CHRG"
         self.start_date = "2024/07/02 14:42:36"
         self.end_date = "2024/07/02 15:42:36"
-        self.charge_vals = [0.2785387486219406, 0.3997775077819824, 0.4645740290482839, 0.5125857472419739,
-                            0.6366457541783651, 1.8790562972426414, 1.9854518473148346, 2.0720774275915965,
-                            65.15696843465169, 68.09078216552734]
+        # must get the most common charges in the given timeframe if planning on separating by charges
+        self.charge_vals = self.lptool.get_common_charges(pv_charge=self.charge_pv, cutoff=0.1, tolerance=0.05,
+                                                          start=self.start_date, end=self.end_date)
 
     """PEAK FILTERING TESTS"""
 
@@ -63,10 +63,10 @@ class TestLclsToolsPlotter:
         print(df_peak_list[0].head(10))
 
         # TEST CHARGE CORRELATION DATAFRAME
-        # TODO: replace with actual charge value
         df_charge_all = self.lptool.create_correlation_charge_df(pv_charge=self.charge_pv, pv_y=self.cor_pvs[0],
                                                                  pv_x=self.bpm_pvs[0], start=self.start_date,
-                                                                 end=self.end_date, charge=20.0, tolerance=0.05)
+                                                                 end=self.end_date, charge=self.charge_vals[5],
+                                                                 tolerance=0.05)
         df_peak_charge_list = self.lptool.return_peaks_from_df(df=df_charge_all, peak_height=1.0, peak_spacing=10.0)
         print(df_peak_charge_list)
         print(df_peak_charge_list[0].head(10))
@@ -75,11 +75,10 @@ class TestLclsToolsPlotter:
         return
 
     def test_plot_peaks_from_df(self):
-        # TEST CHARGE CORRELATION DATAFRAME
-        # TODO: replace with actual charge value
         df_charge_all = self.lptool.create_correlation_charge_df(pv_charge=self.charge_pv, pv_y=self.cor_pvs[0],
                                                                  pv_x=self.bpm_pvs[0], start=self.start_date,
-                                                                 end=self.end_date, charge=20.0, tolerance=0.05)
+                                                                 end=self.end_date, charge=self.charge_vals[5],
+                                                                 tolerance=0.05)
         df_peak_charge_list = self.lptool.plot_peaks_from_df(df=df_charge_all, pv_y=self.cor_pvs[0],
                                                              pv_x=self.bpm_pvs[0], peak_height=1.0, peak_spacing=10.0)
         print(df_peak_charge_list)
@@ -98,10 +97,10 @@ class TestLclsToolsPlotter:
     def test_megaplot_correlation_charge_separated(self):
         self.lptool.megaplot_correlation_charge_separated(pv_x=self.cor_pvs[0], pv_y=self.bpm_pvs[0],
                                                           pv_charge=self.charge_pv, start=self.start_date,
-                                                          end=self.end_date)
+                                                          end=self.end_date, charge_vals=self.charge_vals)
         self.lptool.megaplot_correlation_charge_separated(pv_x=self.quad_pvs[0], pv_y=self.bpm_pvs[0],
                                                           pv_charge=self.charge_pv, start=self.start_date,
-                                                          end=self.end_date)
+                                                          end=self.end_date, charge_vals=self.charge_vals)
         return
 
 
@@ -113,4 +112,4 @@ if __name__ == "__main__":
     # test.test_return_peaks_from_df()
     # test.test_plot_peaks_from_df()
     # test.test_plot_correlation()
-    test.test_megaplot_correlation_charge_separated()
+    # test.test_megaplot_correlation_charge_separated()
