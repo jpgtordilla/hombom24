@@ -581,5 +581,6 @@ class LclsToolsPlotter:
         # set labels
         ax[i, j].set_xlabel(f"{x_col}")
         ax[i, j].set_ylabel(f"{y_col}")
-        ax[i, j].set_title(f"{y_col} vs. {x_col}", {'fontsize': 10})
+        ax[i, j].set_title(f"{y_col} vs. {x_col} for {np.format_float_scientific(charge, precision=3, min_digits=2)} pC"
+                           , {'fontsize': 10})  # set title with a rounded charge value for each subplot
         return

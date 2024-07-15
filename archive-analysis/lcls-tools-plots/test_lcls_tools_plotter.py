@@ -29,6 +29,9 @@ class TestLclsToolsPlotter:
         self.charge_pv = "TORO:GUNB:360:CHRG"
         self.start_date = "2024/07/02 14:42:36"
         self.end_date = "2024/07/02 15:42:36"
+        self.charge_vals = [0.2785387486219406, 0.3997775077819824, 0.4645740290482839, 0.5125857472419739,
+                            0.6366457541783651, 1.8790562972426414, 1.9854518473148346, 2.0720774275915965,
+                            65.15696843465169, 68.09078216552734]
 
     """PEAK FILTERING TESTS"""
 
@@ -89,7 +92,7 @@ class TestLclsToolsPlotter:
     def test_plot_correlation(self):
         self.lptool.plot_correlation([self.cor_pvs[0], self.bpm_pvs[0]], start=self.start_date, end=self.end_date)
         self.lptool.plot_correlation([self.cor_pvs[0], self.bpm_pvs[0], self.charge_pv], start=self.start_date,
-                                     end=self.end_date, charge=20.0, tolerance=0.05)
+                                     end=self.end_date, charge=self.charge_vals[5], tolerance=0.05)
         return
 
     def test_megaplot_correlation_charge_separated(self):
@@ -101,9 +104,6 @@ class TestLclsToolsPlotter:
                                                           end=self.end_date)
         return
 
-    def test_charge_df(self):
-        self.lptool.create_correlation_df(self.charge_pv, self.bpm_pvs[0], self.start_date, self.end_date)
-
 
 if __name__ == "__main__":
     test = TestLclsToolsPlotter(lp.LclsToolsPlotter())
@@ -112,7 +112,5 @@ if __name__ == "__main__":
     # test.test_plot_return_peaks()
     # test.test_return_peaks_from_df()
     # test.test_plot_peaks_from_df()
-    # TODO: finish testing charges
-    # test.test_charge_df()
     # test.test_plot_correlation()
-    # test.test_megaplot_correlation_charge_separated()
+    test.test_megaplot_correlation_charge_separated()
