@@ -43,10 +43,11 @@ timestamps = {"start": "2024/07/02 12:00:00", "end": "2024/07/02 15:00:00"}
 
 if __name__ == "__main__":
     lptool = lp.LclsToolsPlotter()
+
+    """EXAMPLES"""
     # Generate mean charge values within the given timeframe
     charge_vals = lptool.get_common_charges(pv_charge="TORO:GUNB:360:CHRG", cutoff=0.1, tolerance=0.5,
                                             start=timestamps["start"], end=timestamps["end"])
-    # Print charge values
     print(charge_vals)
     # HOM C1 vs. charge
     lptool.plot_correlation(pv_list=['TORO:GUNB:360:CHRG', 'SCOP:AMRF:RF01:AI_MEAS1'],
@@ -57,5 +58,17 @@ if __name__ == "__main__":
     lptool.megaplot_correlation_charge_separated(pv_x='BPMS:L0B:0183:FW:X_SLOW', pv_y='SCOP:AMRF:RF01:AI_MEAS1',
                                                  pv_charge='TORO:GUNB:360:CHRG', start=timestamps['start'],
                                                  end=timestamps['end'], charge_vals=charge_vals)
+
+    """REPLICATION OF THE IPAC24 PLOTS"""
+    # HOM 1 Signal vs. Charge
+
+    # HOM 1 and HOM 5 over time
+    lptool.plot_pv_over_time(pv_list=["SCOP:AMRF:RF01:AI_MEAS1", "SCOP:AMRF:RF03:AI_MEAS1"], start=timestamps["start"],
+                             end=timestamps["end"])
+
+    # All HOM signals over time
+    lptool.plot_pv_over_time(pv_list=pv_names[6:-1], start=timestamps["start"],
+                             end=timestamps["end"])
+
 
 

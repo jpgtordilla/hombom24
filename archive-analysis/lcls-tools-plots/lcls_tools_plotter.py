@@ -52,7 +52,7 @@ class LclsToolsPlotter:
         if len(pv_list) > 0:
             for pv_str in pv_list:
                 df = self.create_df(pv_str, start, end)
-                ax.scatter(df["timestamps"], df[pv_str], label=pv_str)
+                ax.scatter(df["timestamps"], df[pv_str], label=pv_str, s=1)
                 ax.set_xlabel("Timestamp")
             ax.xaxis.set_major_locator(ticker.LinearLocator(5))
             ax.set_title("PVs vs. Time")
@@ -88,7 +88,7 @@ class LclsToolsPlotter:
                 pv_str = pv_list[i]
                 curr_ax = fig.get_axes()[i]
                 df = self.create_df(pv_str, start, end)
-                curr_ax.scatter(df["timestamps"], df[pv_str], label=pv_str)
+                curr_ax.scatter(df["timestamps"], df[pv_str], label=pv_str, s=1)
                 curr_ax.set_xlabel("Timestamp", fontsize=10)
                 curr_ax.xaxis.set_major_locator(ticker.LinearLocator(3))
                 curr_ax.set_xticklabels(df["timestamps"], fontsize=5)
@@ -127,7 +127,7 @@ class LclsToolsPlotter:
         i -- The index of the row to plot
         j -- The index of the column to plot
         """
-        ax[i, j].scatter(df["timestamps"], df[df.columns[1]], s=10)
+        ax[i, j].scatter(df["timestamps"], df[df.columns[1]], s=1)
         ax[i, j].xaxis.set_major_locator(ticker.LinearLocator(3))
         ax[i, j].set_xlabel("Timestamp")
         # y tick scientific notation
@@ -217,7 +217,7 @@ class LclsToolsPlotter:
             all_peaks, peak_heights = find_peaks(y, height=peak_height,
                                                  distance=peak_spacing)  # use scipy to generate lists of peak
             # indices and their heights
-            ax[0].scatter(df_curr[pv_list[0]], df_curr[pv_list[1]])
+            ax[0].scatter(df_curr[pv_list[0]], df_curr[pv_list[1]], s=1)
 
             # plot only peak points with x-axis showing index corresponding to the returned dict
             ax[1].scatter(all_peaks, y[all_peaks])
@@ -248,11 +248,11 @@ class LclsToolsPlotter:
                 all_peaks, peak_heights = find_peaks(y, height=peak_height,
                                                      distance=peak_spacing)  # use scipy to generate lists of peak
                 # indices and their heights
-                ax[0].scatter(df_curr["timestamps"], y)
+                ax[0].scatter(df_curr["timestamps"], y, s=1)
                 ax[0].plot(all_peaks, y[all_peaks], "x", color="red")
                 ax[0].plot(np.zeros_like(y), "--", color="gray")
                 # plot only peak points with x-axis showing index corresponding to the returned dict
-                ax[1].scatter(all_peaks, y[all_peaks])
+                ax[1].scatter(all_peaks, y[all_peaks], s=1)
                 # match limits (approximately) with the first plot
                 ax[1].set_xlim(0, len(df_curr["timestamps"]))
             ax[0].legend()
@@ -312,9 +312,9 @@ class LclsToolsPlotter:
         all_peaks, peak_heights = find_peaks(y, height=peak_height,
                                              distance=peak_spacing)  # use scipy to generate lists of peak indices
         # and their heights
-        ax[0].scatter(df[pv_x], df[pv_y])
+        ax[0].scatter(df[pv_x], df[pv_y], s=1)
         # plot only peak points with x-axis showing index corresponding to the returned dict
-        ax[1].scatter(all_peaks, y[all_peaks])
+        ax[1].scatter(all_peaks, y[all_peaks], s=1)
         # match limits (approximately) with the first plot
         ax[1].set_xlim(0, len(x))
         # set labels
@@ -400,7 +400,7 @@ class LclsToolsPlotter:
             df = self.create_correlation_charge_df(pv_charge, pv_x, pv_y, start, end, charge, tolerance)
         else:
             df = self.create_correlation_df(pv_x, pv_y, start, end)
-        ax.scatter(df[pv_x], df[pv_y], label=f"{pv_y} vs. {pv_x}")
+        ax.scatter(df[pv_x], df[pv_y], label=f"{pv_y} vs. {pv_x}", s=1)
         # tick settings
         x_ticks = [np.format_float_scientific(i, precision=3, min_digits=2) for i in
                    df[pv_x]]  # convert to scientific notation
@@ -447,7 +447,7 @@ class LclsToolsPlotter:
                 curr_ax = fig.get_axes()[i]
                 curr_pv_x = pv_list[i]  # the current pv in the pv_list
                 df = self.create_correlation_df(pv_y, curr_pv_x, start, end)  # create single df with aligned timestamps
-                curr_ax.scatter(df[curr_pv_x], df[pv_y], label=curr_pv_x)
+                curr_ax.scatter(df[curr_pv_x], df[pv_y], label=curr_pv_x, s=1)
                 # tick settings
                 x_ticks = [np.format_float_scientific(i, precision=3, min_digits=2) for i in
                            df[curr_pv_x]]  # convert to scientific notation
@@ -496,7 +496,7 @@ class LclsToolsPlotter:
         x_col = pv_list[pv_ind]
         y_col = pv_y
         df = self.create_correlation_df(pv_list[pv_ind], pv_y, start, end)
-        ax[i, j].scatter(df[x_col], df[y_col], s=10)
+        ax[i, j].scatter(df[x_col], df[y_col], s=1)
         # tick settings
         x_ticks = [np.format_float_scientific(i, precision=3, min_digits=2) for i in
                    df[x_col]]  # convert to scientific notation
@@ -566,7 +566,7 @@ class LclsToolsPlotter:
         charge = charge_vals[charge_ind]
         df = self.create_correlation_charge_df(pv_charge, pv_x, pv_y, start, end, charge,
                                                tolerance)  # create correlation between pv_x and pv_y for each charge
-        ax[i, j].scatter(df[x_col], df[y_col], s=10)
+        ax[i, j].scatter(df[x_col], df[y_col], s=1)
         # tick settings
         x_ticks = [np.format_float_scientific(i, precision=3, min_digits=2) for i in
                    df[x_col]]  # convert to scientific notation
