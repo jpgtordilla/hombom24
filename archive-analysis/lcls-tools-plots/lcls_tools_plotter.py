@@ -620,21 +620,30 @@ class LclsToolsPlotter:
         tolerance -- the margin between the data points (in percent)
         """
         vals.sort()
+
         clusters = [[]]
-        cluster_index = 0
-        while len(vals) > 0:
-            comparison = vals.pop(0)
-            clusters[cluster_index].append(comparison)
-            for i in range(len(vals)):
-                next_val = vals.pop(0)
-                if abs(next_val - comparison) <= (
-                        tolerance * comparison):  # if next_val is within percentage of comparison's value
-                    clusters[cluster_index].append(next_val)  # add next_val to cluster
-                else:
-                    cluster_index += 1
-                    clusters.append([])  # add a new empty list
-                    clusters[cluster_index].append(next_val)  # add next_val to the next cluster
+        cluster_ind = 1
+
+        # add values within tolerance percentage of the first value
+        first_val = vals[0]
+        max_first = first_val + (tolerance * first_val)
+        curr_ind = 0
+        while vals[curr_ind] <= max_first:
+            clusters[0].append(vals[curr_ind])
+            curr_ind += 1
+
+        # create a tolerance margin above some middle point and add points to the left and right on a number line
+        while len(vals) > 0 and not curr_ind >= len(vals) - 1:
+            curr_val = vals[curr_ind]
+            comparison = curr_val + (tolerance * curr_val)
+            clusters.append([])
+            while abs(comparison - curr_val) <= tolerance * comparison:  # check if within tolerance range
+                clusters[cluster_ind].append(curr_val)
+                curr_ind += 1
+                if curr_ind >= len(vals):
                     break
+                curr_val = vals[curr_ind]
+            cluster_ind += 1
 
         return clusters
 
