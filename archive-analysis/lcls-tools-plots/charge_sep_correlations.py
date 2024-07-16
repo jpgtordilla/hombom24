@@ -53,7 +53,7 @@ def examples():
     lptool.plot_correlation(pv_list=["TORO:GUNB:360:CHRG", "SCOP:AMRF:RF01:AI_MEAS1"],
                             start=timestamps["start"], end=timestamps["end"], charge=charge_vals[10],
                             tolerance=0.05)
-    # HOM C1 vs. CM BPM X for ...
+    # HOM C1 vs. CM BPM X for a given charge
     lptool.plot_correlation(pv_list=['BPMS:L0B:0183:FW:X_SLOW', 'SCOP:AMRF:RF01:AI_MEAS1', 'TORO:GUNB:360:CHRG'],
                             start=timestamps["start"], end=timestamps["end"], charge=charge_vals[10],
                             tolerance=0.05)
