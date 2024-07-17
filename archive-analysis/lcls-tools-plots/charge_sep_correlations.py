@@ -69,26 +69,51 @@ def hom_analysis_xcor():
                                             end=timestamps["end"])
     print(f"charge values (pC): {charge_vals}")
 
+    xcor_pv = "XCOR:GUNB:293:BACT"
+
     # HOM C1 SIGNAL
     # HOM C1 vs. XCOR:GUNB:293:BACT for all charges
-    lptool.megaplot_correlation_charge_separated(pv_x="XCOR:GUNB:293:BACT", pv_y=HOM_C1_PV, pv_charge=CHARGE_PV,
-                                                 start=timestamps["start"], end=timestamps["end"],
-                                                 charge_vals=charge_vals)
+    # lptool.megaplot_correlation_charge_separated(pv_x=xcor_pv, pv_y=HOM_C1_PV, pv_charge=CHARGE_PV,
+    #                                              start=timestamps["start"], end=timestamps["end"],
+    #                                              charge_vals=charge_vals)
+
     # HOM C1 vs. XCOR:GUNB:293:BACT for 48.65 pC and 158.17 pC
-    lptool.plot_correlation(pv_list=["XCOR:GUNB:293:BACT", HOM_C1_PV, CHARGE_PV], start=timestamps["start"],
+    lptool.plot_correlation(pv_list=[xcor_pv, HOM_C1_PV, CHARGE_PV], start=timestamps["start"],
                             end=timestamps["end"], charge=charge_vals[7], tolerance=0.2)
-    lptool.plot_correlation(pv_list=["XCOR:GUNB:293:BACT", HOM_C1_PV, CHARGE_PV], start=timestamps["start"],
+    lptool.plot_correlation(pv_list=[xcor_pv, HOM_C1_PV, CHARGE_PV], start=timestamps["start"],
                             end=timestamps["end"], charge=charge_vals[9], tolerance=0.2)
 
     # HOM C5 SIGNAL
     # HOM C5 vs. XCOR:GUNB:293:BACT for all charges
-    lptool.megaplot_correlation_charge_separated(pv_x="XCOR:GUNB:293:BACT", pv_y=HOM_C5_PV, pv_charge=CHARGE_PV,
-                                                 start=timestamps["start"], end=timestamps["end"],
-                                                 charge_vals=charge_vals)
+    # lptool.megaplot_correlation_charge_separated(pv_x=xcor_pv, pv_y=HOM_C5_PV, pv_charge=CHARGE_PV,
+    #                                              start=timestamps["start"], end=timestamps["end"],
+    #                                              charge_vals=charge_vals)
+
     # HOM C5 vs. XCOR:GUNB:293:BACT for 48.65 pC and 158.17 pC
-    lptool.plot_correlation(pv_list=["XCOR:GUNB:293:BACT", HOM_C5_PV, CHARGE_PV], start=timestamps["start"],
+    lptool.plot_correlation(pv_list=[xcor_pv, HOM_C5_PV, CHARGE_PV], start=timestamps["start"],
                             end=timestamps["end"], charge=charge_vals[7], tolerance=0.2)
-    lptool.plot_correlation(pv_list=["XCOR:GUNB:293:BACT", HOM_C5_PV, CHARGE_PV], start=timestamps["start"],
+    lptool.plot_correlation(pv_list=[xcor_pv, HOM_C5_PV, CHARGE_PV], start=timestamps["start"],
+                            end=timestamps["end"], charge=charge_vals[9], tolerance=0.2)
+
+
+def hom_analysis_ycor():
+    # Generate mean charge values within the given timeframe
+    charge_vals = lptool.get_common_charges(pv_charge=CHARGE_PV, cutoff=0.1, tolerance=0.2, start=timestamps["start"],
+                                            end=timestamps["end"])
+    print(f"charge values (pC): {charge_vals}")
+
+    ycor_pv = "YCOR:GUNB:293:BACT"
+
+    # HOM C1 vs. YCOR:GUNB:293:BACT for 48.65 pC and 158.17 pC
+    lptool.plot_correlation(pv_list=[ycor_pv, HOM_C1_PV, CHARGE_PV], start=timestamps["start"],
+                            end=timestamps["end"], charge=charge_vals[7], tolerance=0.2)
+    lptool.plot_correlation(pv_list=[ycor_pv, HOM_C1_PV, CHARGE_PV], start=timestamps["start"],
+                            end=timestamps["end"], charge=charge_vals[9], tolerance=0.2)
+
+    # HOM C5 vs. YCOR:GUNB:293:BACT for 48.65 pC and 158.17 pC
+    lptool.plot_correlation(pv_list=[ycor_pv, HOM_C5_PV, CHARGE_PV], start=timestamps["start"],
+                            end=timestamps["end"], charge=charge_vals[7], tolerance=0.2)
+    lptool.plot_correlation(pv_list=[ycor_pv, HOM_C5_PV, CHARGE_PV], start=timestamps["start"],
                             end=timestamps["end"], charge=charge_vals[9], tolerance=0.2)
 
 
@@ -98,32 +123,94 @@ def hom_analysis_bpmx():
                                             end=timestamps["end"])
     print(f"charge values (pC): {charge_vals}")
 
-    # HOM C1 SIGNAL
-    # HOM C1 vs. BPMS:GUNB:925:X for all charges
-    lptool.megaplot_correlation_charge_separated(pv_x="BPMS:GUNB:925:X", pv_y=HOM_C1_PV, pv_charge=CHARGE_PV,
-                                                 start=timestamps["start"], end=timestamps["end"],
-                                                 charge_vals=charge_vals)
+    bpmx_pv = "BPMS:GUNB:925:X"
+
     # HOM C1 vs. BPMS:GUNB:925:X for 48.65 pC and 158.17 pC
-    lptool.plot_correlation(pv_list=["BPMS:GUNB:925:X", HOM_C1_PV, CHARGE_PV], start=timestamps["start"],
+    lptool.plot_correlation(pv_list=[bpmx_pv, HOM_C1_PV, CHARGE_PV], start=timestamps["start"],
                             end=timestamps["end"], charge=charge_vals[7], tolerance=0.2)
-    lptool.plot_correlation(pv_list=["BPMS:GUNB:925:X", HOM_C1_PV, CHARGE_PV], start=timestamps["start"],
+    lptool.plot_correlation(pv_list=[bpmx_pv, HOM_C1_PV, CHARGE_PV], start=timestamps["start"],
                             end=timestamps["end"], charge=charge_vals[9], tolerance=0.2)
 
-    # HOM C5 SIGNAL
-    # HOM C5 vs. BPMS:GUNB:925:X for all charges
-    lptool.megaplot_correlation_charge_separated(pv_x="BPMS:GUNB:925:X", pv_y=HOM_C5_PV, pv_charge=CHARGE_PV,
-                                                 start=timestamps["start"], end=timestamps["end"],
-                                                 charge_vals=charge_vals)
-    # HOM C5 vs. XCOR:GUNB:293:BACT for 48.65 pC and 158.17 pC
-    lptool.plot_correlation(pv_list=["BPMS:GUNB:925:X", HOM_C5_PV, CHARGE_PV], start=timestamps["start"],
+    # HOM C5 vs. BPMS:GUNB:925:X for 48.65 pC and 158.17 pC
+    lptool.plot_correlation(pv_list=[bpmx_pv, HOM_C5_PV, CHARGE_PV], start=timestamps["start"],
                             end=timestamps["end"], charge=charge_vals[7], tolerance=0.2)
-    lptool.plot_correlation(pv_list=["BPMS:GUNB:925:X", HOM_C5_PV, CHARGE_PV], start=timestamps["start"],
+    lptool.plot_correlation(pv_list=[bpmx_pv, HOM_C5_PV, CHARGE_PV], start=timestamps["start"],
+                            end=timestamps["end"], charge=charge_vals[9], tolerance=0.2)
+
+
+def hom_analysis_bpmy():
+    # Generate mean charge values within the given timeframe
+    charge_vals = lptool.get_common_charges(pv_charge=CHARGE_PV, cutoff=0.1, tolerance=0.2,
+                                            start=timestamps["start"],
+                                            end=timestamps["end"])
+    print(f"charge values (pC): {charge_vals}")
+
+    bpmy_pv = "BPMS:GUNB:925:Y"
+
+    # HOM C1 vs. BPMS:GUNB:925:Y for 48.65 pC and 158.17 pC
+    lptool.plot_correlation(pv_list=[bpmy_pv, HOM_C1_PV, CHARGE_PV], start=timestamps["start"],
+                            end=timestamps["end"], charge=charge_vals[7], tolerance=0.2)
+    lptool.plot_correlation(pv_list=[bpmy_pv, HOM_C1_PV, CHARGE_PV], start=timestamps["start"],
+                            end=timestamps["end"], charge=charge_vals[9], tolerance=0.2)
+
+    # HOM C5 vs. BPMS:GUNB:925:X for 48.65 pC and 158.17 pC
+    lptool.plot_correlation(pv_list=[bpmy_pv, HOM_C5_PV, CHARGE_PV], start=timestamps["start"],
+                            end=timestamps["end"], charge=charge_vals[7], tolerance=0.2)
+    lptool.plot_correlation(pv_list=[bpmy_pv, HOM_C5_PV, CHARGE_PV], start=timestamps["start"],
+                            end=timestamps["end"], charge=charge_vals[9], tolerance=0.2)
+
+
+def hom_analysis_quad():
+    # Generate mean charge values within the given timeframe
+    charge_vals = lptool.get_common_charges(pv_charge=CHARGE_PV, cutoff=0.1, tolerance=0.2,
+                                            start=timestamps["start"],
+                                            end=timestamps["end"])
+    print(f"charge values (pC): {charge_vals}")
+
+    quad_pv = "QUAD:GUNB:212:1:BACT"
+
+    # HOM C1 vs. QUAD:GUNB:212:1:BACT for 48.65 pC and 158.17 pC
+    lptool.plot_correlation(pv_list=[quad_pv, HOM_C1_PV, CHARGE_PV], start=timestamps["start"],
+                            end=timestamps["end"], charge=charge_vals[7], tolerance=0.2)
+    lptool.plot_correlation(pv_list=[quad_pv, HOM_C1_PV, CHARGE_PV], start=timestamps["start"],
+                            end=timestamps["end"], charge=charge_vals[9], tolerance=0.2)
+
+    # HOM C5 vs. QUAD:GUNB:212:1:BACT for 48.65 pC and 158.17 pC
+    lptool.plot_correlation(pv_list=[quad_pv, HOM_C5_PV, CHARGE_PV], start=timestamps["start"],
+                            end=timestamps["end"], charge=charge_vals[7], tolerance=0.2)
+    lptool.plot_correlation(pv_list=[quad_pv, HOM_C5_PV, CHARGE_PV], start=timestamps["start"],
+                            end=timestamps["end"], charge=charge_vals[9], tolerance=0.2)
+
+
+def hom_analysis_soln():
+    # Generate mean charge values within the given timeframe
+    charge_vals = lptool.get_common_charges(pv_charge=CHARGE_PV, cutoff=0.1, tolerance=0.2,
+                                            start=timestamps["start"],
+                                            end=timestamps["end"])
+    print(f"charge values (pC): {charge_vals}")
+
+    soln_pv = "SOLN:GUNB:100:BACT"
+
+    # HOM C1 vs. SOLN:GUNB:100:BACT for 48.65 pC and 158.17 pC
+    lptool.plot_correlation(pv_list=[soln_pv, HOM_C1_PV, CHARGE_PV], start=timestamps["start"],
+                            end=timestamps["end"], charge=charge_vals[7], tolerance=0.2)
+    lptool.plot_correlation(pv_list=[soln_pv, HOM_C1_PV, CHARGE_PV], start=timestamps["start"],
+                            end=timestamps["end"], charge=charge_vals[9], tolerance=0.2)
+
+    # HOM C5 vs. SOLN:GUNB:100:BACT for 48.65 pC and 158.17 pC
+    lptool.plot_correlation(pv_list=[soln_pv, HOM_C5_PV, CHARGE_PV], start=timestamps["start"],
+                            end=timestamps["end"], charge=charge_vals[7], tolerance=0.2)
+    lptool.plot_correlation(pv_list=[soln_pv, HOM_C5_PV, CHARGE_PV], start=timestamps["start"],
                             end=timestamps["end"], charge=charge_vals[9], tolerance=0.2)
 
 
 if __name__ == "__main__":
     lptool = lp.LclsToolsPlotter()
-    # examples()
+    examples()
     # ipac_plots()
     # hom_analysis_xcor()
-    hom_analysis_bpmx()
+    # hom_analysis_ycor()
+    # hom_analysis_bpmx()
+    # hom_analysis_bpmy()
+    # hom_analysis_quad()
+    # hom_analysis_soln()
