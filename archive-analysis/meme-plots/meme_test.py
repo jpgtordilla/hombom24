@@ -1,5 +1,4 @@
 # COPY THIS FILE INTO SLAC DIRECTORY
-
 import meme.archive  # type: ignore
 from datetime import datetime
 

@@ -1,4 +1,5 @@
 import lcls_tools_plotter as lp
+import title_draw as td
 
 """Using the LCLS tools archiver.py class"""
 
@@ -205,12 +206,25 @@ def hom_analysis_soln():
 
 
 if __name__ == "__main__":
+    """Plots correlations between HOM signals over time, HOM signals vs. charge, and HOM signals vs. and other PVs, 
+    separated by charge
+    
+    Note: there is a limit to the amount of requests that can be made within a given time to the archiver. 
+    """
     lptool = lp.LclsToolsPlotter()
-    examples()
+    # titledraw_1 = td.TitleDraw("Examples", "brown")
+    # examples()
+    # titledraw_2 = td.TitleDraw("IPAC24", "red")
     # ipac_plots()
-    # hom_analysis_xcor()
-    # hom_analysis_ycor()
-    # hom_analysis_bpmx()
-    # hom_analysis_bpmy()
-    # hom_analysis_quad()
-    # hom_analysis_soln()
+    titledraw_3 = td.TitleDraw("XCOR", "orange")
+    hom_analysis_xcor()
+    titledraw_4 = td.TitleDraw("YCOR", "yellow")
+    hom_analysis_ycor()
+    titledraw_5 = td.TitleDraw("BPMX", "green")
+    hom_analysis_bpmx()
+    titledraw_6 = td.TitleDraw("BPMY", "blue")
+    hom_analysis_bpmy()
+    titledraw_7 = td.TitleDraw("QUAD", "purple")
+    hom_analysis_quad()
+    titledraw_8 = td.TitleDraw("SOLN", "violet")
+    hom_analysis_soln()
