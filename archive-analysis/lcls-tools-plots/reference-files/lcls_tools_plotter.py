@@ -1,7 +1,7 @@
 import sys
 
 sys.path.append(
-    '/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/lcls_tools')  # change to your path
+    '/archive-analysis/lcls-tools-plots/lcls_tools')  # change to your path
 # to lcls_tools
 import common.data_analysis.archiver as arch  # type: ignore
 from datetime import datetime
