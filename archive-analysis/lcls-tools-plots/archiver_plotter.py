@@ -5,7 +5,7 @@ from datetime import datetime
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
+import matplotlib.ticker as ticker 
 
 
 class ArchiverPlotter:
@@ -45,7 +45,25 @@ class ArchiverPlotter:
         
         return pd.merge(df_y, df_x, on="timestamps")  # merge DataFrames on equal timestamp strings
 
-    def plot_pv_over_time(self, df_list: list[pd.DataFrame], start: str, end: str) -> None:
+    def plot_pv_over_time(self, df_list: list[pd.DataFrame], start: str, end: str, 
+                          width=10, 
+                          height=7, 
+                          xlabel_bottom="Timestamp", 
+                          xlabel_top=None, 
+                          ylabel_left="PV", 
+                          ylabel_right=None, 
+                          xlabel_color_botom="black", 
+                          x_label_color_top=None, 
+                          ylabel_color_left="black", 
+                          y_label_color_right=None, 
+                          xlabel_font_bottom="Helvetica", 
+                          xlabel_font_top=None, 
+                          ylabel_font_left="Helvetica", 
+                          ylabel_font_right=None, 
+                          linecolors=["red", "green", "blue", "black"], 
+                          linetypes=["solid", "dotted", "dashed", "dashdotted"], 
+                          labels=None, 
+                          smart_ticks=False) -> None:
         """Plots a nonempty list of PVs over time.
 
         :param df_list: A list of DataFrames from which to plot the PVs. 
@@ -53,20 +71,20 @@ class ArchiverPlotter:
         :param end: The end date of the plot in YYYY/MM/DD HH:MM:SS format.
         """
 
-        # TODO: 
-        # - width/height
-        # - xlabel bottom, top
-        # - ylabel left, right
-        # - xlabel_color bottom, top
-        # - ylabel_color left, right
-        # - xlabel_font bottom, top
-        # - ylabel_font left, right
-        # - xlabel_fontsize bottom, top
-        # - ylabel_fontsize left, right
-        # - linecolors list
-        # - linetypes list
-        # - label list 
-        # - datetime, algorithm to check what is changing, but changing the least (days, minutes, seconds, etc.)
+        # TODO: program the following parameters
+        # - width/height - default (10, 7) 
+        # - xlabel bottom, top - default (Timestamp)
+        # - ylabel left, right - default (left: PVs, right: None)
+        # - xlabel_color bottom, top - default (black, None)
+        # - ylabel_color left, right - default (black, black)
+        # - xlabel_font bottom, top - default (Helvetica, None)
+        # - ylabel_font left, right - default (Helvetica, None)
+        # - xlabel_fontsize bottom, top - default (10, None)
+        # - ylabel_fontsize left, right - default (10, None)
+        # - linecolors list - default (random colors)
+        # - linetypes list - default (random types)
+        # - label list - default (PV names)
+        # - smart_ticks boolean - algorithm to check what is changing, but changing the least (days, minutes, seconds, etc.)
 
         ax = plt.subplots(figsize=(10, 7), layout='constrained') 
         for i in range(len(df_list)): 
