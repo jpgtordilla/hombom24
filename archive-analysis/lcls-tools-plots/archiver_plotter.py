@@ -12,6 +12,8 @@ class ArchiverPlotter:
     def __init__(self):
         return
 
+    """HELPER METHODS FOR PLOTTING""" 
+
     def create_df(self, pv_str: str, start: str, end: str) -> pd.DataFrame:
         """Create and return a DataFrame given a PV and start/end date.
 
@@ -45,60 +47,114 @@ class ArchiverPlotter:
         
         return pd.merge(df_y, df_x, on="timestamps")  # merge DataFrames on equal timestamp strings
 
-    def plot_pv_over_time(self, df_list: list[pd.DataFrame], start: str, end: str, 
-                          width=10, 
-                          height=7, 
-                          xlabel_bottom="Timestamp", 
-                          xlabel_top=None, 
-                          ylabel_left="PV", 
-                          ylabel_right=None, 
-                          xlabel_color_botom="black", 
-                          x_label_color_top=None, 
-                          ylabel_color_left="black", 
-                          y_label_color_right=None, 
-                          xlabel_font_bottom="Helvetica", 
-                          xlabel_font_top=None, 
-                          ylabel_font_left="Helvetica", 
-                          ylabel_font_right=None, 
-                          linecolors=["red", "green", "blue", "black"], 
-                          linetypes=["solid", "dotted", "dashed", "dashdotted"], 
-                          labels=None, 
-                          smart_ticks=False) -> None:
+    @staticmethod 
+    def get_smart_ticks(timestamps: pd.Series) -> dict{str: float}: 
+        """Returns a list of dictionary with float values and a string describing what they represent."""
+        # TODO: define smart ticks function 
+        pass 
+
+        
+    """PLOTTING METHODS"""
+    def plot_pv_over_time(self, 
+                          df_list: list[pd.DataFrame], 
+                          start: str, 
+                          end: str, 
+                          width=10: int, 
+                          height=7: int, 
+                          xlabel_bottom="Timestamp": str, 
+                          xlabel_top=None: str, 
+                          ylabel_left="PV": str, 
+                          ylabel_right=None: str, 
+                          xlabel_color_botom="black": str, 
+                          xlabel_color_top=None: str, 
+                          ylabel_color_left="black": str, 
+                          ylabel_color_right=None: str, 
+                          label_font="Helvetica": str,  
+                          pv_colors=["red", "green", "blue", "black"]: list[str], 
+                          line_types=["-", "-.", "--", "--x"]: list[str], 
+                          is_scatter=False, 
+                          marker_size=3, 
+                          labels=None: list[str], 
+                          smart_ticks=False: boolean) -> None:
         """Plots a nonempty list of PVs over time.
 
         :param df_list: A list of DataFrames from which to plot the PVs. 
         :param start: The start date of the plot in YYYY/MM/DD HH:MM:SS format.
         :param end: The end date of the plot in YYYY/MM/DD HH:MM:SS format.
+
+        :param width: The width of the plot to be rendered. 
+        :param height: The height of the plot to be rendered. 
+        :param xlabel_bottom: The label that will be on the bottom of the plot. 
+        :param xlabel_top: The label that will be on the top of the plot. 
+        :param ylabel_left: The label that will be to the left of the plot. 
+        :param ylabel_right: The label that will be to the right of the plot. 
+        :param xlabel_color_bottom: The color of the x label on the bottom of the plot. 
+        :param xlabel_color_top: The color of the x label on the top of the plot. 
+        :param ylabel_color_left: The color of the y label to the left of the plot. 
+        :param ylabel_color_right: The color of the y label to the right of the plot. 
+        :param label_font: The font for all the labels for the plot. 
+        :param pv_colors: A list of colors for each pv that is plotted, in the order of df_list. 
+        :param line_types: A list of all line types for each pv that is plotted, in the order of df_list. 
+        :param is_scatter: A boolean for whether or not to plot all points as scatter, or to plot as lines. 
+        :param marker_size: The size of the scatter marker, if scatter is chosen as a line_types option. 
+        :param labels: A list of labels for each PV, in the order of df_list. 
+        :param smart_ticks: A boolean for whether or not to display ticks for the time unit that changes, but changes the least. 
+        :param smart_title: A boolean for whether or not to list the PVs in the title. 
         """
 
-        # TODO: program the following parameters
-        # - width/height - default (10, 7) 
-        # - xlabel bottom, top - default (Timestamp)
-        # - ylabel left, right - default (left: PVs, right: None)
-        # - xlabel_color bottom, top - default (black, None)
-        # - ylabel_color left, right - default (black, black)
-        # - xlabel_font bottom, top - default (Helvetica, None)
-        # - ylabel_font left, right - default (Helvetica, None)
-        # - xlabel_fontsize bottom, top - default (10, None)
-        # - ylabel_fontsize left, right - default (10, None)
-        # - linecolors list - default (random colors)
-        # - linetypes list - default (random types)
-        # - label list - default (PV names)
-        # - smart_ticks boolean - algorithm to check what is changing, but changing the least (days, minutes, seconds, etc.)
+        # TODO: program remaining default parameters: 
+        # - xlabel_bottom
+        # - xlabel_top
+        # - ylabel_left
+        # - ylabel_right
+        # - xlabel_color_bottom
+        # - xlabel_color_top
+        # - ylabel_color_left
+        # - ylabel_color_right
+        # - label_font
+        # - pv_colors
+        # - labels
+        # - smart_ticks
 
-        ax = plt.subplots(figsize=(10, 7), layout='constrained') 
-        for i in range(len(df_list)): 
+        # PLOTTING
+        ax = plt.subplots(figsize=(width, height), layout="constrained") 
+        for i in range(len(df_list)): # plot each DataFrame in df_list
             df_curr = df_list[i]
-            ax.scatter(df_curr["timestamps"], df_curr.columns[1], label=df_curr.columns[1], s=3)
-        ax.set_xlabel("Timestamp")
-        ax.set_ylabel("PV")
-        ax.xaxis.set_major_locator(ticker.LinearLocator(5))
-        ax.set_title("PVs vs. Time")
+            if not is_scatter: 
+                # choose a line type and plot accordingly
+                curr_line_type = line_types[i % len(line_types)] # cycle through the line_types list 
+                ax.plot(df_curr["timestamps"], df_curr.columns[1], linestyle=curr_line_type, label=df_curr.columns[1], markersize=marker_size)
+            else: 
+                ax.scatter(df_curr["timestamps"], df_curr.columns[1], label=df_curr.columns[1], s=marker_size)
+
+        # TICKS
+        if not smart_ticks: 
+            ax.xaxis.set_major_locator(ticker.LinearLocator(5))
+        else: 
+            # TODO: use smart ticks function 
+            pass 
+
+        # LABELS
+        ax.set_xlabel(xlabel_bottom)
+        ax.set_ylabel(ylabel_left)
+        # set the title 
         ax.legend()
+        if not smart_title: 
+            ax.set_title("PVs vs. Time")
+        else: 
+            # create a title using the PV names
+            pv_list = [df_curr.columns[1] for df_curr in df_list]
+            ax.set_title(f"{", ".join(pv_list)} vs. Time")
+
         plt.show()
         return None
 
-    def plot_correlation(self, df: pd.DataFrame, pv_x: str, pv_y: str, start: str, end: str) -> None:
+    def plot_correlation(self, 
+                         df: pd.DataFrame, 
+                         pv_x: str, 
+                         pv_y: str, 
+                         start: str, 
+                         end: str) -> None:
         """Plot the correlation of two PVs. 
 
         :param df: The DataFrame from which the PVs are plotted. 
@@ -108,24 +164,10 @@ class ArchiverPlotter:
         :param end: The end date of the plot in YYYY/MM/DD HH:MM:SS format
         """
 
-        # TODO: 
-        # - width/height
-        # - xlabel bottom, top
-        # - ylabel left, right
-        # - xlabel_color bottom, top
-        # - ylabel_color left, right
-        # - xlabel_font bottom, top
-        # - ylabel_font left, right
-        # - xlabel_fontsize bottom, top
-        # - ylabel_fontsize left, right
-        # - linecolors list
-        # - linetypes list
-        # - label list 
-        # - datetime, algorithm to check what is changing, but changing the least (days, minutes, seconds, etc.)
+        # TODO: create and program all default parameters
 
-        ax = plt.subplots(figsize=(10, 7), layout='constrained')
         # plot the correlation 
-        ax = plt.subplots(figsize=(10, 7), layout='constrained')        
+        ax = plt.subplots(figsize=(10, 7), layout="constrained")        
         ax.scatter(df[pv_x], df[pv_y], label=f"{pv_y} vs. {pv_x}", s=3)
         # tick settings
         x_ticks = [np.format_float_scientific(i, precision=3, min_digits=2) for i in df[pv_x]]  # scientific notation
