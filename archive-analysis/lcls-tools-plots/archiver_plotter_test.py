@@ -17,9 +17,8 @@ df_homc1 = archplot.create_df(homc1_pv, start_str, end_str)
 df_correl = archplot.create_correlation_df(df_xcor, df_homc1)
 
 # Plot a list of PVs over time
-archplot.plot_pv_over_time([df_xcor, df_ycor], pv_labels=["XCOR", "YCOR"], ylabel_left="Amplitude (arb. units)")
-
-# TODO: finish testing different plot types with default parameters
+archplot.plot_pv_over_time([df_xcor, df_ycor], pv_labels=["XCOR", "YCOR"], ylabel_left="mm")
 
 # Plot a correlation between two PVs using their correlation DataFrame and String identifiers
-archplot.plot_correlation(df_correl, xcor_pv, homc1_pv)
+archplot.plot_correlation(df_correl, xcor_pv, homc1_pv, pv_xlabel="XCOR (mm)", pv_ylabel="HOM C1 (arb. units)",
+                          smart_labels=True)

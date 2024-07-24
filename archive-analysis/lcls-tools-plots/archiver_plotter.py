@@ -12,7 +12,35 @@ import matplotlib.ticker as ticker
 
 class ArchiverPlotter:
     def __init__(self):
+        self.font_x = {
+            "family": "",
+            "color": "",
+            "size": 16
+        }
+        self.font_y = {
+            "family": "",
+            "color": "",
+            "size": 16
+        }
+        self.font_title = {
+            "family": "",
+            "color": "",
+            "size": 20
+        }
+        self.label_settings = {
+            "y_axis": "",
+            "x_axis": ""
+        }
         return
+
+    def set_fonts(self, label_font, xlabel_color, ylabel_color, title_color):
+        """Sets font instance variables."""
+        self.font_x["family"] = label_font
+        self.font_y["family"] = label_font
+        self.font_title["family"] = label_font
+        self.font_x["color"] = xlabel_color
+        self.font_y["color"] = ylabel_color
+        self.font_title["color"] = title_color
 
     """HELPER METHODS FOR PLOTTING"""
 
@@ -93,63 +121,48 @@ class ArchiverPlotter:
         :param smart_title: A boolean for whether to list the PVs in the title.
         """
 
+        fig, ax = plt.subplots(figsize=(width, height), layout="constrained")
+
         # LEGEND LABELS
         if pv_labels is not None:
             for i in range(len(df_list)):
                 df_curr = df_list[i]
                 df_curr.rename(columns={df_curr.columns[1]: pv_labels[i]}, inplace=True)
 
-        fig, ax = plt.subplots(figsize=(width, height), layout="constrained")
-
-        # FONTS
-        font_x = {
-            "family": label_font,
-            "color": xlabel_color,
-            "size": 16
-        }
-        font_y = {
-            "family": label_font,
-            "color": ylabel_color,
-            "size": 16
-        }
-        font_title = {
-            "family": label_font,
-            "color": title_color,
-            "size": 20
-        }
-
         # LABELS
         ax.xaxis.set_major_locator(ticker.LinearLocator(num_ticks))
         ax.yaxis.set_major_locator(ticker.LinearLocator(num_ticks))
-        plt.xlabel(xlabel_bottom, fontdict=font_x)
-        plt.ylabel(ylabel_left, fontdict=font_y)
+        self.set_fonts(label_font, xlabel_color, ylabel_color, title_color)
+        plt.xlabel(xlabel_bottom, fontdict=self.font_x)
+        plt.ylabel(ylabel_left, fontdict=self.font_y)
 
         # TITLE
         if not smart_title:
-            plt.title("PVs vs. Time", fontdict=font_title)
+            plt.title("PVs vs. Time", fontdict=self.font_title)
         else:
             # create a title using the PV names
             pv_list = [df_curr.columns[1] for df_curr in df_list]
-            plt.title(f"{", ".join(pv_list)} vs. Time", fontdict=font_title)
+            plt.title(f"{", ".join(pv_list)} vs. Time", fontdict=self.font_title)
 
         # PLOTTING
         for i in range(len(df_list)):  # plot each DataFrame in df_list
-            df_curr = df_list[i]
-            if not is_scatter:
+            df_curr = df_list[i]  # current DataFrame plotted
+            col = df_curr.columns[1]  # y-axis Series for each of the DataFrames
+            if not is_scatter:  # line plot
                 # choose a line type and plot accordingly
-                curr_line_type = line_types[i % len(line_types)]  # cycle through the line_types list
+                curr_line_type = line_types[i % len(line_types)]  # cycle through the list
                 # marker plot
                 if is_marker:
-                    ax.plot(df_curr["timestamps"], df_curr[df_curr.columns[1]], color=pv_colors[i % len(pv_colors)],
-                            linestyle=curr_line_type, label=df_curr.columns[1],
+                    ax.plot(df_curr["timestamps"], df_curr[col], color=pv_colors[i % len(pv_colors)],
+                            linestyle=curr_line_type, label=col,
                             marker=marker_types[i % len(marker_types)], markersize=marker_size)
                 # line plot
                 else:
-                    ax.plot(df_curr["timestamps"], df_curr[df_curr.columns[1]], color=pv_colors[i % len(pv_colors)],
-                            linestyle=curr_line_type, label=df_curr.columns[1])
+                    ax.plot(df_curr["timestamps"], df_curr[col], color=pv_colors[i % len(pv_colors)],
+                            linestyle=curr_line_type, label=col)
             # scatter plot
             else:
-                ax.scatter(df_curr["timestamps"], df_curr[df_curr.columns[1]], label=df_curr.columns[1], s=marker_size)
+                ax.scatter(df_curr["timestamps"], df_curr[col], label=col, s=marker_size)
 
         ax.legend()
         plt.show()
@@ -161,8 +174,6 @@ class ArchiverPlotter:
                          pv_y: str,
                          width=10,
                          height=7,
-                         xlabel_bottom="Timestamp",
-                         ylabel_left="PV",
                          xlabel_color="black",
                          ylabel_color="black",
                          title_color="black",
@@ -173,9 +184,10 @@ class ArchiverPlotter:
                          is_scatter=True,
                          is_marker=False,
                          marker_size=5,
-                         pv_labels=None,
+                         pv_xlabel=None,
+                         pv_ylabel=None,
                          num_ticks=7,
-                         smart_title=False) -> None:
+                         smart_labels=False) -> None:
         """Plot the correlation of two PVs. 
 
         :param df: The DataFrame from which the PVs are plotted. 
@@ -184,8 +196,6 @@ class ArchiverPlotter:
 
         :param width: The width of the plot to be rendered.
         :param height: The height of the plot to be rendered.
-        :param xlabel_bottom: The label that will be on the bottom of the plot.
-        :param ylabel_left: The label that will be to the left of the plot.
         :param xlabel_color: The color of the x label/s.
         :param ylabel_color: The color of the y label/s.
         :param title_color: The color of the title.
@@ -196,58 +206,43 @@ class ArchiverPlotter:
         :param is_scatter: A boolean for whether to plot all points as scatter, or to plot as lines.
         :param is_marker: A boolean for whether to plot all points as markers.
         :param marker_size: The size of the scatter marker, if scatter is chosen as a line_types option.
-        :param pv_labels: A list of labels for each PV, in the order of df_list.
+        :param pv_xlabel: The label for the x-axis.
+        :param pv_ylabel: The label for the y-axis.
         :param num_ticks: The number of ticks along the x-axis of the plot.
-        :param smart_title: A boolean for whether to list the PVs in the title.
+        :param smart_labels: A boolean for whether to list the PVs in the title.
         """
-
-        # LEGEND LABELS
-        if pv_labels is not None:
-            df.rename(columns={df.columns[1]: pv_labels[0], df.columns[2]: pv_labels[1]}, inplace=True)
 
         fig, ax = plt.subplots(figsize=(width, height), layout="constrained")
 
-        # FONTS
-        font_x = {
-            "family": label_font,
-            "color": xlabel_color,
-            "size": 16
-        }
-        font_y = {
-            "family": label_font,
-            "color": ylabel_color,
-            "size": 16
-        }
-        font_title = {
-            "family": label_font,
-            "color": title_color,
-            "size": 20
-        }
+        # LEGEND LABELS
+        if pv_xlabel and pv_ylabel is not None:
+            df.rename(columns={pv_x: pv_xlabel, pv_y: pv_ylabel}, inplace=True)
 
         # LABELS
+        if smart_labels and pv_xlabel and pv_ylabel is not None:
+            self.label_settings["y_axis"] = pv_ylabel
+            self.label_settings["x_axis"] = pv_xlabel
+
+        self.set_fonts(label_font, xlabel_color, ylabel_color, title_color)
+        plt.title(f"{self.label_settings["y_axis"]} vs. {self.label_settings["x_axis"]}", fontdict=self.font_title)
+        plt.xlabel(self.label_settings["x_axis"], fontdict=self.font_x)
+        plt.ylabel(self.label_settings["y_axis"], fontdict=self.font_y)
+
         ax.xaxis.set_major_locator(ticker.LinearLocator(num_ticks))
         ax.yaxis.set_major_locator(ticker.LinearLocator(num_ticks))
-        plt.xlabel(xlabel_bottom, fontdict=font_x)
-        plt.ylabel(ylabel_left, fontdict=font_y)
-
-        # TITLE
-        if not smart_title:
-            ax.set_title(f"{pv_y} vs. {pv_x}")
-        else:
-            plt.title(f"{pv_labels[0]} vs. {pv_labels[1]}", fontdict=font_title)
 
         # PLOTTING
-        if not is_scatter:
-            # marker plot
+        if not is_scatter:  # line plot
+            # with marker
             if is_marker:
-                ax.plot(df[pv_x], df[pv_y], color=correl_color, linestyle=line_type, marker=marker_type,
+                ax.plot(df[pv_xlabel], df[pv_ylabel], color=correl_color, linestyle=line_type, marker=marker_type,
                         markersize=marker_size)
-            # line plot
+            # without marker
             else:
-                ax.plot(df[pv_x], df[pv_y], color=correl_color, linestyle=line_type)
+                ax.plot(df[pv_xlabel], df[pv_ylabel], color=correl_color, linestyle=line_type)
         # scatter plot
         else:
-            ax.scatter(df[pv_x], df[pv_y], color=correl_color, s=marker_size)
+            ax.scatter(df[pv_xlabel], df[pv_ylabel], color=correl_color, s=marker_size)
 
         plt.show()
         return None
