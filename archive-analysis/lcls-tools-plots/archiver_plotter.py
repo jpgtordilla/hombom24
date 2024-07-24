@@ -1,13 +1,11 @@
 import sys
-# TODO: change to relative path within lcls_tools
-sys.path.append(
-    '/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/lcls_tools')
-import common.data_analysis.archiver as arch  # type: ignore
 from datetime import datetime
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
+# TODO: change to relative path within lcls_tools
+sys.path.append('/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/lcls_tools')
+import common.data_analysis.archiver as arch  # type: ignore
 
 
 class ArchiverPlotter:
@@ -31,9 +29,12 @@ class ArchiverPlotter:
             "y_axis": "",
             "x_axis": ""
         }
+        self.tick_x_size = 10
+        self.tick_y_size = 10
         return
 
-    def set_fonts(self, label_font, xlabel_color, ylabel_color, title_color):
+    def set_fonts(self, label_font, xlabel_color, ylabel_color, title_color, tick_size_x, tick_size_y, title_size,
+                  label_size) -> None:
         """Sets font instance variables."""
         self.font_x["family"] = label_font
         self.font_y["family"] = label_font
@@ -41,6 +42,12 @@ class ArchiverPlotter:
         self.font_x["color"] = xlabel_color
         self.font_y["color"] = ylabel_color
         self.font_title["color"] = title_color
+        self.font_x["size"] = label_size
+        self.font_y["size"] = label_size
+        self.tick_x_size = tick_size_x
+        self.tick_y_size = tick_size_y
+        self.font_title["size"] = title_size
+        return None
 
     """HELPER METHODS FOR PLOTTING"""
 
@@ -83,12 +90,13 @@ class ArchiverPlotter:
                           df_list: list[pd.DataFrame],
                           width=10,
                           height=7,
-                          xlabel_bottom="Timestamp",
-                          ylabel_left="PV",
+                          xlabel="Timestamp",
+                          ylabel="PV",
                           xlabel_color="black",
                           ylabel_color="black",
                           title_color="black",
                           label_font="Helvetica",
+                          label_size=16,
                           pv_colors=("tab:blue", "tab:orange", "tab:green", "tab:red", "tab:purple"),
                           line_types=("solid", "dashed", "dashdot", "dotted"),
                           marker_types=("x", ".", "^", "s", "p", "*"),
@@ -97,6 +105,9 @@ class ArchiverPlotter:
                           marker_size=5,
                           pv_labels=None,
                           num_ticks=7,
+                          tick_size_x=10,
+                          tick_size_y=10,
+                          title_size=20,
                           smart_title=False) -> None:
         """Plots a nonempty list of PVs over time.
 
@@ -104,12 +115,13 @@ class ArchiverPlotter:
 
         :param width: The width of the plot to be rendered. 
         :param height: The height of the plot to be rendered. 
-        :param xlabel_bottom: The label that will be on the bottom of the plot.
-        :param ylabel_left: The label that will be to the left of the plot.
+        :param xlabel: The label that will be on the bottom of the plot.
+        :param ylabel: The label that will be to the left of the plot.
         :param xlabel_color: The color of the x label/s.
         :param ylabel_color: The color of the y label/s.
         :param title_color: The color of the title.
-        :param label_font: The font for all the labels for the plot. 
+        :param label_font: The font for all the labels for the plot.
+        :param label_size: The size of the labels for the plot.
         :param pv_colors: A list of colors for each pv that is plotted, in the order of df_list. 
         :param line_types: A list of all line types for each pv that is plotted, in the order of df_list.
         :param marker_types: A list of all markers for each pv that is plotted, in the order of df_list.
@@ -118,6 +130,9 @@ class ArchiverPlotter:
         :param marker_size: The size of the scatter marker, if scatter is chosen as a line_types option. 
         :param pv_labels: A list of labels for each PV, in the order of df_list.
         :param num_ticks: The number of ticks along the x-axis of the plot.
+        :param tick_size_x: The size of the tick labels along the x-axis of the plot.
+        :param tick_size_y: The size of the tick labels along the x-axis of the plot.
+        :param title_size: The size of the title of the plot.
         :param smart_title: A boolean for whether to list the PVs in the title.
         """
 
@@ -130,11 +145,14 @@ class ArchiverPlotter:
                 df_curr.rename(columns={df_curr.columns[1]: pv_labels[i]}, inplace=True)
 
         # LABELS
+        self.set_fonts(label_font, xlabel_color, ylabel_color, title_color, tick_size_x, tick_size_y, title_size,
+                       label_size)
+        plt.xlabel(xlabel, fontdict=self.font_x)
+        plt.ylabel(ylabel, fontdict=self.font_y)
         ax.xaxis.set_major_locator(ticker.LinearLocator(num_ticks))
         ax.yaxis.set_major_locator(ticker.LinearLocator(num_ticks))
-        self.set_fonts(label_font, xlabel_color, ylabel_color, title_color)
-        plt.xlabel(xlabel_bottom, fontdict=self.font_x)
-        plt.ylabel(ylabel_left, fontdict=self.font_y)
+        ax.tick_params(axis="x", labelsize=self.tick_x_size)
+        ax.tick_params(axis="y", labelsize=self.tick_y_size)
 
         # TITLE
         if not smart_title:
@@ -168,26 +186,30 @@ class ArchiverPlotter:
         plt.show()
         return None
 
-    def plot_correlation(self,
-                         df: pd.DataFrame,
-                         pv_x: str,
-                         pv_y: str,
-                         width=10,
-                         height=7,
-                         xlabel_color="black",
-                         ylabel_color="black",
-                         title_color="black",
-                         label_font="Helvetica",
-                         correl_color="tab:blue",
-                         line_type="solid",
-                         marker_type=".",
-                         is_scatter=True,
-                         is_marker=False,
-                         marker_size=5,
-                         pv_xlabel=None,
-                         pv_ylabel=None,
-                         num_ticks=7,
-                         smart_labels=False) -> None:
+    def plot_correl(self,
+                    df: pd.DataFrame,
+                    pv_x: str,
+                    pv_y: str,
+                    width=10,
+                    height=7,
+                    xlabel_color="black",
+                    ylabel_color="black",
+                    title_color="black",
+                    label_font="Helvetica",
+                    label_size=16,
+                    correl_color="tab:blue",
+                    line_type="solid",
+                    marker_type=".",
+                    is_scatter=True,
+                    is_marker=False,
+                    marker_size=5,
+                    pv_xlabel=None,
+                    pv_ylabel=None,
+                    num_ticks=7,
+                    tick_size_x=10,
+                    tick_size_y=10,
+                    title_size=20,
+                    smart_labels=False) -> None:
         """Plot the correlation of two PVs. 
 
         :param df: The DataFrame from which the PVs are plotted. 
@@ -200,6 +222,7 @@ class ArchiverPlotter:
         :param ylabel_color: The color of the y label/s.
         :param title_color: The color of the title.
         :param label_font: The font for all the labels for the plot.
+        :param label_size: The size of the labels for the plot.
         :param correl_color: The color of the correlation plot.
         :param line_type: The default line type for the plot.
         :param marker_type: The default marker type for the plot.
@@ -209,6 +232,9 @@ class ArchiverPlotter:
         :param pv_xlabel: The label for the x-axis.
         :param pv_ylabel: The label for the y-axis.
         :param num_ticks: The number of ticks along the x-axis of the plot.
+        :param tick_size_x: The size of the tick labels along the x-axis of the plot.
+        :param tick_size_y: The size of the tick labels along the x-axis of the plot.
+        :param title_size: The size of the title of the plot.
         :param smart_labels: A boolean for whether to list the PVs in the title.
         """
 
@@ -223,13 +249,16 @@ class ArchiverPlotter:
             self.label_settings["y_axis"] = pv_ylabel
             self.label_settings["x_axis"] = pv_xlabel
 
-        self.set_fonts(label_font, xlabel_color, ylabel_color, title_color)
+        self.set_fonts(label_font, xlabel_color, ylabel_color, title_color, tick_size_x, tick_size_y, title_size,
+                       label_size)
         plt.title(f"{self.label_settings["y_axis"]} vs. {self.label_settings["x_axis"]}", fontdict=self.font_title)
         plt.xlabel(self.label_settings["x_axis"], fontdict=self.font_x)
         plt.ylabel(self.label_settings["y_axis"], fontdict=self.font_y)
 
         ax.xaxis.set_major_locator(ticker.LinearLocator(num_ticks))
         ax.yaxis.set_major_locator(ticker.LinearLocator(num_ticks))
+        ax.tick_params(axis="x", labelsize=self.tick_x_size)
+        ax.tick_params(axis="y", labelsize=self.tick_y_size)
 
         # PLOTTING
         if not is_scatter:  # line plot
