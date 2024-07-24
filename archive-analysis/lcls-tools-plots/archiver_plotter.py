@@ -1,6 +1,7 @@
 import sys
 from datetime import datetime
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 # TODO: change to relative path within lcls_tools
@@ -84,6 +85,25 @@ class ArchiverPlotter:
 
         return pd.merge(df_y, df_x, on="timestamps")  # merge DataFrames on equal timestamp strings
 
+    def get_formatted_timestamps(self, df_list) -> list[str]:
+        """Removes redundant timestamp labels if they are the same throughout all the data points."""
+        date_list = df_list[0]["timestamps"].tolist()
+        date_list = [datetime.strptime(date, "%m/%d/%Y %H:%M:%S").strftime("%Y/%m/%d %H:%M:%S") for date in date_list]
+        # compares the first and last timestamp
+        first_date = date_list[0]
+        last_date = date_list[-1]
+        date_format_list = ["%Y/", "%m/", "%d", " ", "%H:", "%M:", "%S"]
+        for i in range(len(first_date)):
+            curr_first_date = first_date[i]
+            curr_last_date = last_date[i]
+            # if the current year, month, day, etc. is not the same, then print the remaining timestamps on the axis
+            if curr_first_date != curr_last_date:
+                break
+            if curr_first_date == "/" or curr_first_date == ":" or curr_last_date == " ":
+                del date_format_list[0]
+        date_format_str = "".join(date_format_list)
+        return [datetime.strptime(date, "%Y/%m/%d %H:%M:%S").strftime(date_format_str) for date in date_list]
+
     """PLOTTING METHODS"""
 
     def plot_pv_over_time(self,
@@ -108,7 +128,8 @@ class ArchiverPlotter:
                           tick_size_x=10,
                           tick_size_y=10,
                           title_size=20,
-                          smart_title=False) -> None:
+                          smart_title=False,
+                          smart_timestamps=True) -> None:
         """Plots a nonempty list of PVs over time.
 
         :param df_list: A list of DataFrames from which to plot the PVs.
@@ -134,33 +155,17 @@ class ArchiverPlotter:
         :param tick_size_y: The size of the tick labels along the x-axis of the plot.
         :param title_size: The size of the title of the plot.
         :param smart_title: A boolean for whether to list the PVs in the title.
+        :param smart_timestamps: A boolean for whether to reduce redundant timestamp labels.
         """
 
         fig, ax = plt.subplots(figsize=(width, height), layout="constrained")
 
         # LEGEND LABELS
         if pv_labels is not None:
+            # rename columns to label names
             for i in range(len(df_list)):
                 df_curr = df_list[i]
                 df_curr.rename(columns={df_curr.columns[1]: pv_labels[i]}, inplace=True)
-
-        # LABELS
-        self.set_fonts(label_font, xlabel_color, ylabel_color, title_color, tick_size_x, tick_size_y, title_size,
-                       label_size)
-        plt.xlabel(xlabel, fontdict=self.font_x)
-        plt.ylabel(ylabel, fontdict=self.font_y)
-        ax.xaxis.set_major_locator(ticker.LinearLocator(num_ticks))
-        ax.yaxis.set_major_locator(ticker.LinearLocator(num_ticks))
-        ax.tick_params(axis="x", labelsize=self.tick_x_size)
-        ax.tick_params(axis="y", labelsize=self.tick_y_size)
-
-        # TITLE
-        if not smart_title:
-            plt.title("PVs vs. Time", fontdict=self.font_title)
-        else:
-            # create a title using the PV names
-            pv_list = [df_curr.columns[1] for df_curr in df_list]
-            plt.title(f"{", ".join(pv_list)} vs. Time", fontdict=self.font_title)
 
         # PLOTTING
         for i in range(len(df_list)):  # plot each DataFrame in df_list
@@ -182,7 +187,33 @@ class ArchiverPlotter:
             else:
                 ax.scatter(df_curr["timestamps"], df_curr[col], label=col, s=marker_size)
 
+        # LABELS
         ax.legend()
+        self.set_fonts(label_font, xlabel_color, ylabel_color, title_color, tick_size_x, tick_size_y,
+                       title_size,
+                       label_size)
+        plt.xlabel(xlabel, fontdict=self.font_x)
+        plt.ylabel(ylabel, fontdict=self.font_y)
+        ax.tick_params(axis="x", labelsize=self.tick_x_size)
+        ax.tick_params(axis="y", labelsize=self.tick_y_size)
+        ax.ticklabel_format(axis="y", style='sci', scilimits=(-3, 3))  # scientific notation outside range 10^-3 to 10^3
+
+        # TICKS
+        if smart_timestamps:
+            xticklabels = self.get_formatted_timestamps(df_list)  # remove redundant timestamp labels
+            ax.set_xticks(range(len(xticklabels)))  # set a fixed number of ticks to avoid warnings
+            ax.set_xticklabels(xticklabels)
+        ax.xaxis.set_major_locator(plt.MaxNLocator(num_ticks))  # reduce the amount of ticks for both axes
+        ax.yaxis.set_major_locator(plt.MaxNLocator(num_ticks))
+
+        # TITLE
+        if not smart_title:
+            plt.title("PVs vs. Time", fontdict=self.font_title)
+        else:
+            # create a title using the PV names
+            pv_list = [df_curr.columns[1] for df_curr in df_list]
+            plt.title(f"{", ".join(pv_list)} vs. Time", fontdict=self.font_title)
+
         plt.show()
         return None
 
@@ -244,22 +275,6 @@ class ArchiverPlotter:
         if pv_xlabel and pv_ylabel is not None:
             df.rename(columns={pv_x: pv_xlabel, pv_y: pv_ylabel}, inplace=True)
 
-        # LABELS
-        if smart_labels and pv_xlabel and pv_ylabel is not None:
-            self.label_settings["y_axis"] = pv_ylabel
-            self.label_settings["x_axis"] = pv_xlabel
-
-        self.set_fonts(label_font, xlabel_color, ylabel_color, title_color, tick_size_x, tick_size_y, title_size,
-                       label_size)
-        plt.title(f"{self.label_settings["y_axis"]} vs. {self.label_settings["x_axis"]}", fontdict=self.font_title)
-        plt.xlabel(self.label_settings["x_axis"], fontdict=self.font_x)
-        plt.ylabel(self.label_settings["y_axis"], fontdict=self.font_y)
-
-        ax.xaxis.set_major_locator(ticker.LinearLocator(num_ticks))
-        ax.yaxis.set_major_locator(ticker.LinearLocator(num_ticks))
-        ax.tick_params(axis="x", labelsize=self.tick_x_size)
-        ax.tick_params(axis="y", labelsize=self.tick_y_size)
-
         # PLOTTING
         if not is_scatter:  # line plot
             # with marker
@@ -272,6 +287,22 @@ class ArchiverPlotter:
         # scatter plot
         else:
             ax.scatter(df[pv_xlabel], df[pv_ylabel], color=correl_color, s=marker_size)
+
+        # LABELS
+        if smart_labels and pv_xlabel and pv_ylabel is not None:
+            self.label_settings["y_axis"] = pv_ylabel
+            self.label_settings["x_axis"] = pv_xlabel
+
+        self.set_fonts(label_font, xlabel_color, ylabel_color, title_color, tick_size_x, tick_size_y, title_size,
+                       label_size)
+        plt.title(f"{self.label_settings["y_axis"]} vs. {self.label_settings["x_axis"]}", fontdict=self.font_title)
+        plt.xlabel(self.label_settings["x_axis"], fontdict=self.font_x)
+        plt.ylabel(self.label_settings["y_axis"], fontdict=self.font_y)
+        ax.tick_params(axis="x", labelsize=self.tick_x_size)
+        ax.tick_params(axis="y", labelsize=self.tick_y_size)
+        ax.ticklabel_format(axis="y", style='sci', scilimits=(-3, 3))  # scientific notation outside range 10^-3 to 10^3
+        ax.xaxis.set_major_locator(plt.MaxNLocator(num_ticks))
+        ax.yaxis.set_major_locator(plt.MaxNLocator(num_ticks))
 
         plt.show()
         return None

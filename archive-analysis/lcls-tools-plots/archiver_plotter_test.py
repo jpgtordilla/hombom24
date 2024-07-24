@@ -17,7 +17,7 @@ df_homc1 = aplot.create_df(homc1_pv, start_str, end_str)
 df_cor = aplot.create_correlation_df(df_xcor, df_homc1)
 
 # Plot a list of PVs over time
-aplot.plot_pv_over_time([df_xcor, df_ycor], pv_labels=["XCOR", "YCOR"], ylabel="mm", tick_size_x=8)
+aplot.plot_pv_over_time([df_xcor, df_ycor], pv_labels=["XCOR", "YCOR"], ylabel="mm")
 
 # Plot a correlation between two PVs using their correlation DataFrame and String identifiers
 aplot.plot_correl(df_cor, xcor_pv, homc1_pv, pv_xlabel="XCOR (mm)", pv_ylabel="HOM C1 (arb. units)", smart_labels=True)
