@@ -5,14 +5,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from pandas import DataFrame
-
-# TODO: change to relative path within lcls_tools
 sys.path.append('/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/lcls_tools')
 import common.data_analysis.archiver as arch  # type: ignore
 
 
 class ArchiverPlotter:
     def __init__(self):
+        self.max_year_range = 5  # set the maximum timeframe for which to request PV data
         self.font_x = {
             "family": "",
             "color": "",
@@ -36,8 +35,8 @@ class ArchiverPlotter:
         self.tick_y_size = 10
         return
 
-    def set_fonts(self, label_font, xlabel_color, ylabel_color, title_color, tick_size_x, tick_size_y, title_size,
-                  label_size) -> None:
+    def set_fonts(self, label_font: str, xlabel_color: str, ylabel_color: str, title_color: str, tick_size_x: int,
+                  tick_size_y: int, title_size: int, label_size: int):
         """Sets font instance variables."""
         self.font_x["family"] = label_font
         self.font_y["family"] = label_font
@@ -63,10 +62,17 @@ class ArchiverPlotter:
         :param start: The start date of the plot in YYYY/MM/DD HH:MM:SS format.
         :param end: The end date of the plot in YYYY/MM/DD HH:MM:SS format.
         """
+
+        # ERROR HANDLING
         if pv_str == "":
             raise ValueError("Empty PV string given")
-        if start or end == "":
+        if ":" not in pv_str:  # check if there are any illegal characters
+            raise KeyError("Invalid PV string given")
+        if start == "" or end == "":
             raise ValueError("Empty start or end date string given")
+        if int(end.split("/")[0]) - int(start.split("/")[0]) > self.max_year_range:
+            raise ValueError("Too large of a dataset requested")
+
         # specify a start and end date
         format_string = "%Y/%m/%d %H:%M:%S"
         start_date_obj = datetime.strptime(start, format_string)  # create a datetime object
@@ -91,13 +97,16 @@ class ArchiverPlotter:
             return pd.DataFrame()
         return pd.merge(df_y, df_x, on="timestamps")  # merge DataFrames on equal timestamp strings
 
-    def get_formatted_timestamps(self, df_list) -> list[str]:
+    def get_formatted_timestamps(self, df_list: list[pd.DataFrame]) -> list[str]:
         """Removes redundant timestamp labels if they are the same throughout all the data points."""
+        if len(df_list) == 0:  # handle empty lists
+            return []
         date_list = df_list[0]["timestamps"].tolist()
         # compares the first and last timestamp
         first_date = date_list[0]
         last_date = date_list[-1]
         date_format_list = ["%Y/", "%m/", "%d", " ", "%H:", "%M:", "%S"]
+        # go character by character, comparing digits until they differ, then formatting appropriately
         for i in range(len(first_date)):
             curr_first_date = first_date[i]
             curr_last_date = last_date[i]
@@ -107,34 +116,35 @@ class ArchiverPlotter:
             if curr_first_date == "/" or curr_first_date == ":" or curr_last_date == " ":
                 del date_format_list[0]
         date_format_str = "".join(date_format_list)
+        # returns a list of reformatted timestamp strings that will be plotted
         return [datetime.strptime(date, "%Y/%m/%d %H:%M:%S").strftime(date_format_str) for date in date_list]
 
     """PLOTTING METHODS"""
 
     def plot_pv_over_time(self,
                           df_list: list[pd.DataFrame],
-                          width=10,
-                          height=7,
-                          xlabel="Timestamp",
-                          ylabel="PV",
-                          xlabel_color="black",
-                          ylabel_color="black",
-                          title_color="black",
-                          label_font="Helvetica",
-                          label_size=16,
-                          pv_colors=("tab:blue", "tab:orange", "tab:green", "tab:red", "tab:purple"),
-                          line_types=("solid", "dashed", "dashdot", "dotted"),
-                          marker_types=("x", ".", "^", "s", "p", "*"),
-                          is_scatter=False,
-                          is_marker=False,
-                          marker_size=5,
-                          pv_labels=None,
-                          num_ticks=7,
-                          tick_size_x=10,
-                          tick_size_y=10,
-                          title_size=20,
-                          smart_title=False,
-                          smart_timestamps=True) -> None:
+                          width: int = 10,
+                          height: int = 7,
+                          xlabel: str = "Timestamp",
+                          ylabel: str = "PV",
+                          xlabel_color: str = "black",
+                          ylabel_color: str = "black",
+                          title_color: str = "black",
+                          label_font: str = "Helvetica",
+                          label_size: int = 16,
+                          pv_colors: tuple[str] = ("tab:blue", "tab:orange", "tab:green", "tab:red", "tab:purple"),
+                          line_types: tuple[str] = ("solid", "dashed", "dashdot", "dotted"),
+                          marker_types: tuple[str] = ("x", ".", "^", "s", "p", "*"),
+                          is_scatter: bool = False,
+                          is_marker: bool = False,
+                          marker_size: int = 5,
+                          pv_labels: list[str] = None,
+                          num_ticks: int = 7,
+                          tick_size_x: int = 10,
+                          tick_size_y: int = 10,
+                          title_size: int = 20,
+                          smart_title: bool = False,
+                          smart_timestamps: bool = True):
         """Plots a nonempty list of PVs over time.
 
         :param df_list: A list of DataFrames from which to plot the PVs.
@@ -162,6 +172,10 @@ class ArchiverPlotter:
         :param smart_title: A boolean for whether to list the PVs in the title.
         :param smart_timestamps: A boolean for whether to reduce redundant timestamp labels.
         """
+
+        # ERROR HANDLING
+        if len(df_list) == 0:
+            raise ValueError("Empty DataFrame given")
 
         fig, ax = plt.subplots(figsize=(width, height), layout="constrained")
 
@@ -194,8 +208,7 @@ class ArchiverPlotter:
 
         # LABELS
         ax.legend()
-        self.set_fonts(label_font, xlabel_color, ylabel_color, title_color, tick_size_x, tick_size_y,
-                       title_size,
+        self.set_fonts(label_font, xlabel_color, ylabel_color, title_color, tick_size_x, tick_size_y, title_size,
                        label_size)
         plt.xlabel(xlabel, fontdict=self.font_x)
         plt.ylabel(ylabel, fontdict=self.font_y)
@@ -220,32 +233,31 @@ class ArchiverPlotter:
             plt.title(f"{", ".join(pv_list)} vs. Time", fontdict=self.font_title)
 
         plt.show()
-        return None
 
     def plot_correl(self,
                     df: pd.DataFrame,
                     pv_x: str,
                     pv_y: str,
-                    width=10,
-                    height=7,
-                    xlabel_color="black",
-                    ylabel_color="black",
-                    title_color="black",
-                    label_font="Helvetica",
-                    label_size=16,
-                    correl_color="tab:blue",
-                    line_type="solid",
-                    marker_type=".",
-                    is_scatter=True,
-                    is_marker=False,
-                    marker_size=5,
-                    pv_xlabel=None,
-                    pv_ylabel=None,
-                    num_ticks=7,
-                    tick_size_x=10,
-                    tick_size_y=10,
-                    title_size=20,
-                    smart_labels=False) -> None:
+                    width: int = 10,
+                    height: int = 7,
+                    xlabel_color: str = "black",
+                    ylabel_color: str = "black",
+                    title_color: str = "black",
+                    label_font: str = "Helvetica",
+                    label_size: int = 16,
+                    correl_color: str = "tab:blue",
+                    line_type: str = "solid",
+                    marker_type: str = ".",
+                    is_scatter: bool = True,
+                    is_marker: bool = False,
+                    marker_size: int = 5,
+                    pv_xlabel: str = None,
+                    pv_ylabel: str = None,
+                    num_ticks: int = 7,
+                    tick_size_x: int = 10,
+                    tick_size_y: int = 10,
+                    title_size: int = 20,
+                    smart_labels: bool = False):
         """Plot the correlation of two PVs. 
 
         :param df: The DataFrame from which the PVs are plotted. 
@@ -274,11 +286,18 @@ class ArchiverPlotter:
         :param smart_labels: A boolean for whether to list the PVs in the title.
         """
 
+        # ERROR HANDLING
+        if pv_x not in df.columns or pv_y not in df.columns:
+            raise ValueError("PVs not found in the given DataFrame.")
+
         fig, ax = plt.subplots(figsize=(width, height), layout="constrained")
 
         # LEGEND LABELS
-        if pv_xlabel and pv_ylabel is not None:
+        if pv_xlabel is not None and pv_ylabel is not None:
             df.rename(columns={pv_x: pv_xlabel, pv_y: pv_ylabel}, inplace=True)
+        else:
+            pv_xlabel = pv_x
+            pv_ylabel = pv_y
 
         # PLOTTING
         if not is_scatter:  # line plot
@@ -294,7 +313,7 @@ class ArchiverPlotter:
             ax.scatter(df[pv_xlabel], df[pv_ylabel], color=correl_color, s=marker_size)
 
         # LABELS
-        if smart_labels and pv_xlabel and pv_ylabel is not None:
+        if smart_labels and pv_xlabel is not None and pv_ylabel is not None:
             self.label_settings["y_axis"] = pv_ylabel
             self.label_settings["x_axis"] = pv_xlabel
 
@@ -310,4 +329,3 @@ class ArchiverPlotter:
         ax.yaxis.set_major_locator(plt.MaxNLocator(num_ticks))
 
         plt.show()
-        return None
