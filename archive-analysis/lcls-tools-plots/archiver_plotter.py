@@ -4,6 +4,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
+from pandas import DataFrame
+
 # TODO: change to relative path within lcls_tools
 sys.path.append('/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/lcls_tools')
 import common.data_analysis.archiver as arch  # type: ignore
@@ -52,7 +54,7 @@ class ArchiverPlotter:
 
     """HELPER METHODS FOR PLOTTING"""
 
-    def create_df(self, pv_str: str, start: str, end: str) -> pd.DataFrame:
+    def create_df(self, pv_str: str, start: str, end: str) -> DataFrame:
         """Create and return a DataFrame given a PV and start/end date.
 
         Column titles of the DataFrame are "timestamps" and the pv_str. 
@@ -61,7 +63,10 @@ class ArchiverPlotter:
         :param start: The start date of the plot in YYYY/MM/DD HH:MM:SS format.
         :param end: The end date of the plot in YYYY/MM/DD HH:MM:SS format.
         """
-
+        if pv_str == "":
+            raise ValueError("Empty PV string given")
+        if start or end == "":
+            raise ValueError("Empty start or end date string given")
         # specify a start and end date
         format_string = "%Y/%m/%d %H:%M:%S"
         start_date_obj = datetime.strptime(start, format_string)  # create a datetime object
@@ -72,7 +77,7 @@ class ArchiverPlotter:
         pv_dict = data[pv_str]
         pv_timestamps = pv_dict.timestamps
         pv_values = pv_dict.values
-        pv_clean_timestamps = [pv_timestamps[i].strftime('%m/%d/%Y %H:%M:%S') for i in
+        pv_clean_timestamps = [pv_timestamps[i].strftime(format_string) for i in
                                range(len(pv_timestamps))]  # clean and reformat timestamps from the dict
         return pd.DataFrame({"timestamps": pv_clean_timestamps, pv_str: pv_values})  # create df with columns
 
@@ -82,13 +87,13 @@ class ArchiverPlotter:
         :param df_y: The name of the PV or the DataFrame that will be plotted on the y-axis.
         :param df_x: The name of the PV that will be plotted on the x-axis.
         """
-
+        if df_x.empty or df_y.empty:
+            return pd.DataFrame()
         return pd.merge(df_y, df_x, on="timestamps")  # merge DataFrames on equal timestamp strings
 
     def get_formatted_timestamps(self, df_list) -> list[str]:
         """Removes redundant timestamp labels if they are the same throughout all the data points."""
         date_list = df_list[0]["timestamps"].tolist()
-        date_list = [datetime.strptime(date, "%m/%d/%Y %H:%M:%S").strftime("%Y/%m/%d %H:%M:%S") for date in date_list]
         # compares the first and last timestamp
         first_date = date_list[0]
         last_date = date_list[-1]
