@@ -3,7 +3,16 @@ import pandas as pd
 
 class ChargeSeparator:
     def __init__(self):
+        self.current_charges = []  # updated whenever a DataFrame is separated by charges
         return
+
+    @property
+    def current_charges(self):
+        return self._current_charges
+
+    @current_charges.setter
+    def current_charges(self, charge_list: list[float]):
+        self._current_charges = charge_list
 
     @staticmethod
     def create_clusters_from_list(vals, tolerance) -> list:
@@ -28,6 +37,20 @@ class ChargeSeparator:
 
         return clusters
 
+    def create_df(self, pv: str, start: str, end: str) -> pd.DataFrame:
+        """Helper method that returns a simplified DataFrame over a typically long period of time.
+
+        Makes a few requests, projects the amount for the desired timeframe, and divides this by a constant around
+        the IOPub data rate to get the ratio of the total amount of projected data points to the desired amount of
+        data points. Then a request is made by taking the interval between data points from the initial request and
+        multiplying it by this ratio, giving us the time between data points.
+
+        :param pv: the string representation of the requested PV.
+        :param start: the string representation of the start period in YYYY/MM/DD HH:MM:SS format.
+        :param end: the string representation of the end period.
+        """
+        pass
+
     def separate_df_by_charges(self, df: pd.DataFrame, pv_charge: str, tolerance: float = 0.1) -> list[pd.DataFrame]:
         """Given a DataFrame of PV data with a column for the PV values and charge values, this method separates
         the data by charge value and returns a list of DataFrames, each containing PV data over time for a given charge.
@@ -43,6 +66,7 @@ class ChargeSeparator:
         charge_list = df[pv_charge].tolist()
         charge_clusters = self.create_clusters_from_list(charge_list, tolerance)
         charge_vals = [cluster[0] for cluster in charge_clusters]  # first charge in each cluster, to use for comparison
+        self.current_charges = charge_vals
         for charge in charge_vals:
             # keep rows with charges within the tolerance range and add to the df_list
             df_curr_charge = df[(df[pv_charge] - charge >= 0) & (df[pv_charge] - charge <= tolerance)]
