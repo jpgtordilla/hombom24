@@ -10,7 +10,8 @@ sys.path.append(
     '/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/lcls_tools')
 import common.data_analysis.archiver as arch  # type: ignore
 
-IOPUB_LIMIT = 2E6  # the approximate value for the maximum amount of data points that can be requested in jupyter
+# TODO: experiment with this value
+DATA_LIMIT = 2E3  # the max amount of data that can be requested in a single occurrence
 INTERVAL_SAMPLE_SIZE = 100  # number of points from which the average interval between data points is calculated
 
 
@@ -216,8 +217,8 @@ class ChargeSeparator:
         format_string = "%Y/%m/%d %H:%M:%S"
         projected_num_points = predict_points_for_timeframe_per_period(pv, start, end, period_in_days)
         total_to_desired_ratio = 1
-        if projected_num_points > IOPUB_LIMIT:
-            total_to_desired_ratio = round(projected_num_points / IOPUB_LIMIT)
+        if projected_num_points > DATA_LIMIT:
+            total_to_desired_ratio = round(projected_num_points / DATA_LIMIT)
 
         df_list = []
         # get the intervals between each group of data and create separate DataFrames for each group
@@ -232,7 +233,7 @@ class ChargeSeparator:
             start_obj = current_range[0]
             end_obj = current_range[-1]
             # make a data request for the entire timeframe, with a set delta
-            # TODO: diagnose the issue here and potentially replace it with something else
+            # TODO: diagnose the issue here and potentially replace it with something else, in theory this should work!
             data_interval = arch.get_data_with_time_interval([pv], start_obj, end_obj,
                                                              time_delta=timedelta(seconds=delta))
             # create a DataFrame from this request
@@ -243,6 +244,7 @@ class ChargeSeparator:
                                    range(len(pv_timestamps))]  # clean and reformat timestamps from the dict
             df_curr = pd.DataFrame({"timestamps": pv_clean_timestamps, pv: pv_values})  # create df with columns
             df_list.append(df_curr)
+            datetime_range_index += 1  # go to the next pair of timestamps
 
         return pd.concat(df_list)
 
