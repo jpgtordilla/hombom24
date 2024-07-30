@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="921fffcd-2132-4ce5-accc-e90368313128" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/develop_epics_archiver_filter.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/develop_epics_archiver_filter.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -233,7 +232,7 @@
       <workItem from="1722278626223" duration="183000" />
       <workItem from="1722278993493" duration="18741000" />
       <workItem from="1722316953846" duration="120000" />
-      <workItem from="1722359101007" duration="4642000" />
+      <workItem from="1722359101007" duration="5056000" />
     </task>
     <servers />
   </component>
