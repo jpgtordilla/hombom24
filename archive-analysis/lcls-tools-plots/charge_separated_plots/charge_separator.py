@@ -6,11 +6,19 @@ import time
 import random
 # TODO: change to path to tools
 import sys
+
 sys.path.append(
     '/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/lcls_tools')
 import common.data_analysis.archiver as arch  # type: ignore
 
-# TODO: experiment with this value
+"""
+TODO: determine whether MEME yields better results
+Until then, we will keep the following code commented and unchanged. 
+A temporary replacement that analyzes data from the EPICS Archiver will be used until further notice. 
+"""
+
+'''
+# TODO: at 2E3, generates the same resolution as EPICS Archiver, but 20 times slower
 DATA_LIMIT = 2E3  # the max amount of data that can be requested in a single occurrence
 INTERVAL_SAMPLE_SIZE = 100  # number of points from which the average interval between data points is calculated
 
@@ -157,6 +165,14 @@ def get_data_interval_dict(pv_str: str, start_time: str, end_time: str, period_i
             day_index += period_in_days
 
     return interval_dict
+'''
+
+# EPICS ARCHIVER PEAK ANALYSIS
+
+
+def return_peak_areas_list(df: pd.DataFrame) -> list[list[datetime]]:
+    """Returns a 2D list of pairs of datetime objects that will be used to request data for only the peak areas."""
+    pass
 
 
 def create_clusters_from_list(vals, tolerance) -> list:
@@ -195,6 +211,7 @@ class ChargeSeparator:
     def current_charges(self, charge_list: list[float]):
         self._current_charges = charge_list
 
+    '''
     def create_df(self, pv: str, start: str, end: str, period_in_days: int) -> pd.DataFrame:
         """Helper method that returns a simplified DataFrame over a typically long period of time.
 
@@ -247,6 +264,7 @@ class ChargeSeparator:
             datetime_range_index += 1  # go to the next pair of timestamps
 
         return pd.concat(df_list)
+    '''
 
     def separate_df_by_charges(self, df: pd.DataFrame, pv_charge: str, tolerance: float = 0.1) -> list[pd.DataFrame]:
         """Given a DataFrame of PV data with a column for the PV values and charge values, this method separates
@@ -266,6 +284,6 @@ class ChargeSeparator:
         self.current_charges = charge_vals
         for charge in charge_vals:
             # keep rows with charges within the tolerance range and add to the df_list
-            df_curr_charge = df[(df[pv_charge] - abs(charge) >= 0) & (df[pv_charge] - abs(charge) <= tolerance)]
+            df_curr_charge = df[(df[pv_charge] - abs(charge) >= 0) & (((df[pv_charge] - abs(charge))/abs(charge)) <= tolerance)]
             df_list.append(df_curr_charge)
         return df_list

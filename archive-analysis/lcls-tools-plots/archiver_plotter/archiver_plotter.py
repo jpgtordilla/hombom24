@@ -56,7 +56,7 @@ class ArchiverPlotter:
     def create_df(self, pv_str: str, start: str, end: str) -> DataFrame:
         """Create and return a DataFrame given a PV and start/end date.
 
-        Column titles of the DataFrame are "timestamps" and the pv_str. 
+        Column titles of the DataFrame are "Timestamp" and the pv_str.
 
         :param pv_str: The PV to plot.
         :param start: The start date of the plot in YYYY/MM/DD HH:MM:SS format.
@@ -85,7 +85,7 @@ class ArchiverPlotter:
         pv_values = pv_dict.values
         pv_clean_timestamps = [pv_timestamps[i].strftime(format_string) for i in
                                range(len(pv_timestamps))]  # clean and reformat timestamps from the dict
-        return pd.DataFrame({"timestamps": pv_clean_timestamps, pv_str: pv_values})  # create df with columns
+        return pd.DataFrame({"Timestamp": pv_clean_timestamps, pv_str: pv_values})  # create df with columns
 
     def create_correlation_df(self, df_x: pd.DataFrame, df_y: pd.DataFrame) -> pd.DataFrame:
         """Given two DataFrames of PVs, return a single DataFrame with matching and aligned timestamps.
@@ -95,13 +95,13 @@ class ArchiverPlotter:
         """
         if df_x.empty or df_y.empty:
             return pd.DataFrame()
-        return pd.merge(df_y, df_x, on="timestamps")  # merge DataFrames on equal timestamp strings
+        return pd.merge(df_y, df_x, on="Timestamp")  # merge DataFrames on equal timestamp strings
 
     def get_formatted_timestamps(self, df_list: list[pd.DataFrame]) -> list[str]:
         """Removes redundant timestamp labels if they are the same throughout all the data points."""
         if len(df_list) == 0:  # handle empty lists
             return []
-        date_list = df_list[0]["timestamps"].tolist()
+        date_list = df_list[0]["Timestamp"].tolist()
         # compares the first and last timestamp
         first_date = date_list[0]
         last_date = date_list[-1]
@@ -195,16 +195,16 @@ class ArchiverPlotter:
                 curr_line_type = line_types[i % len(line_types)]  # cycle through the list
                 # marker plot
                 if is_marker:
-                    ax.plot(df_curr["timestamps"], df_curr[col], color=pv_colors[i % len(pv_colors)],
+                    ax.plot(df_curr["Timestamp"], df_curr[col], color=pv_colors[i % len(pv_colors)],
                             linestyle=curr_line_type, label=col,
                             marker=marker_types[i % len(marker_types)], markersize=marker_size)
                 # line plot
                 else:
-                    ax.plot(df_curr["timestamps"], df_curr[col], color=pv_colors[i % len(pv_colors)],
+                    ax.plot(df_curr["Timestamp"], df_curr[col], color=pv_colors[i % len(pv_colors)],
                             linestyle=curr_line_type, label=col)
             # scatter plot
             else:
-                ax.scatter(df_curr["timestamps"], df_curr[col], label=col, s=marker_size)
+                ax.scatter(df_curr["Timestamp"], df_curr[col], label=col, s=marker_size)
 
         # LABELS
         ax.legend()
