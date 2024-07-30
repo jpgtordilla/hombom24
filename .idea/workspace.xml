@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="921fffcd-2132-4ce5-accc-e90368313128" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/archiver_plotter/.ipynb_checkpoints/test_archiver_plotter-checkpoint.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/reference-files/notebooks/.ipynb_checkpoints/lcls_tools_test-checkpoint.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/reference-files/notebooks/lcls_tools_test.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/reference-files/notebooks/lcls_tools_test.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/develop_epics_archiver_filter.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/develop_epics_archiver_filter.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +16,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Jupyter Notebook" />
         <option value="Python Script" />
+        <option value="Jupyter Notebook" />
       </list>
     </option>
   </component>
@@ -76,20 +74,20 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/visual_tests" />
+      <recent name="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots" />
+      <recent name="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/epics_data" />
       <recent name="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/archiver_plotter" />
       <recent name="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/archiver_plotter/tests" />
-      <recent name="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/archiver_plotter/src" />
-      <recent name="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/notebooks" />
-      <recent name="$PROJECT_DIR$/archive-analysis/lcls-tools-plots" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter">
     <configuration name="Python tests for test_archiver_plotter.TestArchiverPlotter" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="hombom24" />
       <option name="ENV_FILES" value="" />
@@ -233,7 +231,9 @@
       <workItem from="1721947064414" duration="5850000" />
       <workItem from="1722010282355" duration="23883000" />
       <workItem from="1722278626223" duration="183000" />
-      <workItem from="1722278993493" duration="4661000" />
+      <workItem from="1722278993493" duration="18741000" />
+      <workItem from="1722316953846" duration="120000" />
+      <workItem from="1722359101007" duration="4642000" />
     </task>
     <servers />
   </component>
@@ -258,7 +258,7 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/visual_test_intervals.py</url>
+          <url>file://$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/visual_tests/visual_test_intervals.py</url>
           <line>3</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
@@ -276,8 +276,8 @@
     <SUITE FILE_PATH="coverage/hombom24$_pydev_execfile.coverage" NAME="_pydev_execfile Coverage Results" MODIFIED="1721930503682" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_HOME_DIR$/plugins/python/helpers/pydev/_pydev_imps" />
     <SUITE FILE_PATH="coverage/hombom24$archiver_plotter.coverage" NAME="archiver_plotter Coverage Results" MODIFIED="1721944752902" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/archiver_plotter/src" />
     <SUITE FILE_PATH="coverage/hombom24$archiver_plotter_test.coverage" NAME="archiver_plotter_test Coverage Results" MODIFIED="1721864507806" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive-analysis/lcls-tools-plots" />
-    <SUITE FILE_PATH="coverage/hombom24$archiver_plotter_examples.coverage" NAME="archiver_plotter_examples Coverage Results" MODIFIED="1721948443782" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/archiver_plotter" />
     <SUITE FILE_PATH="coverage/hombom24$visual_test_intervals.coverage" NAME="visual_test_intervals Coverage Results" MODIFIED="1722279066279" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots" />
+    <SUITE FILE_PATH="coverage/hombom24$archiver_plotter_examples.coverage" NAME="archiver_plotter_examples Coverage Results" MODIFIED="1722287200743" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/archiver_plotter" />
     <SUITE FILE_PATH="coverage/hombom24$chao_dataprocess_script.coverage" NAME="chao_dataprocess_script Coverage Results" MODIFIED="1721682116972" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/board-analysis" />
     <SUITE FILE_PATH="coverage/hombom24$visual_test_intervals_3.coverage" NAME="visual_test_intervals_3 Coverage Results" MODIFIED="1722037741332" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots" />
     <SUITE FILE_PATH="coverage/hombom24$.coverage" NAME=" Coverage Results" MODIFIED="1722279059971" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/archiver_plotter" />
