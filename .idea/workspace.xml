@@ -87,7 +87,7 @@
       <recent name="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/archiver_plotter/tests" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter">
     <configuration name="Python tests for test_archiver_plotter.TestArchiverPlotter" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="hombom24" />
       <option name="ENV_FILES" value="" />
@@ -233,7 +233,8 @@
       <workItem from="1722278626223" duration="183000" />
       <workItem from="1722278993493" duration="18741000" />
       <workItem from="1722316953846" duration="120000" />
-      <workItem from="1722359101007" duration="12856000" />
+      <workItem from="1722359101007" duration="13077000" />
+      <workItem from="1722446965786" duration="3623000" />
     </task>
     <servers />
   </component>
