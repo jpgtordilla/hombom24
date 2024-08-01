@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="921fffcd-2132-4ce5-accc-e90368313128" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/production_dev_epics_archiver_filter.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/develop_epics_archiver_filter.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/develop_epics_archiver_filter.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/production_dev_epics_archiver_filter.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/production_dev_epics_archiver_filter.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,7 +234,8 @@
       <workItem from="1722278993493" duration="18741000" />
       <workItem from="1722316953846" duration="120000" />
       <workItem from="1722359101007" duration="13077000" />
-      <workItem from="1722446965786" duration="12277000" />
+      <workItem from="1722446965786" duration="12324000" />
+      <workItem from="1722533063398" duration="3922000" />
     </task>
     <servers />
   </component>
