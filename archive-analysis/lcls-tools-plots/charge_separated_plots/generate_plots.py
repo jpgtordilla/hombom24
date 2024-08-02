@@ -3,6 +3,7 @@ import charge_plotter as cp
 import pandas as pd
 import sys
 from datetime import datetime, timedelta
+from bs4 import BeautifulSoup
 
 sys.path.append("/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/archiver_plotter")
 import archiver_plotter as ap  # type: ignore
@@ -13,6 +14,44 @@ pv_bpmx = "BPMS:GUNB:925:X"  # BPMX 02
 pv_ycor = "YCOR:GUNB:713:BACT"  # YCOR 04
 pv_bpmy = "BPMS:GUNB:925:Y"  # BPMY 02
 pv_charge = "TORO:GUNB:360:CHRG"
+
+def get_pairs_of_dates(file_path):
+    # Open and read the local HTML file
+    with open(file_path, 'r', encoding='utf-8') as file:
+        html_content = file.read()
+
+    # Create a BeautifulSoup object and specify the parser
+    soup = BeautifulSoup(html_content, 'html.parser')
+    dates = []
+    times = []
+
+    # Find all tags with class 'header_date'
+    date_tags = soup.find_all(class_='header_date')
+    for tag in date_tags:
+        curr_date = tag.get_text(strip=True)
+        dates.append(curr_date)
+
+    # Find all tags with class 'header_time'
+    time_tags = soup.find_all(class_='header_time')
+    for tag in time_tags:
+        curr_time = tag.get_text(strip=True)
+        times.append(curr_time)
+
+    datetimes = []
+
+    for index in range(len(dates)):
+        datetimes.append(f"{dates[index]} {times[index]}")
+
+    date_lists = [
+        [(datetime.strptime(datetimes[i], "%m/%d/%Y %H:%M") - timedelta(minutes=10)).strftime("%Y/%m/%d %H:%M:%S"),
+         datetime.strptime(datetimes[i], "%m/%d/%Y %H:%M").strftime("%Y/%m/%d %H:%M:%S")] for i in
+        range(len(datetimes))]
+
+    return date_lists
+
+
+start_end_dates = get_pairs_of_dates("/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/"
+                                     "charge_separated_plots/buncher_dates.html")
 
 
 def filter_hom(df_hom: pd.DataFrame) -> pd.DataFrame:
@@ -133,29 +172,38 @@ def plot_over_time_and_correlation(date_list, pv_list, label_list, unit_list):
     # unit_list = ["g/m", "mm", "arbitrary units"]
 
     # PLOT OVER TIME FOR A SHORT TIMEFRAME
-    range_start_date = date_list[0][0]
-    range_end_date = date_list[0][1]
+    range_start_date = date_list[2][0]
     curr_start_date_obj = datetime.strptime(range_start_date, "%Y/%m/%d %H:%M:%S")
-    timeseries_end_obj = curr_start_date_obj + timedelta(minutes=5)  # TODO: change to EPICS graphing if necessary
-    timeseries_end = timeseries_end_obj.strftime("%Y/%m/%d %H:%M:%S")
+    timeseries_end_obj = curr_start_date_obj + timedelta(minutes=7)  # TODO: change to EPICS graphing if necessary
+    range_end_date = timeseries_end_obj.strftime("%Y/%m/%d %H:%M:%S")
+    print(range_start_date, range_end_date)
+
+    # 2024/07/02 01:35:00 2024/07/02 01:42:00
+    # pv_hom = "SCOP:AMRF:RF01:AI_MEAS1"
+    # pv_xcor = "XCOR:GUNB:713:BACT"  # XCOR 04
+    # pv_bpmx = "BPMS:GUNB:925:X"  # BPMX 02
+    # pv_ycor = "YCOR:GUNB:713:BACT"  # YCOR 04
+    # pv_bpmy = "BPMS:GUNB:925:Y"  # BPMY 02
+    # pv_charge = "TORO:GUNB:360:CHRG"
 
     # create DataFrames for the PV over time
-    df_cor = arch_plotter.create_df(pv_list[0], range_start_date, timeseries_end)
-    df_bpm = arch_plotter.create_df(pv_list[1], range_start_date, timeseries_end)
-    df_hom = arch_plotter.create_df(pv_list[2], range_start_date, timeseries_end)
+    df_cor = pd.read_csv()
+    df_bpm = pd.read_csv()
+    df_hom = pd.read_csv()
     df_hom_filter = filter_hom(df_hom)  # remove (saturated) values
 
-    # amplify correlation signals
-    df_cor[pv_list[0]] = [df_cor[pv_list[0]][x] * 100000 * 3 for x in range(len(df_cor[pv_list[0]]))]
+    # change signals to line up
+    # TODO: adjust for given timeframe
+    # df_cor[pv_list[0]] = [df_cor[pv_list[0]][x] for x in range(len(df_cor[pv_list[0]]))]
 
     # plot over time
-    arch_plotter.plot_pv_over_time([df_cor, df_bpm, df_hom_filter], is_scatter=True, label_size=20)
+
 
     # COMBINE TIMEFRAMES AND FIND CORRELATIONS
 
     correl_homc1_cor_list = []
     correl_homc1_bpm_list = []
-    for x in range(6):
+    for x in range(int(len(start_end_dates) / 20)):
         curr_start_date = date_list[x][0]
         curr_end_date = date_list[x][1]
 
@@ -287,12 +335,6 @@ if __name__ == '__main__':
     df_correl_chrg_bpmx_homc1 = plotter.merge_with_margin_on_timestamp(df_chrg_bpmx, df_homc1, time_margin_seconds=1.5)
     df_correl_chrg_bpmy_homc1 = plotter.merge_with_margin_on_timestamp(df_chrg_bpmy, df_homc1, time_margin_seconds=1.5)
 
-    # check if there are enough data points in the plot: prints True if there is
-    print(len(df_correl_chrg_ycor_homc1["Timestamp"]) >= 50)
-    print(len(df_correl_chrg_xcor_homc1["Timestamp"]) >= 50)
-    print(len(df_correl_chrg_bpmy_homc1["Timestamp"]) >= 50)
-    print(len(df_correl_chrg_bpmx_homc1["Timestamp"]) >= 50)
-
     # SECTION 1: HOM C1 VS. XCOR AND BPMS:X, 6 MONTH PERIOD
 
     section_1()
@@ -302,13 +344,6 @@ if __name__ == '__main__':
     section_2()
 
     # SECTION 3: HOM C1 VS. XCOR, BPM X FOR HIGH XCOR ACTIVITY
-
-    start_end_dates = [("2024/06/15 20:15:00", "2024/06/15 21:00:00"),
-                       ("2024/06/15 18:15:00", "2024/06/15 19:00:00"),
-                       ("2024/06/15 22:15:00", "2024/06/15 23:00:00"),
-                       ("2024/06/15 17:15:00", "2024/06/15 18:00:00"),
-                       ("2024/06/22 00:00:00", "2024/06/22 01:00:00"),
-                       ("2024/06/22 16:15:00", "2024/06/22 17:00:00")]
 
     pvs_sec_3 = [pv_xcor, pv_bpmx, pv_hom, pv_charge]
     label_list_sec_3 = ["XCOR 04 Magnet", "BPMX 02", "HOM C1 Signal", "Charge"]

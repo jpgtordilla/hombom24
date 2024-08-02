@@ -172,7 +172,7 @@ class ChargePlotter:
         # filter out unwanted charges
         df_charge_filtered = df[(df[pv_charge] >= charge_val - (charge_val * charge_tolerance)) & (
                 df[pv_charge] <= charge_val + (charge_val * charge_tolerance))]
-        fig, ax = plt.subplots(figsize=(10, 5))
+        fig, ax = plt.subplots(figsize=(10, 10))
         # plot correlation points
         x = df_charge_filtered[pv_x]
         y = df_charge_filtered[pv_y]
@@ -213,10 +213,14 @@ class ChargePlotter:
         start_time = str(df_charge_filtered["Timestamp"].to_list()[0])[12:]
         end_time = str(df_charge_filtered["Timestamp"].to_list()[-1])[12:]
 
-        if not same_day:
-            ax.set_title(f"{y_label} vs. {x_label} for {charge_val}pC from {start_date} to {end_date}")
-        else:
-            ax.set_title(f"{y_label} vs. {x_label} for {charge_val}pC from {start_time} to {end_time}")
+        ax.set_title(f"{y_label} vs. {x_label}\nfor {charge_val}pC from {start_date} to {end_date}",
+                     fontsize=label_size)
+        # if not same_day:
+        #     ax.set_title(f"{y_label} vs. {x_label}\nfor {charge_val}pC from {start_date} to {end_date}",
+        #                  fontsize=label_size)
+        # else:
+        #     ax.set_title(f"{y_label} vs. {x_label}\nfor {charge_val}pC from {start_time} to {end_time}",
+        #                  fontsize=label_size)
 
         ax.set_xlabel(f"{x_label} {x_units}", fontsize=label_size)
         ax.set_ylabel(f"{y_label} {y_units}", fontsize=label_size)
@@ -237,5 +241,10 @@ class ChargePlotter:
         ax.xaxis.set_major_formatter(ticker.FixedFormatter(x_tick_labels))
         ax.yaxis.set_major_locator(ticker.FixedLocator(y_tick_locs))
         ax.yaxis.set_major_formatter(ticker.FixedFormatter(y_tick_labels))
+        ax.tick_params(axis="x", labelsize=14)
+        ax.tick_params(axis="y", labelsize=14)
+        ax.xaxis.set_major_locator(plt.MaxNLocator(5))  # reduce the amount of ticks for both axes
+        ax.yaxis.set_major_locator(plt.MaxNLocator(5))
         ax.legend()
+        plt.subplots_adjust(left=0.15, bottom=0.15)
         plt.show()
