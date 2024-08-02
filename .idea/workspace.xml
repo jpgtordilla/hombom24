@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="921fffcd-2132-4ce5-accc-e90368313128" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/epics_data/XCOR_GUNB_713_BACT_6M.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/epics_data/YCOR_GUNB_713_BACT_6M.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/dev_find_timeseries_lcls.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/dev_find_timeseries_lcls.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/generate_plots.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/generate_plots.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -89,7 +90,7 @@
       <recent name="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/archiver_plotter/tests" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter">
     <configuration name="Python tests for test_archiver_plotter.TestArchiverPlotter" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="hombom24" />
       <option name="ENV_FILES" value="" />
@@ -239,7 +240,8 @@
       <workItem from="1722446965786" duration="12324000" />
       <workItem from="1722533063398" duration="3922000" />
       <workItem from="1722542256655" duration="18639000" />
-      <workItem from="1722615730532" duration="8886000" />
+      <workItem from="1722615730532" duration="9094000" />
+      <workItem from="1722632304073" duration="1471000" />
     </task>
     <servers />
   </component>

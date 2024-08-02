@@ -3,25 +3,33 @@ import charge_plotter as cp
 import pandas as pd
 import sys
 from datetime import datetime, timedelta
+
 sys.path.append("/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/archiver_plotter")
 import archiver_plotter as ap  # type: ignore
 
+pv_hom = "SCOP:AMRF:RF01:AI_MEAS1"
+pv_xcor = "XCOR:GUNB:713:BACT"  # XCOR 04
+pv_bpmx = "BPMS:GUNB:925:X"  # BPMX 02
+pv_ycor = "YCOR:GUNB:713:BACT"  # YCOR 04
+pv_bpmy = "BPMS:GUNB:925:Y"  # BPMY 02
+pv_charge = "TORO:GUNB:360:CHRG"
+
 
 def filter_hom(df_hom: pd.DataFrame) -> pd.DataFrame:
-    return df_hom[df_hom["SCOP:AMRF:RF01:AI_MEAS1"] > -0.3]
+    return df_hom[df_hom["SCOP:AMRF:RF01:AI_MEAS1"] > -0.2]
 
 
 def section_1():
-    # Correlation of HOM C1 Signal vs. XCOR 293 Magnet (no error bars)
+    # Correlation of HOM C1 Signal vs. XCOR:GUNB:713 Magnet (no error bars)
     plotter.plot_correlation(df_correl_chrg_xcor_homc1,
-                             pv_y="SCOP:AMRF:RF01:AI_MEAS1",
-                             pv_x="XCOR:GUNB:293:BACT",
-                             pv_charge="TORO:GUNB:360:CHRG",
+                             pv_y=pv_hom,
+                             pv_x=pv_xcor,
+                             pv_charge=pv_charge,
                              charge_val=50.0, charge_tolerance=0.5,
                              plot_error_bars=False,
-                             low_vary_column="XCOR:GUNB:293:BACT",
+                             low_vary_column=pv_xcor,
                              error_tolerance=0.000015,
-                             x_label="XCOR Magnet",
+                             x_label="XCOR 04 Magnet",
                              y_label="HOM C1 Signal",
                              y_vary=True,
                              x_num_rounded_digits=5,
@@ -29,16 +37,16 @@ def section_1():
                              x_units="(g/m)",
                              y_units="(arb. units)",
                              x_change_decimal_point=3)
-    # Correlation of HOM C1 Signal vs. XCOR:GUNB:293 Magnet (with error bars)
+    # Correlation of HOM C1 Signal vs. XCOR:GUNB:713 Magnet (with error bars)
     plotter.plot_correlation(df_correl_chrg_xcor_homc1,
-                             pv_y="SCOP:AMRF:RF01:AI_MEAS1",
-                             pv_x="XCOR:GUNB:293:BACT",
-                             pv_charge="TORO:GUNB:360:CHRG",
+                             pv_y=pv_hom,
+                             pv_x=pv_xcor,
+                             pv_charge=pv_charge,
                              charge_val=50.0, charge_tolerance=0.5,
                              plot_error_bars=True,
-                             low_vary_column="XCOR:GUNB:293:BACT",
+                             low_vary_column=pv_xcor,
                              error_tolerance=0.000015,
-                             x_label="XCOR Magnet",
+                             x_label="XCOR 04 Magnet",
                              y_label="HOM C1 Signal",
                              y_vary=True,
                              x_num_rounded_digits=5,
@@ -46,20 +54,16 @@ def section_1():
                              x_units="(g/m)",
                              y_units="(arb. units)",
                              x_change_decimal_point=3)
-    # Correlation of HOM C1 Signal vs. XCOR:GUNB:513 (with error bars)
-    # Correlation of HOM C1 Signal vs. XCOR:GUNB:713 (with error bars)
-    # Correlation of HOM C1 Signal vs. XCOR:GUNB:927 (with error bars)
-    # Correlation of HOM C1 Signal vs. BPMS:GUNB:314:X (no error bars)
     # Correlation of HOM C1 Signal vs. BPMS:GUNB:925:X (no error bars)
     plotter.plot_correlation(df_correl_chrg_bpmx_homc1,
-                             pv_y="SCOP:AMRF:RF01:AI_MEAS1",
-                             pv_x="BPMS:GUNB:925:X",
-                             pv_charge="TORO:GUNB:360:CHRG",
+                             pv_y=pv_hom,
+                             pv_x=pv_bpmx,
+                             pv_charge=pv_charge,
                              charge_val=50.0, charge_tolerance=0.5,
                              plot_error_bars=False,
-                             low_vary_column="BPMS:GUNB:925:X",
+                             low_vary_column=pv_bpmx,
                              error_tolerance=0.000015,
-                             x_label="BPM X",
+                             x_label="BPMX 02",
                              y_label="HOM C1 Signal",
                              y_vary=True,
                              x_num_rounded_digits=5,
@@ -70,16 +74,16 @@ def section_1():
 
 
 def section_2():
-    # Correlation of HOM C1 Signal vs. YCOR:GUNB:293 Magnet (no error bars)
+    # Correlation of HOM C1 Signal vs. YCOR:GUNB:713 Magnet (no error bars)
     plotter.plot_correlation(df_correl_chrg_ycor_homc1,
-                             pv_y="SCOP:AMRF:RF01:AI_MEAS1",
-                             pv_x="YCOR:GUNB:293:BACT",
-                             pv_charge="TORO:GUNB:360:CHRG",
+                             pv_y=pv_hom,
+                             pv_x=pv_ycor,
+                             pv_charge=pv_charge,
                              charge_val=50.0, charge_tolerance=0.5,
                              plot_error_bars=False,
-                             low_vary_column="YCOR:GUNB:293:BACT",
+                             low_vary_column=pv_ycor,
                              error_tolerance=0.000015,
-                             x_label="YCOR Magnet",
+                             x_label="YCOR 04 Magnet",
                              y_label="HOM C1 Signal",
                              y_vary=True,
                              x_num_rounded_digits=5,
@@ -87,16 +91,16 @@ def section_2():
                              x_units="(g/m)",
                              y_units="(arb. units)",
                              x_change_decimal_point=3)
-    # Correlation of HOM C1 Signal vs. YCOR:GUNB:293 Magnet (with error bars)
+    # Correlation of HOM C1 Signal vs. YCOR:GUNB:713 Magnet (with error bars)
     plotter.plot_correlation(df_correl_chrg_ycor_homc1,
-                             pv_y="SCOP:AMRF:RF01:AI_MEAS1",
-                             pv_x="YCOR:GUNB:293:BACT",
-                             pv_charge="TORO:GUNB:360:CHRG",
+                             pv_y=pv_hom,
+                             pv_x=pv_ycor,
+                             pv_charge=pv_charge,
                              charge_val=50.0, charge_tolerance=0.5,
                              plot_error_bars=True,
-                             low_vary_column="YCOR:GUNB:293:BACT",
+                             low_vary_column=pv_ycor,
                              error_tolerance=0.000015,
-                             x_label="YCOR Magnet",
+                             x_label="YCOR 04 Magnet",
                              y_label="HOM C1 Signal",
                              y_vary=True,
                              x_num_rounded_digits=5,
@@ -104,20 +108,16 @@ def section_2():
                              x_units="(g/m)",
                              y_units="(arb. units)",
                              x_change_decimal_point=3)
-    # Correlation of HOM C1 Signal vs. YCOR:GUNB:513 (with error bars)
-    # Correlation of HOM C1 Signal vs. YCOR:GUNB:713 (with error bars)
-    # Correlation of HOM C1 Signal vs. YCOR:GUNB:927 (with error bars)
-    # Correlation of HOM C1 Signal vs. BPMS:GUNB:314:Y (no error bars)
     # Correlation of HOM C1 Signal vs. BPMS:GUNB:925:Y (no error bars)
     plotter.plot_correlation(df_correl_chrg_bpmy_homc1,
-                             pv_y="SCOP:AMRF:RF01:AI_MEAS1",
-                             pv_x="BPMS:GUNB:925:Y",
-                             pv_charge="TORO:GUNB:360:CHRG",
+                             pv_y=pv_hom,
+                             pv_x=pv_bpmy,
+                             pv_charge=pv_charge,
                              charge_val=50.0, charge_tolerance=0.5,
                              plot_error_bars=False,
-                             low_vary_column="BPMS:GUNB:925:Y",
+                             low_vary_column=pv_bpmy,
                              error_tolerance=0.000015,
-                             x_label="BPM Y",
+                             x_label="BPM 02 Y",
                              y_label="HOM C1 Signal",
                              y_vary=True,
                              x_num_rounded_digits=5,
@@ -125,8 +125,6 @@ def section_2():
                              x_units="(mm)",
                              y_units="(arb. units)",
                              x_change_decimal_point=0)
-    # Correlation of HOM C1 Signal vs. BPMS:L0B:0183:Y (no error bars)
-    # Correlation of HOM C1 Signal vs. BPMS:HTR:120:Y (no error bars)
 
 
 def plot_over_time_and_correlation(date_list, pv_list, label_list, unit_list):
@@ -138,14 +136,14 @@ def plot_over_time_and_correlation(date_list, pv_list, label_list, unit_list):
     range_start_date = date_list[0][0]
     range_end_date = date_list[0][1]
     curr_start_date_obj = datetime.strptime(range_start_date, "%Y/%m/%d %H:%M:%S")
-    timeseries_end_obj = curr_start_date_obj + timedelta(minutes=7)  # TODO: change parameter if you can't see anything
+    timeseries_end_obj = curr_start_date_obj + timedelta(minutes=5)  # TODO: change to EPICS graphing if necessary
     timeseries_end = timeseries_end_obj.strftime("%Y/%m/%d %H:%M:%S")
 
     # create DataFrames for the PV over time
     df_cor = arch_plotter.create_df(pv_list[0], range_start_date, timeseries_end)
     df_bpm = arch_plotter.create_df(pv_list[1], range_start_date, timeseries_end)
     df_hom = arch_plotter.create_df(pv_list[2], range_start_date, timeseries_end)
-    df_hom_filter = filter_hom(df_hom)  # remove (saturated) values below -0.4
+    df_hom_filter = filter_hom(df_hom)  # remove (saturated) values
 
     # amplify correlation signals
     df_cor[pv_list[0]] = [df_cor[pv_list[0]][x] * 100000 * 3 for x in range(len(df_cor[pv_list[0]]))]
@@ -261,12 +259,14 @@ if __name__ == '__main__':
     df_chrg = pd.read_csv(
         "/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/charge_separated_plots/epics_data"
         "/TORO_GUNB_360_CHRG_6M.csv")
+    # XCOR:GUNB:713:BACT
     df_xcor = pd.read_csv(
-        "/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/charge_separated_plots/epics_data/"
-        "XCOR_GUNB_293_BACT_6M.csv")
+        "/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/charge_separated_plots/epics_data"
+        "/XCOR_GUNB_713_BACT_6M.csv")
+    # YCOR:GUNB:713:BACT
     df_ycor = pd.read_csv(
         "/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/charge_separated_plots/epics_data"
-        "/YCOR_GUNB_293_BACT_6M.csv")
+        "/YCOR_GUNB_713_BACT_6M.csv")
     df_bpmx = pd.read_csv(
         "/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/charge_separated_plots/epics_data/"
         "BPMS_GUNB_925_X_6M.csv"
@@ -277,7 +277,7 @@ if __name__ == '__main__':
     )
 
     # CREATE A DATAFRAME WITH COLUMNS FOR EACH PV, ALIGNED BY TIMEFRAME
-    df_chrg_filtered = plotter.remove_charges_below_value(df_chrg, "TORO:GUNB:360:CHRG", min_charge_value=15.0)
+    df_chrg_filtered = plotter.remove_charges_below_value(df_chrg, pv_charge, min_charge_value=15.0)
     df_chrg_ycor = plotter.merge_with_margin_on_timestamp(df_chrg_filtered, df_ycor, time_margin_seconds=1.5)
     df_chrg_xcor = plotter.merge_with_margin_on_timestamp(df_chrg_filtered, df_xcor, time_margin_seconds=1.5)
     df_chrg_bpmx = plotter.merge_with_margin_on_timestamp(df_chrg_filtered, df_bpmx, time_margin_seconds=1.5)
@@ -310,16 +310,16 @@ if __name__ == '__main__':
                        ("2024/06/22 00:00:00", "2024/06/22 01:00:00"),
                        ("2024/06/22 16:15:00", "2024/06/22 17:00:00")]
 
-    pvs_sec_3 = ["XCOR:GUNB:293:BACT", "BPMS:GUNB:925:X", "SCOP:AMRF:RF01:AI_MEAS1", "TORO:GUNB:360:CHRG"]
-    label_list_sec_3 = ["XCOR Magnet", "BPM X", "HOM C1 Signal", "Charge"]
+    pvs_sec_3 = [pv_xcor, pv_bpmx, pv_hom, pv_charge]
+    label_list_sec_3 = ["XCOR 04 Magnet", "BPMX 02", "HOM C1 Signal", "Charge"]
     unit_list_sec_3 = ["(g/m)", "(mm)", "(arbitrary units)"]
 
     plot_over_time_and_correlation(start_end_dates, pvs_sec_3, label_list_sec_3, unit_list_sec_3)
 
     # SECTION 4: HOM C1 VS. YCOR, BPM Y FOR HIGH XCOR ACTIVITY
 
-    pvs_sec_4 = ["YCOR:GUNB:293:BACT", "BPMS:GUNB:925:Y", "SCOP:AMRF:RF01:AI_MEAS1", "TORO:GUNB:360:CHRG"]
-    label_list_sec_4 = ["YCOR Magnet", "BPM Y", "HOM C1 Signal", "Charge"]
+    pvs_sec_4 = [pv_ycor, pv_bpmy, pv_hom, pv_charge]
+    label_list_sec_4 = ["YCOR 04 Magnet", "BPMY 02", "HOM C1 Signal", "Charge"]
     unit_list_sec_4 = ["(g/m)", "(mm)", "(arbitrary units)"]
 
     plot_over_time_and_correlation(start_end_dates, pvs_sec_4, label_list_sec_4, unit_list_sec_4)
