@@ -137,16 +137,18 @@ def plot_over_time_and_correlation(date_list, pv_list, label_list, unit_list):
     df_bpm = arch_plotter.create_df(pv_list[1], range_start_date, range_end_date)
     df_hom = arch_plotter.create_df(pv_list[2], range_start_date, range_end_date)
     # plot over time
-    arch_plotter.plot_pv_over_time([df_cor, df_bpm, df_hom], is_scatter=True)
-    # arch_plotter.plot_pv_over_time([df_cor, df_bpm], is_scatter=True)
-    # arch_plotter.plot_pv_over_time([df_cor, df_hom], is_scatter=True)
-    # arch_plotter.plot_pv_over_time([df_bpm, df_hom], is_scatter=True)
-    arch_plotter.plot_pv_over_time([df_cor])
-    arch_plotter.plot_pv_over_time([df_bpm])
-    arch_plotter.plot_pv_over_time([df_hom])
+    # arch_plotter.plot_pv_over_time([df_cor, df_bpm, df_hom], is_scatter=True)
+    arch_plotter.plot_pv_over_time([df_cor, df_bpm], is_scatter=True)
+    arch_plotter.plot_pv_over_time([df_cor, df_hom], is_scatter=True)
+    arch_plotter.plot_pv_over_time([df_bpm, df_hom], is_scatter=True)
+    # arch_plotter.plot_pv_over_time([df_cor])
+    # arch_plotter.plot_pv_over_time([df_bpm])
+    # arch_plotter.plot_pv_over_time([df_hom])
 
     # COMBINE TIMEFRAMES AND FIND CORRELATIONS
 
+    correl_homc1_cor_list = []
+    correl_homc1_bpm_list = []
     for x in range(5):
         curr_start_date = date_list[x][0]
         curr_end_date = date_list[x][1]
@@ -157,55 +159,68 @@ def plot_over_time_and_correlation(date_list, pv_list, label_list, unit_list):
         df_hom = arch_plotter.create_df(pv_list[2], curr_start_date, curr_end_date)
         df_charge = arch_plotter.create_df(pv_list[3], curr_start_date, curr_end_date)
 
-        # plot over time
-        arch_plotter.plot_pv_over_time([df_cor, df_bpm, df_hom], is_scatter=True)
-        # arch_plotter.plot_pv_over_time([df_cor, df_bpm], is_scatter=True)
-        # arch_plotter.plot_pv_over_time([df_cor, df_hom], is_scatter=True)
-        # arch_plotter.plot_pv_over_time([df_bpm, df_hom], is_scatter=True)
-        arch_plotter.plot_pv_over_time([df_cor])
-        arch_plotter.plot_pv_over_time([df_bpm])
-        # arch_plotter.plot_pv_over_time([df_hom])
-
-        # create correlations
+        # create correlations and add to list
         df_charge_filtered = plotter.remove_charges_below_value(df_charge, pv_list[-1], 15.0)
         df_charge_cor = plotter.merge_with_margin_on_timestamp(df_charge_filtered, df_cor, time_margin_seconds=10)
         df_charge_bpm = plotter.merge_with_margin_on_timestamp(df_charge_filtered, df_bpm, time_margin_seconds=10)
         df_correl_homc1_cor = plotter.merge_with_margin_on_timestamp(df_charge_cor, df_hom, time_margin_seconds=10)
         df_correl_homc1_bpm = plotter.merge_with_margin_on_timestamp(df_charge_bpm, df_hom, time_margin_seconds=10)
 
-        # plot HOM C1 vs. YCOR
-        plotter.plot_correlation(df_correl_homc1_cor,
-                                 pv_y=pv_list[2],
-                                 pv_x=pv_list[0],
-                                 pv_charge=pv_list[-1],
-                                 charge_val=50.0,
-                                 charge_tolerance=0.5,
-                                 plot_error_bars=False,
-                                 low_vary_column=pv_list[0],
-                                 error_tolerance=0.000015,
-                                 x_label=label_list[0],
-                                 y_label=label_list[2],
-                                 x_units=unit_list[0],
-                                 y_units=unit_list[2],
-                                 x_change_decimal_point=3,
-                                 same_day=True)
+        correl_homc1_cor_list.append(df_correl_homc1_cor)
+        correl_homc1_bpm_list.append(df_correl_homc1_bpm)
 
-        # plot HOM C1 vs. BPM Y
-        plotter.plot_correlation(df_correl_homc1_bpm,
-                                 pv_y=pv_list[2],
-                                 pv_x=pv_list[1],
-                                 pv_charge=pv_list[-1],
-                                 charge_val=50.0,
-                                 charge_tolerance=0.5,
-                                 plot_error_bars=False,
-                                 low_vary_column=pv_list[1],
-                                 error_tolerance=0.000015,
-                                 x_label=label_list[1],
-                                 y_label=label_list[2],
-                                 x_units=unit_list[1],
-                                 y_units=unit_list[2],
-                                 x_change_decimal_point=0,
-                                 same_day=True)
+    # combine dataframes from list and sort
+    df_correl_homc1_cor = pd.concat(correl_homc1_cor_list).sort_values(by=["Timestamp"])
+    df_correl_homc1_bpm = pd.concat(correl_homc1_bpm_list).sort_values(by=["Timestamp"])
+
+    # plot HOM C1 vs. COR
+    plotter.plot_correlation(df_correl_homc1_cor,
+                             pv_y=pv_list[2],
+                             pv_x=pv_list[0],
+                             pv_charge=pv_list[-1],
+                             charge_val=50.0,
+                             charge_tolerance=0.5,
+                             plot_error_bars=False,
+                             low_vary_column=pv_list[0],
+                             error_tolerance=0.000015,
+                             x_label=label_list[0],
+                             y_label=label_list[2],
+                             x_units=unit_list[0],
+                             y_units=unit_list[2],
+                             x_change_decimal_point=3,
+                             same_day=True)
+    plotter.plot_correlation(df_correl_homc1_cor,
+                             pv_y=pv_list[2],
+                             pv_x=pv_list[0],
+                             pv_charge=pv_list[-1],
+                             charge_val=50.0,
+                             charge_tolerance=0.5,
+                             plot_error_bars=True,
+                             low_vary_column=pv_list[0],
+                             error_tolerance=0.000015,
+                             x_label=label_list[0],
+                             y_label=label_list[2],
+                             x_units=unit_list[0],
+                             y_units=unit_list[2],
+                             x_change_decimal_point=3,
+                             same_day=True)
+
+    # plot HOM C1 vs. BPM
+    plotter.plot_correlation(df_correl_homc1_bpm,
+                             pv_y=pv_list[2],
+                             pv_x=pv_list[1],
+                             pv_charge=pv_list[-1],
+                             charge_val=50.0,
+                             charge_tolerance=0.5,
+                             plot_error_bars=False,
+                             low_vary_column=pv_list[1],
+                             error_tolerance=0.000015,
+                             x_label=label_list[1],
+                             y_label=label_list[2],
+                             x_units=unit_list[1],
+                             y_units=unit_list[2],
+                             x_change_decimal_point=0,
+                             same_day=True)
 
 
 if __name__ == '__main__':
@@ -253,11 +268,11 @@ if __name__ == '__main__':
 
     # SECTION 1: HOM C1 VS. XCOR AND BPMS:X, 6 MONTH PERIOD
 
-    section_1()
+    # section_1()
 
     # SECTION 2: HOM C1 VS. YCOR AND BPMS:Y, 6 MONTH PERIOD
 
-    section_2()
+    # section_2()
 
     # SECTION 3: HOM C1 VS. XCOR, BPM X FOR HIGH XCOR ACTIVITY
 
@@ -283,5 +298,5 @@ if __name__ == '__main__':
     label_list_sec_4 = ["YCOR Magnet", "BPM Y", "HOM C1 Signal", "Charge"]
     unit_list_sec_4 = ["(g/m)", "(mm)", "(arbitrary units)"]
 
-    # plot_over_time_and_correlation(start_end_dates_sec_4, pvs_sec_4, label_list_sec_4, unit_list_sec_4)
+    plot_over_time_and_correlation(start_end_dates_sec_4, pvs_sec_4, label_list_sec_4, unit_list_sec_4)
 
