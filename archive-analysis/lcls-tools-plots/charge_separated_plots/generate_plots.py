@@ -3,13 +3,12 @@ import charge_plotter as cp
 import pandas as pd
 import sys
 from datetime import datetime, timedelta
-
 sys.path.append("/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/archiver_plotter")
 import archiver_plotter as ap  # type: ignore
 
 
 def filter_hom(df_hom: pd.DataFrame) -> pd.DataFrame:
-    return df_hom[df_hom["SCOP:AMRF:RF01:AI_MEAS1"] < -0.4]
+    return df_hom[df_hom["SCOP:AMRF:RF01:AI_MEAS1"] > -0.3]
 
 
 def section_1():
@@ -146,22 +145,19 @@ def plot_over_time_and_correlation(date_list, pv_list, label_list, unit_list):
     df_cor = arch_plotter.create_df(pv_list[0], range_start_date, timeseries_end)
     df_bpm = arch_plotter.create_df(pv_list[1], range_start_date, timeseries_end)
     df_hom = arch_plotter.create_df(pv_list[2], range_start_date, timeseries_end)
-    df_hom = filter_hom(df_hom)  # remove (saturated) values below -0.4
+    df_hom_filter = filter_hom(df_hom)  # remove (saturated) values below -0.4
+
+    # amplify correlation signals
+    df_cor[pv_list[0]] = [df_cor[pv_list[0]][x] * 100000 * 3 for x in range(len(df_cor[pv_list[0]]))]
+
     # plot over time
-    # arch_plotter.plot_pv_over_time([df_cor, df_bpm, df_hom], is_scatter=True)
-    arch_plotter.plot_pv_over_time([df_cor, df_bpm, df_hom], is_scatter=True, label_size=20)
-    arch_plotter.plot_pv_over_time([df_cor, df_bpm], is_scatter=True, label_size=20)
-    arch_plotter.plot_pv_over_time([df_cor, df_hom], is_scatter=True, label_size=20)
-    arch_plotter.plot_pv_over_time([df_bpm, df_hom], is_scatter=True, label_size=20)
-    # arch_plotter.plot_pv_over_time([df_cor])
-    # arch_plotter.plot_pv_over_time([df_bpm])
-    # arch_plotter.plot_pv_over_time([df_hom])
+    arch_plotter.plot_pv_over_time([df_cor, df_bpm, df_hom_filter], is_scatter=True, label_size=20)
 
     # COMBINE TIMEFRAMES AND FIND CORRELATIONS
 
     correl_homc1_cor_list = []
     correl_homc1_bpm_list = []
-    for x in range(5):
+    for x in range(6):
         curr_start_date = date_list[x][0]
         curr_end_date = date_list[x][1]
 
@@ -169,14 +165,17 @@ def plot_over_time_and_correlation(date_list, pv_list, label_list, unit_list):
         df_cor = arch_plotter.create_df(pv_list[0], curr_start_date, curr_end_date)
         df_bpm = arch_plotter.create_df(pv_list[1], curr_start_date, curr_end_date)
         df_hom = arch_plotter.create_df(pv_list[2], curr_start_date, curr_end_date)
+        df_hom_filter = filter_hom(df_hom)
         df_charge = arch_plotter.create_df(pv_list[3], curr_start_date, curr_end_date)
 
         # create correlations and add to list
         df_charge_filtered = plotter.remove_charges_below_value(df_charge, pv_list[-1], 15.0)
         df_charge_cor = plotter.merge_with_margin_on_timestamp(df_charge_filtered, df_cor, time_margin_seconds=1.5)
         df_charge_bpm = plotter.merge_with_margin_on_timestamp(df_charge_filtered, df_bpm, time_margin_seconds=1.5)
-        df_correl_homc1_cor = plotter.merge_with_margin_on_timestamp(df_charge_cor, df_hom, time_margin_seconds=1.5)
-        df_correl_homc1_bpm = plotter.merge_with_margin_on_timestamp(df_charge_bpm, df_hom, time_margin_seconds=1.5)
+        df_correl_homc1_cor = plotter.merge_with_margin_on_timestamp(df_charge_cor, df_hom_filter,
+                                                                     time_margin_seconds=1.5)
+        df_correl_homc1_bpm = plotter.merge_with_margin_on_timestamp(df_charge_bpm, df_hom_filter,
+                                                                     time_margin_seconds=1.5)
 
         correl_homc1_cor_list.append(df_correl_homc1_cor)
         correl_homc1_bpm_list.append(df_correl_homc1_bpm)
@@ -233,6 +232,21 @@ def plot_over_time_and_correlation(date_list, pv_list, label_list, unit_list):
                              y_units=unit_list[2],
                              x_change_decimal_point=0,
                              same_day=True)
+    plotter.plot_correlation(df_correl_homc1_bpm,
+                             pv_y=pv_list[2],
+                             pv_x=pv_list[1],
+                             pv_charge=pv_list[-1],
+                             charge_val=50.0,
+                             charge_tolerance=0.5,
+                             plot_error_bars=True,
+                             low_vary_column=pv_list[1],
+                             error_tolerance=0.1,
+                             x_label=label_list[1],
+                             y_label=label_list[2],
+                             x_units=unit_list[1],
+                             y_units=unit_list[2],
+                             x_change_decimal_point=0,
+                             same_day=True)
 
 
 if __name__ == '__main__':
@@ -281,19 +295,20 @@ if __name__ == '__main__':
 
     # SECTION 1: HOM C1 VS. XCOR AND BPMS:X, 6 MONTH PERIOD
 
-    # section_1()
+    section_1()
 
     # SECTION 2: HOM C1 VS. YCOR AND BPMS:Y, 6 MONTH PERIOD
 
-    # section_2()
+    section_2()
 
     # SECTION 3: HOM C1 VS. XCOR, BPM X FOR HIGH XCOR ACTIVITY
 
-    start_end_dates = [("2024/07/01 09:00:00", "2024/07/01 12:00:00"),
-                       ("2024/07/01 04:00:00", "2024/07/01 05:00:00"),
-                       ("2024/07/01 12:00:00", "2024/07/01 13:00:00"),
-                       ("2024/07/01 05:00:00", "2024/07/01 06:00:00"),
-                       ("2024/07/02 05:00:00", "2024/07/02 06:00:00")]
+    start_end_dates = [("2024/06/15 20:15:00", "2024/06/15 21:00:00"),
+                       ("2024/06/15 18:15:00", "2024/06/15 19:00:00"),
+                       ("2024/06/15 22:15:00", "2024/06/15 23:00:00"),
+                       ("2024/06/15 17:15:00", "2024/06/15 18:00:00"),
+                       ("2024/06/22 00:00:00", "2024/06/22 01:00:00"),
+                       ("2024/06/22 16:15:00", "2024/06/22 17:00:00")]
 
     pvs_sec_3 = ["XCOR:GUNB:293:BACT", "BPMS:GUNB:925:X", "SCOP:AMRF:RF01:AI_MEAS1", "TORO:GUNB:360:CHRG"]
     label_list_sec_3 = ["XCOR Magnet", "BPM X", "HOM C1 Signal", "Charge"]
