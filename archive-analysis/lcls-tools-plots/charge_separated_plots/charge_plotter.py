@@ -121,6 +121,7 @@ class ChargePlotter:
                          error_tolerance: float,
                          x_label: str,
                          y_label: str,
+                         label_size: int = 20,
                          y_vary=True,
                          x_num_rounded_digits: int = 5,
                          y_num_rounded_digits: int = 5,
@@ -156,6 +157,7 @@ class ChargePlotter:
         :param x_label: String representation of the x-axis label.
         :param y_label: String representation of the y-axis label.
 
+        :param label_size: Integer representing the size of the labels in points.
         :param x_num_rounded_digits: Optional, Number of digits to round off the x-axis values.
         :param y_num_rounded_digits: Optional, Number of digits to round off the y-axis values.
         :param x_units: Optional, String representation of the x-axis units.
@@ -216,8 +218,8 @@ class ChargePlotter:
         else:
             ax.set_title(f"{y_label} vs. {x_label} for {charge_val}pC from {start_time} to {end_time}")
 
-        ax.set_xlabel(f"{x_label} {x_units}")
-        ax.set_ylabel(f"{y_label} {y_units}")
+        ax.set_xlabel(f"{x_label} {x_units}", fontsize=label_size)
+        ax.set_ylabel(f"{y_label} {y_units}", fontsize=label_size)
 
         # set ticks
         x_digit_round_string = f"{{x:,.{x_num_rounded_digits}f}}"
@@ -235,6 +237,5 @@ class ChargePlotter:
         ax.xaxis.set_major_formatter(ticker.FixedFormatter(x_tick_labels))
         ax.yaxis.set_major_locator(ticker.FixedLocator(y_tick_locs))
         ax.yaxis.set_major_formatter(ticker.FixedFormatter(y_tick_labels))
-
         ax.legend()
         plt.show()

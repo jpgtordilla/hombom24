@@ -2,8 +2,14 @@ import charge_separator as cs
 import charge_plotter as cp
 import pandas as pd
 import sys
+from datetime import datetime, timedelta
+
 sys.path.append("/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/archiver_plotter")
 import archiver_plotter as ap  # type: ignore
+
+
+def filter_hom(df_hom: pd.DataFrame) -> pd.DataFrame:
+    return df_hom[df_hom["SCOP:AMRF:RF01:AI_MEAS1"] < -0.4]
 
 
 def section_1():
@@ -132,15 +138,21 @@ def plot_over_time_and_correlation(date_list, pv_list, label_list, unit_list):
     # PLOT OVER TIME FOR A SHORT TIMEFRAME
     range_start_date = date_list[0][0]
     range_end_date = date_list[0][1]
+    curr_start_date_obj = datetime.strptime(range_start_date, "%Y/%m/%d %H:%M:%S")
+    timeseries_end_obj = curr_start_date_obj + timedelta(minutes=7)  # TODO: change parameter if you can't see anything
+    timeseries_end = timeseries_end_obj.strftime("%Y/%m/%d %H:%M:%S")
+
     # create DataFrames for the PV over time
-    df_cor = arch_plotter.create_df(pv_list[0], range_start_date, range_end_date)
-    df_bpm = arch_plotter.create_df(pv_list[1], range_start_date, range_end_date)
-    df_hom = arch_plotter.create_df(pv_list[2], range_start_date, range_end_date)
+    df_cor = arch_plotter.create_df(pv_list[0], range_start_date, timeseries_end)
+    df_bpm = arch_plotter.create_df(pv_list[1], range_start_date, timeseries_end)
+    df_hom = arch_plotter.create_df(pv_list[2], range_start_date, timeseries_end)
+    df_hom = filter_hom(df_hom)  # remove (saturated) values below -0.4
     # plot over time
     # arch_plotter.plot_pv_over_time([df_cor, df_bpm, df_hom], is_scatter=True)
-    arch_plotter.plot_pv_over_time([df_cor, df_bpm], is_scatter=True)
-    arch_plotter.plot_pv_over_time([df_cor, df_hom], is_scatter=True)
-    arch_plotter.plot_pv_over_time([df_bpm, df_hom], is_scatter=True)
+    arch_plotter.plot_pv_over_time([df_cor, df_bpm, df_hom], is_scatter=True, label_size=20)
+    arch_plotter.plot_pv_over_time([df_cor, df_bpm], is_scatter=True, label_size=20)
+    arch_plotter.plot_pv_over_time([df_cor, df_hom], is_scatter=True, label_size=20)
+    arch_plotter.plot_pv_over_time([df_bpm, df_hom], is_scatter=True, label_size=20)
     # arch_plotter.plot_pv_over_time([df_cor])
     # arch_plotter.plot_pv_over_time([df_bpm])
     # arch_plotter.plot_pv_over_time([df_hom])
@@ -161,10 +173,10 @@ def plot_over_time_and_correlation(date_list, pv_list, label_list, unit_list):
 
         # create correlations and add to list
         df_charge_filtered = plotter.remove_charges_below_value(df_charge, pv_list[-1], 15.0)
-        df_charge_cor = plotter.merge_with_margin_on_timestamp(df_charge_filtered, df_cor, time_margin_seconds=10)
-        df_charge_bpm = plotter.merge_with_margin_on_timestamp(df_charge_filtered, df_bpm, time_margin_seconds=10)
-        df_correl_homc1_cor = plotter.merge_with_margin_on_timestamp(df_charge_cor, df_hom, time_margin_seconds=10)
-        df_correl_homc1_bpm = plotter.merge_with_margin_on_timestamp(df_charge_bpm, df_hom, time_margin_seconds=10)
+        df_charge_cor = plotter.merge_with_margin_on_timestamp(df_charge_filtered, df_cor, time_margin_seconds=1.5)
+        df_charge_bpm = plotter.merge_with_margin_on_timestamp(df_charge_filtered, df_bpm, time_margin_seconds=1.5)
+        df_correl_homc1_cor = plotter.merge_with_margin_on_timestamp(df_charge_cor, df_hom, time_margin_seconds=1.5)
+        df_correl_homc1_bpm = plotter.merge_with_margin_on_timestamp(df_charge_bpm, df_hom, time_margin_seconds=1.5)
 
         correl_homc1_cor_list.append(df_correl_homc1_cor)
         correl_homc1_bpm_list.append(df_correl_homc1_bpm)
@@ -231,6 +243,7 @@ if __name__ == '__main__':
     df_homc1 = pd.read_csv(
         "/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/charge_separated_plots/epics_data"
         "/SCOP_AMRF_RF01_AI_MEAS1_6M.csv")
+    df_homc1 = filter_hom(df_homc1)  # filter (saturated) values below -0.4
     df_chrg = pd.read_csv(
         "/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/charge_separated_plots/epics_data"
         "/TORO_GUNB_360_CHRG_6M.csv")
@@ -276,27 +289,22 @@ if __name__ == '__main__':
 
     # SECTION 3: HOM C1 VS. XCOR, BPM X FOR HIGH XCOR ACTIVITY
 
-    start_end_dates_sec_3 = [("2024/07/02 00:00:00", "2024/07/02 00:30:00"),
-                             ("2024/07/02 02:00:00", "2024/07/02 02:30:00"),
-                             ("2024/07/02 12:00:00", "2024/07/02 12:30:00"),
-                             ("2024/07/02 03:00:16", "2024/07/02 03:28:41"),
-                             ("2024/07/02 01:30:04", "2024/07/02 01:55:51")]
+    start_end_dates = [("2024/07/01 09:00:00", "2024/07/01 12:00:00"),
+                       ("2024/07/01 04:00:00", "2024/07/01 05:00:00"),
+                       ("2024/07/01 12:00:00", "2024/07/01 13:00:00"),
+                       ("2024/07/01 05:00:00", "2024/07/01 06:00:00"),
+                       ("2024/07/02 05:00:00", "2024/07/02 06:00:00")]
+
     pvs_sec_3 = ["XCOR:GUNB:293:BACT", "BPMS:GUNB:925:X", "SCOP:AMRF:RF01:AI_MEAS1", "TORO:GUNB:360:CHRG"]
     label_list_sec_3 = ["XCOR Magnet", "BPM X", "HOM C1 Signal", "Charge"]
     unit_list_sec_3 = ["(g/m)", "(mm)", "(arbitrary units)"]
 
-    plot_over_time_and_correlation(start_end_dates_sec_3, pvs_sec_3, label_list_sec_3, unit_list_sec_3)
+    plot_over_time_and_correlation(start_end_dates, pvs_sec_3, label_list_sec_3, unit_list_sec_3)
 
     # SECTION 4: HOM C1 VS. YCOR, BPM Y FOR HIGH XCOR ACTIVITY
 
-    start_end_dates_sec_4 = [("2024/07/02 00:00:00", "2024/07/02 00:30:00"),
-                             ("2024/07/02 02:00:00", "2024/07/02 02:30:00"),
-                             ("2024/07/02 12:00:00", "2024/07/02 12:30:00"),
-                             ("2024/07/02 03:00:16", "2024/07/02 03:28:41"),
-                             ("2024/07/02 01:30:04", "2024/07/02 01:55:51")]
     pvs_sec_4 = ["YCOR:GUNB:293:BACT", "BPMS:GUNB:925:Y", "SCOP:AMRF:RF01:AI_MEAS1", "TORO:GUNB:360:CHRG"]
     label_list_sec_4 = ["YCOR Magnet", "BPM Y", "HOM C1 Signal", "Charge"]
     unit_list_sec_4 = ["(g/m)", "(mm)", "(arbitrary units)"]
 
-    plot_over_time_and_correlation(start_end_dates_sec_4, pvs_sec_4, label_list_sec_4, unit_list_sec_4)
-
+    plot_over_time_and_correlation(start_end_dates, pvs_sec_4, label_list_sec_4, unit_list_sec_4)
