@@ -121,7 +121,7 @@ class ChargePlotter:
                          error_tolerance: float,
                          x_label: str,
                          y_label: str,
-                         label_size: int = 20,
+                         label_size: int = 24,
                          y_vary=True,
                          x_num_rounded_digits: int = 5,
                          y_num_rounded_digits: int = 5,
@@ -129,7 +129,8 @@ class ChargePlotter:
                          y_units: str = "",
                          x_change_decimal_point: int = 0,
                          y_change_decimal_point: int = 0,
-                         same_day=False):
+                         same_day=False,
+                         overlay=False):
         """Plots the correlation between two columns in a DataFrame, separated by a specific charge value (pC).
 
         DataFrame will be modified to only include rows that contain a charge value within a given tolerance percentage
@@ -167,6 +168,9 @@ class ChargePlotter:
         :param y_change_decimal_point: Optional, positive integer raises the y-axis labels by orders of magnitude,
         negative decreases.
         :param same_day: Optional, Boolean flag specifying whether the data takes place on the same day.
+
+        Overlay:
+        :param overlay: Boolean flag specifying whether to overlay the mean data plots.
         """
 
         # filter out unwanted charges
@@ -177,7 +181,37 @@ class ChargePlotter:
         x = df_charge_filtered[pv_x]
         y = df_charge_filtered[pv_y]
 
-        if plot_error_bars:
+        if overlay:
+            # plot cluster points
+            df_groups: list[pd.DataFrame] = create_clusters(df, low_vary_column, error_tolerance)
+            means_and_stds: list[(float, float)] = get_means_and_stds(df_groups, "SCOP:AMRF:RF01:AI_MEAS1")
+
+            y_cluster_points = []
+            x_cluster_points = []
+            if y_vary:  # if the points in the y_column are the varying points in a cluster
+                y_cluster_points = [cluster[0] for cluster in means_and_stds]  # average y val in each cluster
+                x_cluster_points = [float(np.mean(df_groups[df][pv_x])) for df in
+                                    range(len(df_groups))]  # average x val in each cluster
+            else:
+                y_cluster_points = [float(np.mean(df_groups[df][pv_y])) for df in
+                                    range(len(df_groups))]  # average y val in each cluster
+                x_cluster_points = [cluster[0] for cluster in means_and_stds]  # average x val in each cluster
+
+            ax.scatter(x, y, color="blue")
+            # create a line of best fit
+            slope, intercept = np.polyfit(x, y, deg=1)
+            ax.axline(xy1=(0, intercept), slope=slope, label=f"y = {slope:.3f}x + {intercept:.3f}", color="blue")
+
+            ax.scatter(x_cluster_points, y_cluster_points, color="red")
+            # create a line of best fit
+            slope, intercept = np.polyfit(x_cluster_points, y_cluster_points, deg=1)
+            ax.axline(xy1=(0, intercept), slope=slope, label=f"y = {slope:.3f}x + {intercept:.3f}", color="red")
+
+            # plot error bars
+            error = [cluster[1] for cluster in means_and_stds]
+            ax.errorbar(x_cluster_points, y_cluster_points, yerr=error, ls="none", ecolor="red")
+
+        if plot_error_bars and not overlay:
             # plot cluster points
             df_groups: list[pd.DataFrame] = create_clusters(df, low_vary_column, error_tolerance)
             means_and_stds: list[(float, float)] = get_means_and_stds(df_groups, "SCOP:AMRF:RF01:AI_MEAS1")
@@ -201,7 +235,7 @@ class ChargePlotter:
             # plot error bars
             error = [cluster[1] for cluster in means_and_stds]
             ax.errorbar(x_cluster_points, y_cluster_points, yerr=error, ls="none")
-        else:
+        elif not overlay and not plot_error_bars:
             ax.scatter(x, y)
             # create a line of best fit
             slope, intercept = np.polyfit(x, y, deg=1)
@@ -214,7 +248,7 @@ class ChargePlotter:
         end_time = str(df_charge_filtered["Timestamp"].to_list()[-1])[12:]
 
         ax.set_title(f"{y_label} vs. {x_label}\nfor {charge_val}pC from {start_date} to {end_date}",
-                     fontsize=label_size)
+                     fontsize=label_size + (label_size*0.1))
         # if not same_day:
         #     ax.set_title(f"{y_label} vs. {x_label}\nfor {charge_val}pC from {start_date} to {end_date}",
         #                  fontsize=label_size)
@@ -233,18 +267,20 @@ class ChargePlotter:
         # change values of x-axis or y-axis ticks to a different order of magnitude
         x_tick_locs = list(ax.get_xticks())
         y_tick_locs = list(ax.get_yticks())
+        x_tick_labels = [float(tick.get_text().replace('−', '-')) for tick in ax.get_xticklabels()]
+        y_tick_labels = [float(tick.get_text().replace('−', '-')) for tick in ax.get_yticklabels()]
         # raise or lower to the given power
-        x_tick_labels = [round(x * (10 ** x_change_decimal_point), x_num_rounded_digits) for x in x_tick_locs]
+        x_tick_labels_new = [round(x * (10 ** x_change_decimal_point), x_num_rounded_digits) for x in x_tick_labels]
         # raise or lower to the given power
-        y_tick_labels = [round(y * (10 ** y_change_decimal_point), y_num_rounded_digits) for y in y_tick_locs]
+        y_tick_labels_new = [round(y * (10 ** y_change_decimal_point), y_num_rounded_digits) for y in y_tick_labels]
         ax.xaxis.set_major_locator(ticker.FixedLocator(x_tick_locs))
-        ax.xaxis.set_major_formatter(ticker.FixedFormatter(x_tick_labels))
+        ax.xaxis.set_major_formatter(ticker.FixedFormatter(x_tick_labels_new))
         ax.yaxis.set_major_locator(ticker.FixedLocator(y_tick_locs))
-        ax.yaxis.set_major_formatter(ticker.FixedFormatter(y_tick_labels))
-        ax.tick_params(axis="x", labelsize=14)
-        ax.tick_params(axis="y", labelsize=14)
+        ax.yaxis.set_major_formatter(ticker.FixedFormatter(y_tick_labels_new))
+        ax.tick_params(axis="x", labelsize=20)
+        ax.tick_params(axis="y", labelsize=20)
         ax.xaxis.set_major_locator(plt.MaxNLocator(5))  # reduce the amount of ticks for both axes
         ax.yaxis.set_major_locator(plt.MaxNLocator(5))
-        ax.legend()
+        ax.legend(fontsize=label_size - (label_size*0.2))
         plt.subplots_adjust(left=0.15, bottom=0.15)
         plt.show()

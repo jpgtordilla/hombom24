@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="921fffcd-2132-4ce5-accc-e90368313128" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/buncher_dates.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/epics_data/BPMX02_SHORT.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/epics_data/BPMY02_SHORT.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/epics_data/HOMC1_SHORT.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/epics_data/XCOR04_SHORT.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/epics_data/YCOR04_SHORT.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/charge_plotter.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/charge_plotter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/dev_find_timeseries_lcls.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/dev_find_timeseries_lcls.ipynb" afterDir="false" />
@@ -245,7 +249,7 @@
       <workItem from="1722533063398" duration="3922000" />
       <workItem from="1722542256655" duration="18639000" />
       <workItem from="1722615730532" duration="9094000" />
-      <workItem from="1722632304073" duration="6457000" />
+      <workItem from="1722632304073" duration="18073000" />
     </task>
     <servers />
   </component>
@@ -292,11 +296,11 @@
     <SUITE FILE_PATH="coverage/hombom24$chao_dataprocess_script.coverage" NAME="chao_dataprocess_script Coverage Results" MODIFIED="1721682116972" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/board-analysis" />
     <SUITE FILE_PATH="coverage/hombom24$.coverage" NAME=" Coverage Results" MODIFIED="1722279059971" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/archiver_plotter" />
     <SUITE FILE_PATH="coverage/hombom24$charge_sep_correlations.coverage" NAME="charge_sep_correlations Coverage Results" MODIFIED="1721757353367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive-analysis/lcls-tools-plots" />
-    <SUITE FILE_PATH="coverage/hombom24$generate_plots.coverage" NAME="generate_plots Coverage Results" MODIFIED="1722638619173" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots" />
+    <SUITE FILE_PATH="coverage/hombom24$generate_plots.coverage" NAME="generate_plots Coverage Results" MODIFIED="1722650598243" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots" />
     <SUITE FILE_PATH="coverage/hombom24$archiver_plotter_examples.coverage" NAME="archiver_plotter_examples Coverage Results" MODIFIED="1722378767977" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/archiver_plotter" />
     <SUITE FILE_PATH="coverage/hombom24$visual_test_intervals_3.coverage" NAME="visual_test_intervals_3 Coverage Results" MODIFIED="1722037741332" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots" />
     <SUITE FILE_PATH="coverage/hombom24$cluster_test.coverage" NAME="cluster_test Coverage Results" MODIFIED="1721167780896" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive-analysis/lcls-tools-plots" />
-    <SUITE FILE_PATH="coverage/hombom24$charge_plotter.coverage" NAME="charge_plotter Coverage Results" MODIFIED="1722636152783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots" />
+    <SUITE FILE_PATH="coverage/hombom24$charge_plotter.coverage" NAME="charge_plotter Coverage Results" MODIFIED="1722646315694" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots" />
     <SUITE FILE_PATH="coverage/hombom24$lcls_test.coverage" NAME="lcls_test Coverage Results" MODIFIED="1721668514161" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive-analysis/meme-plots" />
   </component>
 </project>

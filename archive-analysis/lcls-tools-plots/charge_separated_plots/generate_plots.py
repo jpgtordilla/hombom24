@@ -3,6 +3,7 @@ import charge_plotter as cp
 import pandas as pd
 import sys
 from datetime import datetime, timedelta
+import matplotlib.pyplot as plt
 from bs4 import BeautifulSoup
 
 sys.path.append("/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/archiver_plotter")
@@ -15,33 +16,36 @@ pv_ycor = "YCOR:GUNB:713:BACT"  # YCOR 04
 pv_bpmy = "BPMS:GUNB:925:Y"  # BPMY 02
 pv_charge = "TORO:GUNB:360:CHRG"
 
+
 def get_pairs_of_dates(file_path):
-    # Open and read the local HTML file
+    """Gets all 10 minute time intervals before the dates listed in the LCLS-II logbook"""
+    # read the html file locally
     with open(file_path, 'r', encoding='utf-8') as file:
         html_content = file.read()
 
-    # Create a BeautifulSoup object and specify the parser
+    # use beautiful soup to parse the html file
     soup = BeautifulSoup(html_content, 'html.parser')
     dates = []
     times = []
 
-    # Find all tags with class 'header_date'
+    # search by class name: header_date gives the day of log
     date_tags = soup.find_all(class_='header_date')
     for tag in date_tags:
         curr_date = tag.get_text(strip=True)
         dates.append(curr_date)
 
-    # Find all tags with class 'header_time'
+    # header_time gives the time of the day at which the buncher phase scan was performed
     time_tags = soup.find_all(class_='header_time')
     for tag in time_tags:
         curr_time = tag.get_text(strip=True)
         times.append(curr_time)
 
+    # Create a list of datetimes of all the entries in the logbook
     datetimes = []
-
     for index in range(len(dates)):
         datetimes.append(f"{dates[index]} {times[index]}")
 
+    # Create list pairs of datetimes so that they can be accessed later to indicate plotting time ranges
     date_lists = [
         [(datetime.strptime(datetimes[i], "%m/%d/%Y %H:%M") - timedelta(minutes=10)).strftime("%Y/%m/%d %H:%M:%S"),
          datetime.strptime(datetimes[i], "%m/%d/%Y %H:%M").strftime("%Y/%m/%d %H:%M:%S")] for i in
@@ -93,6 +97,25 @@ def section_1():
                              x_units="(g/m)",
                              y_units="(arb. units)",
                              x_change_decimal_point=3)
+
+    plotter.plot_correlation(df_correl_chrg_xcor_homc1,
+                             pv_y=pv_hom,
+                             pv_x=pv_xcor,
+                             pv_charge=pv_charge,
+                             charge_val=50.0, charge_tolerance=0.5,
+                             plot_error_bars=True,
+                             low_vary_column=pv_xcor,
+                             error_tolerance=0.000015,
+                             x_label="XCOR 04 Magnet",
+                             y_label="HOM C1 Signal",
+                             y_vary=True,
+                             x_num_rounded_digits=5,
+                             y_num_rounded_digits=2,
+                             x_units="(g/m)",
+                             y_units="(arb. units)",
+                             x_change_decimal_point=3,
+                             overlay=True)
+
     # Correlation of HOM C1 Signal vs. BPMS:GUNB:925:X (no error bars)
     plotter.plot_correlation(df_correl_chrg_bpmx_homc1,
                              pv_y=pv_hom,
@@ -147,6 +170,25 @@ def section_2():
                              x_units="(g/m)",
                              y_units="(arb. units)",
                              x_change_decimal_point=3)
+
+    plotter.plot_correlation(df_correl_chrg_ycor_homc1,
+                             pv_y=pv_hom,
+                             pv_x=pv_ycor,
+                             pv_charge=pv_charge,
+                             charge_val=50.0, charge_tolerance=0.5,
+                             plot_error_bars=True,
+                             low_vary_column=pv_ycor,
+                             error_tolerance=0.000015,
+                             x_label="YCOR 04 Magnet",
+                             y_label="HOM C1 Signal",
+                             y_vary=True,
+                             x_num_rounded_digits=5,
+                             y_num_rounded_digits=2,
+                             x_units="(g/m)",
+                             y_units="(arb. units)",
+                             x_change_decimal_point=3,
+                             overlay=True)
+
     # Correlation of HOM C1 Signal vs. BPMS:GUNB:925:Y (no error bars)
     plotter.plot_correlation(df_correl_chrg_bpmy_homc1,
                              pv_y=pv_hom,
@@ -171,39 +213,11 @@ def plot_over_time_and_correlation(date_list, pv_list, label_list, unit_list):
     # label_list = ["YCOR Magnet", "BPM Y", "HOM C1 Signal", "Charge"]
     # unit_list = ["g/m", "mm", "arbitrary units"]
 
-    # PLOT OVER TIME FOR A SHORT TIMEFRAME
-    range_start_date = date_list[2][0]
-    curr_start_date_obj = datetime.strptime(range_start_date, "%Y/%m/%d %H:%M:%S")
-    timeseries_end_obj = curr_start_date_obj + timedelta(minutes=7)  # TODO: change to EPICS graphing if necessary
-    range_end_date = timeseries_end_obj.strftime("%Y/%m/%d %H:%M:%S")
-    print(range_start_date, range_end_date)
-
-    # 2024/07/02 01:35:00 2024/07/02 01:42:00
-    # pv_hom = "SCOP:AMRF:RF01:AI_MEAS1"
-    # pv_xcor = "XCOR:GUNB:713:BACT"  # XCOR 04
-    # pv_bpmx = "BPMS:GUNB:925:X"  # BPMX 02
-    # pv_ycor = "YCOR:GUNB:713:BACT"  # YCOR 04
-    # pv_bpmy = "BPMS:GUNB:925:Y"  # BPMY 02
-    # pv_charge = "TORO:GUNB:360:CHRG"
-
-    # create DataFrames for the PV over time
-    df_cor = pd.read_csv()
-    df_bpm = pd.read_csv()
-    df_hom = pd.read_csv()
-    df_hom_filter = filter_hom(df_hom)  # remove (saturated) values
-
-    # change signals to line up
-    # TODO: adjust for given timeframe
-    # df_cor[pv_list[0]] = [df_cor[pv_list[0]][x] for x in range(len(df_cor[pv_list[0]]))]
-
-    # plot over time
-
-
     # COMBINE TIMEFRAMES AND FIND CORRELATIONS
 
     correl_homc1_cor_list = []
     correl_homc1_bpm_list = []
-    for x in range(int(len(start_end_dates) / 20)):
+    for x in range(int(len(start_end_dates) / 20)):  # all times from the bunches_dates.html file
         curr_start_date = date_list[x][0]
         curr_end_date = date_list[x][1]
 
