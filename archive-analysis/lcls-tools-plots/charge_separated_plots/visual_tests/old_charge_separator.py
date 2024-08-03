@@ -8,7 +8,7 @@ import random
 import sys
 
 sys.path.append(
-    '/archive-analysis/lcls-tools-plots/lcls_tools')
+    "/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/lcls_tools")
 import common.data_analysis.archiver as arch  # type: ignore
 
 """

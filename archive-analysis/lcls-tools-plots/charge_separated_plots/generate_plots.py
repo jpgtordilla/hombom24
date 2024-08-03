@@ -217,7 +217,7 @@ def plot_over_time_and_correlation(date_list, pv_list, label_list, unit_list):
 
     correl_homc1_cor_list = []
     correl_homc1_bpm_list = []
-    for x in range(int(len(start_end_dates) / 20)):  # all times from the bunches_dates.html file
+    for x in range(len(start_end_dates)):  # all times from the bunches_dates.html file
         curr_start_date = date_list[x][0]
         curr_end_date = date_list[x][1]
 

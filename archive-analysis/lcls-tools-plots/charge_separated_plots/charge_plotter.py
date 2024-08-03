@@ -1,9 +1,11 @@
 import matplotlib.pyplot as plt
 from matplotlib.ticker import StrMethodFormatter
 from matplotlib import ticker
+from matplotlib import cm
 import pandas as pd
 import numpy as np
 import sys
+from scipy.stats import gaussian_kde
 from datetime import datetime
 sys.path.append('/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/archiver_plotter')
 import archiver_plotter as ap  # type: ignore
@@ -197,11 +199,18 @@ class ChargePlotter:
                                     range(len(df_groups))]  # average y val in each cluster
                 x_cluster_points = [cluster[0] for cluster in means_and_stds]  # average x val in each cluster
 
+            # xy = np.vstack([x, y])
+            # z = gaussian_kde(xy)(xy)
+            # ax.scatter(x, y, c=z, cmap="viridis")
             ax.scatter(x, y, color="blue")
+
             # create a line of best fit
             slope, intercept = np.polyfit(x, y, deg=1)
             ax.axline(xy1=(0, intercept), slope=slope, label=f"y = {slope:.3f}x + {intercept:.3f}", color="blue")
 
+            # x_cluster_y_cluster = np.vstack([x_cluster_points, y_cluster_points])
+            # z = gaussian_kde(x_cluster_y_cluster)(x_cluster_y_cluster)
+            # ax.scatter(x_cluster_points, y_cluster_points, c=z, cmap="plasma")
             ax.scatter(x_cluster_points, y_cluster_points, color="red")
             # create a line of best fit
             slope, intercept = np.polyfit(x_cluster_points, y_cluster_points, deg=1)
@@ -227,19 +236,25 @@ class ChargePlotter:
                                     range(len(df_groups))]  # average y val in each cluster
                 x_cluster_points = [cluster[0] for cluster in means_and_stds]  # average x val in each cluster
 
+            # xy = np.vstack([x, y])
+            # z = gaussian_kde(xy)(xy)
+            # ax.scatter(x, y, c=z, cmap="viridis")
             ax.scatter(x_cluster_points, y_cluster_points)
             # create a line of best fit
             slope, intercept = np.polyfit(x_cluster_points, y_cluster_points, deg=1)
-            ax.axline(xy1=(0, intercept), slope=slope, label=f"y = {slope:.3f}x + {intercept:.3f}")
+            ax.axline(xy1=(0, intercept), slope=slope, label=f"y = {slope:.3f}x + {intercept:.3f}", color="red")
 
             # plot error bars
             error = [cluster[1] for cluster in means_and_stds]
-            ax.errorbar(x_cluster_points, y_cluster_points, yerr=error, ls="none")
+            ax.errorbar(x_cluster_points, y_cluster_points, yerr=error, ls="none", color="red")
         elif not overlay and not plot_error_bars:
-            ax.scatter(x, y)
+            xy = np.vstack([x, y])
+            z = gaussian_kde(xy)(xy)
+            ax.scatter(x, y, c=z, cmap="viridis")
+            # ax.scatter(x, y)
             # create a line of best fit
             slope, intercept = np.polyfit(x, y, deg=1)
-            ax.axline(xy1=(0, intercept), slope=slope, label=f"y = {slope:.3f}x + {intercept:.3f}")
+            ax.axline(xy1=(0, intercept), slope=slope, label=f"y = {slope:.3f}x + {intercept:.3f}", color="red")
 
         # set labels
         start_date = str(df_charge_filtered["Timestamp"].to_list()[0])[:10]
