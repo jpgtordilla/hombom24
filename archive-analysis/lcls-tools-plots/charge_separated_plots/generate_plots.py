@@ -217,6 +217,10 @@ def plot_over_time_and_correlation(date_list, pv_list, label_list, unit_list):
 
     correl_homc1_cor_list = []
     correl_homc1_bpm_list = []
+
+    # correlation list for charge correlation
+    correl_homc1_charge_list = []
+
     for x in range(len(start_end_dates)):  # all times from the bunches_dates.html file
         curr_start_date = date_list[x][0]
         curr_end_date = date_list[x][1]
@@ -237,12 +241,39 @@ def plot_over_time_and_correlation(date_list, pv_list, label_list, unit_list):
         df_correl_homc1_bpm = plotter.merge_with_margin_on_timestamp(df_charge_bpm, df_hom_filter,
                                                                      time_margin_seconds=1.5)
 
+        # create correlation for charge plot
+        df_correl_charge_homc1 = plotter.merge_with_margin_on_timestamp(df_charge, df_hom_filter,
+                                                                        time_margin_seconds=1.5)
+
         correl_homc1_cor_list.append(df_correl_homc1_cor)
         correl_homc1_bpm_list.append(df_correl_homc1_bpm)
+
+        correl_homc1_charge_list.append(df_correl_charge_homc1)
 
     # combine dataframes from list and sort
     df_correl_homc1_cor = pd.concat(correl_homc1_cor_list).sort_values(by=["Timestamp"])
     df_correl_homc1_bpm = pd.concat(correl_homc1_bpm_list).sort_values(by=["Timestamp"])
+
+    # charge correlation
+    df_correl_charge_homc1 = pd.concat(correl_homc1_charge_list).sort_values(by=["Timestamp"])
+
+    # plot HOM C1 vs. Charge
+    arch_plotter.plot_correl(df_correl_charge_homc1,
+                             pv_x=pv_list[3],
+                             pv_y=pv_list[2],
+                             pv_xlabel="Charge (pC)",
+                             pv_ylabel="HOM C1 Signal (arb. units)",
+                             plot_title="HOM C1 vs. Charge",
+                             is_cmap=True,
+                             width=10,
+                             height=10,
+                             label_size=20,
+                             marker_size=40,
+                             num_ticks=5,
+                             tick_size_x=18,
+                             tick_size_y=18,
+                             title_size=23,
+                             smart_labels=True)
 
     # plot HOM C1 vs. COR
     plotter.plot_correlation(df_correl_homc1_cor,

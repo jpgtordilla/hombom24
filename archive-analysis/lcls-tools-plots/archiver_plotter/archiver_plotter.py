@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from pandas import DataFrame
+from scipy.stats import gaussian_kde
 sys.path.append('/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/lcls_tools')
 import common.data_analysis.archiver as arch  # type: ignore
 
@@ -250,9 +251,12 @@ class ArchiverPlotter:
                     marker_type: str = ".",
                     is_scatter: bool = True,
                     is_marker: bool = False,
+                    is_fit: bool = False,
+                    is_cmap: bool = False,
                     marker_size: int = 5,
                     pv_xlabel: str = None,
                     pv_ylabel: str = None,
+                    plot_title: str = None,
                     num_ticks: int = 7,
                     tick_size_x: int = 10,
                     tick_size_y: int = 10,
@@ -276,9 +280,12 @@ class ArchiverPlotter:
         :param marker_type: The default marker type for the plot.
         :param is_scatter: A boolean for whether to plot all points as scatter, or to plot as lines.
         :param is_marker: A boolean for whether to plot all points as markers.
+        :param is_fit: A boolean for whether to plot a fit of the data.
+        :param is_cmap: A boolean for whether to plot a color map of the data.
         :param marker_size: The size of the scatter marker, if scatter is chosen as a line_types option.
         :param pv_xlabel: The label for the x-axis.
         :param pv_ylabel: The label for the y-axis.
+        :param plot_title: The title of the plot.
         :param num_ticks: The number of ticks along the x-axis of the plot.
         :param tick_size_x: The size of the tick labels along the x-axis of the plot.
         :param tick_size_y: The size of the tick labels along the x-axis of the plot.
@@ -310,7 +317,17 @@ class ArchiverPlotter:
                 ax.plot(df[pv_xlabel], df[pv_ylabel], color=correl_color, linestyle=line_type)
         # scatter plot
         else:
-            ax.scatter(df[pv_xlabel], df[pv_ylabel], color=correl_color, s=marker_size)
+            if not is_cmap:
+                ax.scatter(df[pv_xlabel], df[pv_ylabel], color=correl_color, s=marker_size)
+            # colormap plot
+            else:
+                xy = np.vstack([df[pv_xlabel], df[pv_ylabel]])
+                z = gaussian_kde(xy)(xy)
+                ax.scatter(df[pv_xlabel], df[pv_ylabel], c=z, cmap="viridis")
+            if is_fit:
+                # create a line of best fit
+                slope, intercept = np.polyfit(df[pv_xlabel], df[pv_ylabel], deg=1)
+                ax.axline(xy1=(0, intercept), slope=slope, label=f"y = {slope:.3f}x + {intercept:.3f}", color="red")
 
         # LABELS
         if smart_labels and pv_xlabel is not None and pv_ylabel is not None:
@@ -319,7 +336,12 @@ class ArchiverPlotter:
 
         self.set_fonts(label_font, xlabel_color, ylabel_color, title_color, tick_size_x, tick_size_y, title_size,
                        label_size)
-        plt.title(f"{self.label_settings["y_axis"]} vs. {self.label_settings["x_axis"]}", fontdict=self.font_title)
+
+        if plot_title is not None:
+            plt.title(f"{self.label_settings["y_axis"]} vs. {self.label_settings["x_axis"]}", fontdict=self.font_title)
+        else:
+            plt.title(f"{plot_title}", fontdict=self.font_title)
+
         plt.xlabel(self.label_settings["x_axis"], fontdict=self.font_x)
         plt.ylabel(self.label_settings["y_axis"], fontdict=self.font_y)
         ax.tick_params(axis="x", labelsize=self.tick_x_size)
