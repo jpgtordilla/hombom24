@@ -1,0 +1,19 @@
+
+
+meme = meme.archive.get(["TORO:GUNB:360:CHRG"], from_time=datetime(2024, 3, 20, 0, 0), datetime(2024, 3, 20, 0, 1))
+
+
+lcls = arch.get_values_over_time_range(["TORO:GUNB:360:CHRG"], datetime(2024, 3, 20, 0, 0), datetime(2024, 3, 20, 1, 0))
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -178,7 +178,7 @@ class ChargePlotter:
         # filter out unwanted charges
         df_charge_filtered = df[(df[pv_charge] >= charge_val - (charge_val * charge_tolerance)) & (
                 df[pv_charge] <= charge_val + (charge_val * charge_tolerance))]
-        fig, ax = plt.subplots(figsize=(10, 10))
+        fig, ax = plt.subplots(figsize=(12, 10))
         # plot correlation points
         x = df_charge_filtered[pv_x]
         y = df_charge_filtered[pv_y]
@@ -251,6 +251,7 @@ class ChargePlotter:
             xy = np.vstack([x, y])
             z = gaussian_kde(xy)(xy)
             ax.scatter(x, y, c=z, cmap="viridis")
+            fig.colorbar(cm.ScalarMappable(cmap="viridis"), ax=ax)  # add colorbar
             # ax.scatter(x, y)
             # create a line of best fit
             slope, intercept = np.polyfit(x, y, deg=1)

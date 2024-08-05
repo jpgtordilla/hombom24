@@ -5,27 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="921fffcd-2132-4ce5-accc-e90368313128" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/hom-plots-density/6m/bpmx-long-raw.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hom-plots-density/6m/bpmy-long-raw.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hom-plots-density/6m/xcor-long-both.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hom-plots-density/6m/xcor-long-error.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hom-plots-density/6m/xcor-long-raw.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hom-plots-density/6m/ycor-long-both.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hom-plots-density/6m/ycor-long-error.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hom-plots-density/6m/ycor-long-raw.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hom-plots-density/combined/bpmx-phase-error.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hom-plots-density/combined/bpmx-phase-raw.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hom-plots-density/combined/bpmy-phase-error.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hom-plots-density/combined/bpmy-phase-raw.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hom-plots-density/combined/xcor-phase-error.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hom-plots-density/combined/xcor-phase-raw.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hom-plots-density/combined/ycor-phase-error.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hom-plots-density/combined/ycor-phase-raw.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hom-plots-density/time/xpvs_time.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hom-plots-density/time/ypvs_time.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/archive-analysis/meme-plots/test" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/archiver_plotter/archiver_plotter.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/archiver_plotter/archiver_plotter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/generate_plots.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/generate_plots.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hom-plots/diagrams/beamline-zoom.png" beforeDir="false" afterPath="$PROJECT_DIR$/hom-plots/diagrams/beamline-zoom.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -268,7 +250,10 @@
       <workItem from="1722700095874" duration="313000" />
       <workItem from="1722700415076" duration="2474000" />
       <workItem from="1722872668924" duration="610000" />
-      <workItem from="1722876234691" duration="1466000" />
+      <workItem from="1722876234691" duration="1624000" />
+      <workItem from="1722879600187" duration="1420000" />
+      <workItem from="1722882406485" duration="1046000" />
+      <workItem from="1722891189553" duration="304000" />
     </task>
     <servers />
   </component>
