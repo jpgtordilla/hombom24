@@ -391,7 +391,7 @@ if __name__ == '__main__':
     # SECTION 3: HOM C1 VS. XCOR, BPM X FOR HIGH XCOR ACTIVITY
 
     pvs_sec_3 = [pv_xcor, pv_bpmx, pv_hom, pv_charge]
-    label_list_sec_3 = ["XCOR 04 Magnet", "BPMX 02", "HOM C1 Signal", "Charge"]
+    label_list_sec_3 = ["XCOR 04 Magnet", "BPM 02 X", "HOM C1 Signal", "Charge"]
     unit_list_sec_3 = ["(g/m)", "(mm)", "(arbitrary units)"]
 
     plot_over_time_and_correlation(start_end_dates, pvs_sec_3, label_list_sec_3, unit_list_sec_3)
@@ -399,7 +399,7 @@ if __name__ == '__main__':
     # SECTION 4: HOM C1 VS. YCOR, BPM Y FOR HIGH XCOR ACTIVITY
 
     pvs_sec_4 = [pv_ycor, pv_bpmy, pv_hom, pv_charge]
-    label_list_sec_4 = ["YCOR 04 Magnet", "BPMY 02", "HOM C1 Signal", "Charge"]
+    label_list_sec_4 = ["YCOR 04 Magnet", "BPM 02 Y", "HOM C1 Signal", "Charge"]
     unit_list_sec_4 = ["(g/m)", "(mm)", "(arbitrary units)"]
 
     plot_over_time_and_correlation(start_end_dates, pvs_sec_4, label_list_sec_4, unit_list_sec_4)
