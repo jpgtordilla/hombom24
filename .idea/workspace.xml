@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="921fffcd-2132-4ce5-accc-e90368313128" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scope-analysis/scope_data_processing.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/scope-analysis/scope_data_processing.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -260,7 +261,8 @@
       <workItem from="1722976894168" duration="71000" />
       <workItem from="1722979316918" duration="7497000" />
       <workItem from="1722987210270" duration="632000" />
-      <workItem from="1723055854515" duration="2287000" />
+      <workItem from="1723055854515" duration="2342000" />
+      <workItem from="1723062234105" duration="787000" />
     </task>
     <servers />
   </component>
