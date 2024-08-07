@@ -74,6 +74,7 @@ class ChargeSeparator:
         self.current_charges = charge_vals
         for charge in charge_vals:
             # keep rows with charges within the tolerance range and add to the df_list
-            df_curr_charge = df[(df[pv_charge] - abs(charge) >= 0) & (((df[pv_charge] - abs(charge))/abs(charge)) <= tolerance)]
+            df_curr_charge = df[(df[pv_charge] - abs(charge) >= 0) & (((df[pv_charge] - abs(charge))/abs(charge)) <=
+                                                                      tolerance)]
             df_list.append(df_curr_charge)
         return df_list

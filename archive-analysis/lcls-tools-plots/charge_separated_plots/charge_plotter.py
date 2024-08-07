@@ -283,8 +283,8 @@ class ChargePlotter:
         # change values of x-axis or y-axis ticks to a different order of magnitude
         x_tick_locs = list(ax.get_xticks())
         y_tick_locs = list(ax.get_yticks())
-        x_tick_labels = [float(tick.get_text().replace('−', '-')) for tick in ax.get_xticklabels()]
-        y_tick_labels = [float(tick.get_text().replace('−', '-')) for tick in ax.get_yticklabels()]
+        x_tick_labels = [float((tick.get_text().replace('−', '-')).replace(",", "")) for tick in ax.get_xticklabels()]
+        y_tick_labels = [float((tick.get_text().replace('−', '-')).replace(",", "")) for tick in ax.get_yticklabels()]
         # raise or lower to the given power
         x_tick_labels_new = [round(x * (10 ** x_change_decimal_point), x_num_rounded_digits) for x in x_tick_labels]
         # raise or lower to the given power
