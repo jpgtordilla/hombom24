@@ -5,15 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="921fffcd-2132-4ce5-accc-e90368313128" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/hom-plots/big-data/bpmx-long-cmap.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hom-plots/big-data/bpmy-long-cmap.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hom-plots/big-data/xcor-long-cmap.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hom-plots/big-data/ycor-long-cmap.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/charge_plotter.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/charge_plotter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/charge_separator.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/charge_separator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/generate_plots.py" beforeDir="false" afterPath="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/charge_separated_plots/generate_plots.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hom-plots/bpmx-long-cmap.png" beforeDir="false" afterPath="$PROJECT_DIR$/hom-plots/bpmx-long-cmap.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scope-analysis/scope_data_processing.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/scope-analysis/scope_data_processing.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -269,7 +260,7 @@
       <workItem from="1722976894168" duration="71000" />
       <workItem from="1722979316918" duration="7497000" />
       <workItem from="1722987210270" duration="632000" />
-      <workItem from="1723055854515" duration="1764000" />
+      <workItem from="1723055854515" duration="2287000" />
     </task>
     <servers />
   </component>
