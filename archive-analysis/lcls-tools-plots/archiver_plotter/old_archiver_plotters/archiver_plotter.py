@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from pandas import DataFrame
 from scipy.stats import gaussian_kde
-sys.path.append('/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/lcls_tools')
+sys.path.append('/archive-analysis/lcls-tools-plots/lcls_tools')
 import common.data_analysis.archiver as arch  # type: ignore
 
 

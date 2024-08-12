@@ -4,7 +4,7 @@ import pandas as pd
 from datetime import datetime
 from matplotlib import pyplot as plt
 import sys
-sys.path.append('/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots')
+sys.path.append('/archive-analysis/lcls-tools-plots')
 from archiver_plotter import ArchiverPlotter
 
 

@@ -123,7 +123,7 @@ class ChargePlotter:
                          error_tolerance: float,
                          x_label: str,
                          y_label: str,
-                         label_size: int = 24,
+                         label_size: int = 30,
                          y_vary=True,
                          x_num_rounded_digits: int = 5,
                          y_num_rounded_digits: int = 5,
@@ -293,8 +293,8 @@ class ChargePlotter:
         ax.xaxis.set_major_formatter(ticker.FixedFormatter(x_tick_labels_new))
         ax.yaxis.set_major_locator(ticker.FixedLocator(y_tick_locs))
         ax.yaxis.set_major_formatter(ticker.FixedFormatter(y_tick_labels_new))
-        ax.tick_params(axis="x", labelsize=20)
-        ax.tick_params(axis="y", labelsize=20)
+        ax.tick_params(axis="x", labelsize=24)
+        ax.tick_params(axis="y", labelsize=24)
         ax.xaxis.set_major_locator(plt.MaxNLocator(5))  # reduce the amount of ticks for both axes
         ax.yaxis.set_major_locator(plt.MaxNLocator(5))
         ax.legend(fontsize=label_size - (label_size*0.2))
