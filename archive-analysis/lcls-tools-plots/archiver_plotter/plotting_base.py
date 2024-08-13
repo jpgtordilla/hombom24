@@ -21,7 +21,7 @@ class PlottingBase(BaseModel):
     y_axis_label: str = "PV"
     x_axis_label_color: str = "black"
     y_axis_label_color: str = "black"
-    all_label_font_family: str = "Helvetica"
+    all_label_font_family: str = "DejaVu Sans"
     axis_label_font_size: PositiveInt = 16
     num_axis_ticks: PositiveInt = 7
     x_axis_tick_font_size: PositiveInt = 10

@@ -344,7 +344,7 @@ def plot_over_time_and_correlation(date_list, pv_list, label_list, unit_list):
 
 if __name__ == '__main__':
     plotter = cp.ChargePlotter()
-    arch_plotter = ap.ArchiverPlotter()
+    arch_plotter = ap
 
     # CREATE DATAFRAMES FROM ARCHIVE DATA
     """

@@ -35,7 +35,7 @@ class TestArchiverPlotter(unittest.TestCase):
         }
         mock_get_values.return_value = mock_data
 
-        df = self.plotter.create_df('pv:1', '2024/01/01 00:00:00', '2024/01/02 00:00:00')
+        df = create_df('pv:1', '2024/01/01 00:00:00', '2024/01/02 00:00:00')
         self.assertTrue('timestamps' in df.columns)
         self.assertTrue('pv:1' in df.columns)
         self.assertEqual(len(df), 2)
@@ -46,7 +46,7 @@ class TestArchiverPlotter(unittest.TestCase):
         df_x = pd.DataFrame({'timestamps': ['2024/01/01 00:00:00', '2024/01/02 00:00:00'], 'pv:1': [1, 2]})
         df_y = pd.DataFrame({'timestamps': ['2024/01/01 00:00:00', '2024/01/02 00:00:00'], 'pv:2': [3, 4]})
 
-        df_corr = self.plotter.create_correlation_df(df_x, df_y)
+        df_corr = create_correlation_df(df_x, df_y)
         self.assertTrue('pv:1' in df_corr.columns)
         self.assertTrue('pv:2' in df_corr.columns)
         self.assertEqual(len(df_corr), 2)
@@ -66,14 +66,14 @@ class TestArchiverPlotter(unittest.TestCase):
     @patch('archiver_plotter.arch.get_values_over_time_range')
     def test_create_df_invalid_date_format(self, mock_get_values):
         with self.assertRaises(ValueError):
-            self.plotter.create_df('pv:1', 'invalid_date', '2024/01/02 00:00:00')
+            create_df('pv:1', 'invalid_date', '2024/01/02 00:00:00')
 
     def test_create_correlation_df_mismatched_timestamps(self):
         """create_correlation_df merges on timestamps, so with no matches, should return an empty DataFrame."""
         df_x = pd.DataFrame({'timestamps': ['2024/01/01 00:00:00'], 'pv:1': [1]})
         df_y = pd.DataFrame({'timestamps': ['2024/01/02 00:00:00'], 'pv:2': [2]})
 
-        df_corr = self.plotter.create_correlation_df(df_x, df_y)
+        df_corr = create_correlation_df(df_x, df_y)
         self.assertEqual(len(df_corr), 0)
 
     def test_plot_pv_over_time_empty_df_list(self):
@@ -87,17 +87,17 @@ class TestArchiverPlotter(unittest.TestCase):
 
     def test_create_df_empty_pv_str(self):
         with self.assertRaises(ValueError):
-            self.plotter.create_df('', '2024/01/01 00:00:00', '2024/01/02 00:00:00')
+            create_df('', '2024/01/01 00:00:00', '2024/01/02 00:00:00')
 
     def test_create_df_empty_date_str(self):
         with self.assertRaises(ValueError):
-            self.plotter.create_df('pv:1', '', '')
+            create_df('pv:1', '', '')
 
     def test_create_correlation_df_empty_df(self):
         df_x = pd.DataFrame()
         df_y = pd.DataFrame()
 
-        df_corr = self.plotter.create_correlation_df(df_x, df_y)
+        df_corr = create_correlation_df(df_x, df_y)
         self.assertTrue(df_corr.empty)
 
     def test_create_correlation_df_different_timestamps(self):
@@ -107,12 +107,12 @@ class TestArchiverPlotter(unittest.TestCase):
         df_y = pd.DataFrame(data={'timestamps': ['2024/01/01 00:00:00', '2024/01/04 00:00:00', '2024/01/03 00:00:00'],
                                   'pv:2': [1, 2, 3]})
 
-        df_corr = self.plotter.create_correlation_df(df_x, df_y)
+        df_corr = create_correlation_df(df_x, df_y)
         self.assertEqual(len(df_corr), 2)
         self.assertTrue(df_corr['timestamps'].equals(pd.Series(data=['2024/01/01 00:00:00', '2024/01/03 00:00:00'])))
 
     def test_get_formatted_timestamps_empty_df_list(self):
-        formatted = self.plotter.get_formatted_timestamps([])
+        formatted = get_formatted_timestamps([])
         self.assertEqual(formatted, [])
 
     @patch('matplotlib.pyplot.show')
@@ -137,13 +137,13 @@ class TestArchiverPlotter(unittest.TestCase):
 
     def test_create_df_invalid_pv(self):
         with self.assertRaises(KeyError):
-            self.plotter.create_df('invalid_pv', '2024/01/01 00:00:00', '2024/01/02 00:00:00')
+            create_df('invalid_pv', '2024/01/01 00:00:00', '2024/01/02 00:00:00')
 
     @patch('archiver_plotter.arch.get_values_over_time_range')
     def test_create_df_empty_response(self, mock_get_values):
         mock_get_values.return_value = {'pv:1': MagicMock(timestamps=[], values=[])}
 
-        df = self.plotter.create_df('pv:1', '2024/01/01 00:00:00', '2024/01/02 00:00:00')
+        df = create_df('pv:1', '2024/01/01 00:00:00', '2024/01/02 00:00:00')
         self.assertTrue(df.empty)
 
     @patch('matplotlib.pyplot.show')
@@ -166,7 +166,7 @@ class TestArchiverPlotter(unittest.TestCase):
 
     def test_create_df_large_date_range(self):
         with self.assertRaises(ValueError):
-            self.plotter.create_df('pv:1', '2024/01/01 00:00:00', '2030/01/01 00:00:00')
+            create_df('pv:1', '2024/01/01 00:00:00', '2030/01/01 00:00:00')
 
     @patch('matplotlib.pyplot.show')
     def test_plot_pv_over_time_large_marker_size(self, mock_show):
@@ -182,7 +182,7 @@ class TestArchiverPlotter(unittest.TestCase):
 
     def test_get_formatted_timestamps_large_df(self):
         df_list = [pd.DataFrame({'timestamps': ['2024/01/01 00:00:00'] * 1000})]
-        formatted = self.plotter.get_formatted_timestamps(df_list)
+        formatted = get_formatted_timestamps(df_list)
         self.assertEqual(len(formatted), 1000)
 
     def test_set_fonts_empty_string(self):
