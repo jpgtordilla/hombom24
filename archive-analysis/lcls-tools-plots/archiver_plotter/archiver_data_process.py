@@ -44,57 +44,10 @@ class PVModel(BaseModel):
         assert end_datetime.year - start_datetime.year <= 2, "Too long of a time range given."
         return end
 
-    @property
-    def pv_str(self):
-        return self._pv_str
-
-    @property
-    def start(self):
-        return self._start
-
-    @property
-    def end(self):
-        return self._end
-
-    @pv_str.setter
-    def pv_str(self, value):
-        self._pv_str = value
-
-    @start.setter
-    def start(self, value):
-        self._start = value
-
-    @end.setter
-    def end(self, value):
-        self._end = value
-
 
 def pv(pv_str: str, start: str, end: str) -> PVModel:
-    """Returns a PVModel instance."""
+    """Returns a PVModel instance. Used exclusively with the create_df function to return a DataFrame for a PV."""
     return PVModel(pv_str=pv_str, start=start, end=end)
-
-
-def get_formatted_timestamps(df_list: list[pd.DataFrame]) -> list[str]:
-    """Removes redundant timestamp labels if they are the same throughout all the data points."""
-
-    assert len(df_list) > 0, "DataFrame list is empty."
-    date_list = df_list[0]["Timestamp"].tolist()
-    # compares the first and last timestamp
-    first_date = date_list[0]
-    last_date = date_list[-1]
-    date_format_list = ["%Y/", "%m/", "%d", " ", "%H:", "%M:", "%S"]
-    # go character by character, comparing digits until they differ, then formatting appropriately
-    for i in range(len(first_date)):
-        curr_first_date = first_date[i]
-        curr_last_date = last_date[i]
-        # if the current year, month, day, etc. is not the same, then print the remaining timestamps on the axis
-        if curr_first_date != curr_last_date:
-            break
-        if curr_first_date == "/" or curr_first_date == ":" or curr_last_date == " ":
-            del date_format_list[0]
-    date_format_str = "".join(date_format_list)
-    # returns a list of reformatted timestamp strings that will be plotted
-    return [datetime.strptime(date, "%Y/%m/%d %H:%M:%S").strftime(date_format_str) for date in date_list]
 
 
 def create_df(pv_model: PVModel) -> pd.DataFrame:
@@ -122,7 +75,7 @@ def create_df(pv_model: PVModel) -> pd.DataFrame:
     return pd.DataFrame({"Timestamp": pv_clean_timestamps, pv_str: pv_values})  # create df with columns
 
 
-def create_correlation_df(df_x: pd.DataFrame, df_y: pd.DataFrame) -> pd.DataFrame:
+def merge_dfs_by_timestamp_column(df_x: pd.DataFrame, df_y: pd.DataFrame) -> pd.DataFrame:
     """Given two DataFrames of PVs, return a single DataFrame with matching and aligned timestamps.
 
     :param df_y: The name of the PV or the DataFrame that will be plotted on the y-axis.
@@ -131,3 +84,26 @@ def create_correlation_df(df_x: pd.DataFrame, df_y: pd.DataFrame) -> pd.DataFram
     if df_x.empty or df_y.empty:
         return pd.DataFrame()
     return pd.merge(df_y, df_x, on="Timestamp")  # merge DataFrames on equal timestamp strings
+
+
+def get_formatted_timestamps(df_list: list[pd.DataFrame]) -> list[str]:
+    """Removes redundant timestamp labels if they are the same throughout all the data points."""
+
+    assert len(df_list) > 0, "DataFrame list is empty."
+    date_list = df_list[0]["Timestamp"].tolist()
+    # compares the first and last timestamp
+    first_date = date_list[0]
+    last_date = date_list[-1]
+    date_format_list = ["%Y/", "%m/", "%d", " ", "%H:", "%M:", "%S"]
+    # go character by character, comparing digits until they differ, then formatting appropriately
+    for i in range(len(first_date)):
+        curr_first_date = first_date[i]
+        curr_last_date = last_date[i]
+        # if the current year, month, day, etc. is not the same, then print the remaining timestamps on the axis
+        if curr_first_date != curr_last_date:
+            break
+        if curr_first_date == "/" or curr_first_date == ":" or curr_last_date == " ":
+            del date_format_list[0]
+    date_format_str = "".join(date_format_list)
+    # returns a list of reformatted timestamp strings that will be plotted
+    return [datetime.strptime(date, "%Y/%m/%d %H:%M:%S").strftime(date_format_str) for date in date_list]
