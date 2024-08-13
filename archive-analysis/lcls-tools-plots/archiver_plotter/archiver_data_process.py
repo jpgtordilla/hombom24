@@ -8,7 +8,7 @@ import sys
 sys.path.append("/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/lcls_tools")
 import common.data_analysis.archiver as arch
 
-MAX_YEAR_RANGE = 2
+MAX_YEAR_RANGE = 2  # Maximum amount of years between datetimes in a request for PV data
 
 
 class PVModel(BaseModel):
@@ -41,7 +41,7 @@ class PVModel(BaseModel):
         current_datetime = datetime.now()
         assert start_datetime < current_datetime and end_datetime < current_datetime, "Invalid date, too far in future."
         assert start_datetime < end_datetime, "End date must be greater than start date."
-        assert end_datetime.year - start_datetime.year <= 2, "Too long of a time range given."
+        assert end_datetime.year - start_datetime.year <= MAX_YEAR_RANGE, "Too long of a time range given."
         return end
 
 
@@ -84,6 +84,44 @@ def merge_dfs_by_timestamp_column(df_x: pd.DataFrame, df_y: pd.DataFrame) -> pd.
     if df_x.empty or df_y.empty:
         return pd.DataFrame()
     return pd.merge(df_y, df_x, on="Timestamp")  # merge DataFrames on equal timestamp strings
+
+
+def merge_dfs_with_margin_by_timestamp_column(df_1: pd.DataFrame, df_2: pd.DataFrame, time_margin_seconds: float):
+    """Merges two DataFrames on similar timestamps, where timestamps differ by less than the time specified by the
+    time_margin parameter.
+
+    Creates additional columns that store the time difference between the true and comparison timestamps.
+
+    :param df_1: First DataFrame with a Timestamp column.
+    :param df_2: Second DataFrame with a Timestamp column.
+    :param time_margin_seconds: The time margin between two timestamps as given in seconds, useful for defining the
+    propagated error for a correlation.
+    """
+
+    # must convert the values in the Timestamp column to datetime objects
+    df_1["Timestamp"] = pd.to_datetime(df_1["Timestamp"])
+    df_2["Timestamp"] = pd.to_datetime(df_2["Timestamp"])
+
+    """Use the pandas method merge_asof to merge the DataFrames within a tolerance value 
+    (pandas.pydata.org/docs/reference/api/pandas.merge_asof.html). 
+
+    According to the pd.merge_asof() function, the first DataFrame parameter in the function defines what the second 
+    DataFrame is compared to. 
+
+    Therefore, the first DataFrame will have a time-axis uncertainty of 0. 
+    The second DataFrame will have some uncertainty ranging from 0 to the time_margin_seconds value. 
+    """
+
+    # compute time difference between the second and first DataFrames and add a new column to the second DataFrame
+    df_merged = pd.merge_asof(df_1, df_2, on="Timestamp", direction="nearest",
+                              tolerance=pd.Timedelta(f"{time_margin_seconds}s"))
+    df_merged[f"{df_2.columns[1]} Time Uncert"] = df_merged[df_2.columns[1]] - df_merged[
+        df_1.columns[1]]  # get time uncertainty
+
+    # Convert values in the Timestamp column back to String objects, remove NaN rows, and return
+    timestamp_list = df_merged["Timestamp"].to_list()
+    df_merged["Timestamp"] = timestamp_list
+    return df_merged.dropna(how="any")
 
 
 def get_formatted_timestamps(df_list: list[pd.DataFrame]) -> list[str]:

@@ -7,9 +7,9 @@ import numpy as np
 import sys
 from scipy.stats import gaussian_kde
 from datetime import datetime
-sys.path.append("/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/archiver_plotter/old_archiver_plotters")
+# TODO: change path, refactor
+sys.path.append('/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/archiver_plotter')
 import archiver_plotter as ap  # type: ignore
-
 
 def create_clusters(df: pd.DataFrame, low_vary_column: str, error_tolerance: float) -> list[pd.DataFrame]:
     """Create a list of DataFrames, each with data points with similar x values but varying y values.

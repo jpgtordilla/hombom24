@@ -3,6 +3,8 @@ from typing import Annotated, Dict, List, Literal, Tuple
 import pandas as pd
 import archiver_data_process as data_processor
 import matplotlib.pyplot as plt
+import numpy as np
+from scipy.stats import gaussian_kde
 
 
 class FontBase(BaseModel):
@@ -17,7 +19,45 @@ class LabelBase(BaseModel):
 
 
 class PlottingBase(BaseModel):
-    # TODO: add docstrings
+    """Base class for all plotting. Can be used for plotting over time as well as for correlations between PVs.
+
+    :param pv_dataframes: list of DataFrames from which to plot multiple PVs over time
+    :param df_correlation: DataFrame from which to plot correlations, with two non-Timeframe columns for PVs.
+    :param pv_x: The PV to plot on the x-axis, when plotting a correlation.
+    :param pv_y: The PV to plot on the y-axis, when plotting a correlation.
+    :param pv_x_label: The label for the PV that will be plotted on the x-axis.
+    :param pv_y_label: The label for the PV that will be plotted on the y-axis.
+    :param pv_labels: The labels for the PVs, when plotting PVs over time, in order of pv_dataframes
+    :param figure_width: The width of the matplotlib figure.
+    :param figure_height: The height of the matplotlib figure.
+    :param figure_title: The title of the matplotlib figure.
+    :param figure_title_font_size: The font size of the title of the matplotlib figure.
+    :param has_smart_title: Boolean for whether the figure title is an auto-generated title from axis labels.
+    :param has_axis_labels: Boolean for whether to rename axis labels to specified labels, instead of PV names.
+    :param figure_title_color: The color of the title of the matplotlib figure.
+    :param x_axis_label: The label for the x-axis of the matplotlib figure.
+    :param y_axis_label: The label for the y-axis of the matplotlib figure.
+    :param x_axis_label_color: The color of the x-axis of the matplotlib figure.
+    :param y_axis_label_color: The color of the y-axis of the matplotlib figure.
+    :param all_label_font_family: The font family for all labels of the matplotlib figure.
+    :param axis_label_font_size: The font size of the axis labels of the matplotlib figure.
+    :param num_axis_ticks: The number of ticks along the axes of the matplotlib figure.
+    :param x_axis_tick_font_size: The font size of the x-axis ticks on the matplotlib figure.
+    :param y_axis_tick_font_size: The font size of the y-axis ticks on the matplotlib figure.
+    :param has_smart_timestamps: Boolean for whether the figure title is an auto-formatted timestamp from axis labels.
+    :param is_scatter_plot: Boolean for whether to plot a scatter plot instead of a line or line-and-marker plot.
+    :param is_cmap: Boolean for whether to plot a color density map when plotting a scatter plot for a correlation.
+    :param is_line_and_marker_plot: Boolean for whether to plot a line-and-marker plot when plotting a line plot.
+    :param has_fit_line: Boolean for whether to plot a line of best fit for a scatter plot, for a correlation.
+    :param marker_size: The size of the marker when plotting a line-and-marker plot.
+    :param pv_colors: A tuple of colors to rotate through when plotting PVs over time.
+    :param correlation_color: The color of the points or line when plotting a correlation.
+    :param line_types: A tuple of line types to rotate through when plotting PVs over time.
+    :param correlation_line_type: The line type for a correlation plot.
+    :param marker_types: A tuple of marker types to rotate through when plotting PVs over time.
+    :param correlation_marker_type: The marker type for a correlation plot.
+    """
+
     pv_dataframes: list[pd.DataFrame]
     df_correlation: pd.DataFrame = None
     pv_x: str = None
@@ -29,8 +69,8 @@ class PlottingBase(BaseModel):
     figure_height: PositiveInt = 7
     figure_title: str = None
     figure_title_font_size: PositiveInt = 28
-    is_smart_title: bool = False
-    is_smart_axis_labels: bool = False
+    has_smart_title: bool = False
+    has_axis_labels: bool = False
     figure_title_color: str = "black"
     x_axis_label: str = "Timestamp"
     y_axis_label: str = "PV"
@@ -54,9 +94,9 @@ class PlottingBase(BaseModel):
     marker_types: tuple[Literal[".", ",", "o", "v", "^", "<", ">", "1", "2", "3", "4", "8", "s", "p", "P", "*", "h",
                                 "H", "+", "x", "X", "D", "d", "|", "_", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, "none",
                                 "None", " ", "", "$...$"]] = ("x", ".", "^", "s", "p", "*")
-    correlation_marker_type: Literal[".", ",", "o", "v", "^", "<", ">", "1", "2", "3", "4", "8", "s", "p", "P", "*", "h",
-                                     "H", "+", "x", "X", "D", "d", "|", "_", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, "none",
-                                     "None", " ", "", "$...$"] = "o"
+    correlation_marker_type: Literal[".", ",", "o", "v", "^", "<", ">", "1", "2", "3", "4", "8", "s", "p", "P", "*",
+                                     "h", "H", "+", "x", "X", "D", "d", "|", "_", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+                                     "none", "None", " ", "", "$...$"] = "o"
 
     class Config:
         """Allow pandas DataFrame as a type."""
@@ -64,7 +104,6 @@ class PlottingBase(BaseModel):
 
     def plot_pv_over_time(self):
         """Plots a nonempty list of PVs over time."""
-
         assert len(self.pv_dataframes) > 0, "Empty DataFrame given"
         fig, ax = plt.subplots(figsize=(self.figure_width, self.figure_height), layout="constrained")
         # LEGEND LABELS
@@ -119,86 +158,81 @@ class PlottingBase(BaseModel):
         ax.yaxis.set_major_locator(plt.MaxNLocator(self.num_axis_ticks))
 
         # TITLE
-        if not self.is_smart_title:
+        if not self.has_smart_title:
             plt.title("PVs vs. Time", fontdict=font_title.model_dump())
         else:
             # create a title using the PV names
             pv_list = [df_curr.columns[1] for df_curr in self.pv_dataframes]
             plt.title(f"{", ".join(pv_list)} vs. Time", fontdict=font_title.model_dump())
-
         plt.show()
 
     def plot_pvs_correlation(self):
-        assert self.df_correlation is not None, "Empty DataFrame given"
-        assert self.pv_x in df_correlation.columns and self.pv_y in df_correlation.columns, \
+        """Plot a correlation between two PVs."""
+        assert self.df_correlation is not None, "Empty DataFrame given."
+        assert self.pv_x in self.df_correlation.columns and self.pv_y in self.df_correlation.columns, \
             "PVs not found in the given DataFrame."
 
         fig, ax = plt.subplots(figsize=(self.figure_width, self.figure_height), layout="constrained")
 
-        # LEGEND LABELS
+        # LEGEND, PV LABELS
         if self.pv_x_label is not None and self.pv_y_label is not None:
-            df.rename(columns={pv_x: self.pv_x_label, pv_y: self.pv_y_label}, inplace=True)
+            self.df_correlation.rename(columns={self.pv_x: self.pv_x_label, self.pv_y: self.pv_y_label}, inplace=True)
         else:
-            self.pv_x_label = pv_x
-            self.pv_y_label = pv_y
+            self.pv_x_label = self.pv_x
+            self.pv_y_label = self.pv_y
 
         # PLOTTING
         if not self.is_scatter_plot:  # line plot
             # with marker
             if self.is_line_and_marker_plot:
-                ax.plot(df_correlation[self.pv_x_label], df_correlation[self.pv_y_label],
+                ax.plot(self.df_correlation[self.pv_x_label], self.df_correlation[self.pv_y_label],
                         color=self.correlation_color, linestyle=self.correlation_line_type,
                         marker=self.correlation_marker_type, markersize=self.marker_size)
             # without marker
-            # TODO: fix method with correct parameters
             else:
-                ax.plot(df_correlation[pv_xlabel], df_correlation[pv_ylabel], color=correl_color, linestyle=line_type)
+                ax.plot(self.df_correlation[self.pv_x_label], self.df_correlation[self.pv_y_label],
+                        color=self.correlation_color, linestyle=self.correlation_line_type)
         # scatter plot
         else:
-            if not is_cmap:
-                ax.scatter(df_correlation[pv_xlabel], df_correlation[pv_ylabel], color=correl_color, s=marker_size)
+            if not self.is_cmap:
+                ax.scatter(self.df_correlation[self.pv_x_label], self.df_correlation[self.pv_y_label],
+                           color=self.correlation_color, s=self.marker_size)
             # colormap plot
             else:
-                xy = np.vstack([df_correlation[pv_xlabel], df_correlation[pv_ylabel]])
+                xy = np.vstack([self.df_correlation[self.pv_x_label], self.df_correlation[self.pv_y_label]])
                 z = gaussian_kde(xy)(xy)
-                ax.scatter(df_correlation[pv_xlabel], df_correlation[pv_ylabel], c=z, cmap="viridis")
-            if is_fit:
+                ax.scatter(self.df_correlation[self.pv_x_label], self.df_correlation[self.pv_y_label], c=z,
+                           cmap="viridis")
+            if self.has_fit_line:
                 # create a line of best fit
-                slope, intercept = np.polyfit(df_correlation[pv_xlabel], df_correlation[pv_ylabel], deg=1)
+                slope, intercept = np.polyfit(self.df_correlation[self.pv_x_label], self.df_correlation[self.pv_y_label], deg=1)
                 ax.axline(xy1=(0, intercept), slope=slope, label=f"y = {slope:.3f}x + {intercept:.3f}", color="red")
 
         # LABELS
-        if smart_labels and pv_xlabel is not None and pv_ylabel is not None:
-            self.label_settings["y_axis"] = pv_ylabel
-            self.label_settings["x_axis"] = pv_xlabel
+        axis_labels = LabelBase(x_axis=self.pv_x, y_axis=self.pv_y)
+        font_x = FontBase(family=self.all_label_font_family, color=self.x_axis_label_color,
+                          size=self.axis_label_font_size)
+        font_y = FontBase(family=self.all_label_font_family, color=self.y_axis_label_color,
+                          size=self.axis_label_font_size)
+        font_title = FontBase(family=self.all_label_font_family, color=self.figure_title_color,
+                              size=self.figure_title_font_size)
 
-        self.set_fonts(label_font, xlabel_color, ylabel_color, title_color, tick_size_x, tick_size_y, title_size,
-                       label_size)
+        if self.has_axis_labels and self.pv_x_label is not None and self.pv_y_label is not None:
+            axis_labels.x_axis = self.pv_x_label
+            axis_labels.y_axis = self.pv_y_label
 
-        if plot_title is not None:
-            plt.title(f"{self.label_settings["y_axis"]} vs. {self.label_settings["x_axis"]}", fontdict=self.font_title)
+        if self.has_smart_title:
+            plt.title(f"{axis_labels.y_axis} vs. {axis_labels.x_axis}",
+                      fontdict=font_title.model_dump())
         else:
-            plt.title(f"{plot_title}", fontdict=self.font_title)
+            plt.title(f"{self.figure_title}", fontdict=font_title.model_dump())
 
-        plt.xlabel(self.label_settings["x_axis"], fontdict=self.font_x)
-        plt.ylabel(self.label_settings["y_axis"], fontdict=self.font_y)
-        ax.tick_params(axis="x", labelsize=self.tick_x_size)
-        ax.tick_params(axis="y", labelsize=self.tick_y_size)
+        plt.xlabel(axis_labels.x_axis, fontdict=font_x.model_dump())
+        plt.ylabel(axis_labels.y_axis, fontdict=font_y.model_dump())
+        ax.tick_params(axis="x", labelsize=self.x_axis_tick_font_size)
+        ax.tick_params(axis="y", labelsize=self.y_axis_tick_font_size)
         ax.ticklabel_format(axis="y", style='sci', scilimits=(-3, 3))  # scientific notation outside range 10^-3 to 10^3
-        ax.xaxis.set_major_locator(plt.MaxNLocator(num_ticks))
-        ax.yaxis.set_major_locator(plt.MaxNLocator(num_ticks))
-
+        ax.xaxis.set_major_locator(plt.MaxNLocator(self.num_axis_ticks))
+        ax.yaxis.set_major_locator(plt.MaxNLocator(self.num_axis_ticks))
+        ax.legend()
         plt.show()
-
-
-if __name__ == "__main__":
-    toro_pv = data_processor.pv("TORO:GUNB:360:CHRG", "2024/07/01 00:00:00", "2024/07/01 01:00:00")
-    df = data_processor.create_df(toro_pv)
-    plotter = PlottingBase(pv_dataframes=[df])
-    plotter.plot_pv_over_time()
-    # changing starting point and re-plotting
-    toro_pv.start = "2024/06/30 00:00:00"
-    df_new = data_processor.create_df(toro_pv)
-    plotter_new = PlottingBase(pv_dataframes=[df_new])
-    plotter_new.plot_pv_over_time()
-

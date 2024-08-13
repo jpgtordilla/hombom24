@@ -5,8 +5,9 @@ import sys
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 from bs4 import BeautifulSoup
-sys.path.append("/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/archiver_plotter/old_archiver_plotters")
-import archiver_plotter as ap
+# TODO: change path, refactor
+sys.path.append("/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/archiver_plotter")
+import archiver_plotter as ap  # type: ignore
 
 pv_hom = "SCOP:AMRF:RF01:AI_MEAS1"
 pv_xcor = "XCOR:GUNB:713:BACT"  # XCOR 04
@@ -343,7 +344,7 @@ def plot_over_time_and_correlation(date_list, pv_list, label_list, unit_list):
 
 if __name__ == '__main__':
     plotter = cp.ChargePlotter()
-    arch_plotter = ap.ArchiverPlotter()
+    arch_plotter = ap
 
     # CREATE DATAFRAMES FROM ARCHIVE DATA
     """
