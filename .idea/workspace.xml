@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="921fffcd-2132-4ce5-accc-e90368313128" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/CULMINATION/archiver_data_process.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CULMINATION/archiver_plotter_example.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CULMINATION/generate_plots.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CULMINATION/plotting_base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IMPORTANT_FILES/charge_plotter.py" beforeDir="false" afterPath="$PROJECT_DIR$/CULMINATION/charge_plotter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IMPORTANT_FILES/charge_separator.py" beforeDir="false" afterPath="$PROJECT_DIR$/CULMINATION/charge_separator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IMPORTANT_FILES/generate_plots.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CULMINATION/charge_plotter.py" beforeDir="false" afterPath="$PROJECT_DIR$/CULMINATION/charge_plotter.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -326,7 +319,7 @@
       <workItem from="1723270160787" duration="4000" />
       <workItem from="1723479392364" duration="2086000" />
       <workItem from="1723482118646" duration="16108000" />
-      <workItem from="1723570904619" duration="18701000" />
+      <workItem from="1723570904619" duration="19177000" />
     </task>
     <servers />
   </component>

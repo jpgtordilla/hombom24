@@ -197,18 +197,12 @@ class ChargePlotter:
                                     range(len(df_groups))]  # average y val in each cluster
                 x_cluster_points = [cluster[0] for cluster in means_and_stds]  # average x val in each cluster
 
-            # xy = np.vstack([x, y])
-            # z = gaussian_kde(xy)(xy)
-            # ax.scatter(x, y, c=z, cmap="viridis")
             ax.scatter(x, y, color="blue")
 
             # create a line of best fit
             slope, intercept = np.polyfit(x, y, deg=1)
             ax.axline(xy1=(0, intercept), slope=slope, label=f"y = {slope:.3f}x + {intercept:.3f}", color="blue")
 
-            # x_cluster_y_cluster = np.vstack([x_cluster_points, y_cluster_points])
-            # z = gaussian_kde(x_cluster_y_cluster)(x_cluster_y_cluster)
-            # ax.scatter(x_cluster_points, y_cluster_points, c=z, cmap="plasma")
             ax.scatter(x_cluster_points, y_cluster_points, color="red")
             # create a line of best fit
             slope, intercept = np.polyfit(x_cluster_points, y_cluster_points, deg=1)
@@ -234,9 +228,6 @@ class ChargePlotter:
                                     range(len(df_groups))]  # average y val in each cluster
                 x_cluster_points = [cluster[0] for cluster in means_and_stds]  # average x val in each cluster
 
-            # xy = np.vstack([x, y])
-            # z = gaussian_kde(xy)(xy)
-            # ax.scatter(x, y, c=z, cmap="viridis")
             ax.scatter(x_cluster_points, y_cluster_points)
             # create a line of best fit
             slope, intercept = np.polyfit(x_cluster_points, y_cluster_points, deg=1)
@@ -250,7 +241,6 @@ class ChargePlotter:
             z = gaussian_kde(xy)(xy)
             ax.scatter(x, y, c=z, cmap="viridis")
             fig.colorbar(cm.ScalarMappable(cmap="viridis"), ax=ax)  # add colorbar
-            # ax.scatter(x, y)
             # create a line of best fit
             slope, intercept = np.polyfit(x, y, deg=1)
             ax.axline(xy1=(0, intercept), slope=slope, label=f"y = {slope:.3f}x + {intercept:.3f}", color="red")
@@ -263,12 +253,6 @@ class ChargePlotter:
 
         ax.set_title(f"{y_label} vs. {x_label}\nfor {charge_val}pC from {start_date} to {end_date}",
                      fontsize=label_size + (label_size * 0.1))
-        # if not same_day:
-        #     ax.set_title(f"{y_label} vs. {x_label}\nfor {charge_val}pC from {start_date} to {end_date}",
-        #                  fontsize=label_size)
-        # else:
-        #     ax.set_title(f"{y_label} vs. {x_label}\nfor {charge_val}pC from {start_time} to {end_time}",
-        #                  fontsize=label_size)
 
         ax.set_xlabel(f"{x_label} {x_units}", fontsize=label_size)
         ax.set_ylabel(f"{y_label} {y_units}", fontsize=label_size)
