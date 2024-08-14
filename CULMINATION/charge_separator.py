@@ -4,12 +4,6 @@ from datetime import datetime
 from datetime import timedelta
 import time
 import random
-# TODO: change to path to tools
-import sys
-# TODO: change path, refactor
-sys.path.append(
-    '/Users/jonathontordilla/Desktop/hombom24/archive-analysis/lcls-tools-plots/lcls_tools')
-import common.data_analysis.archiver as arch  # type: ignore
 
 
 # EPICS ARCHIVER PEAK ANALYSIS
