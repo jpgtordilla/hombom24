@@ -1,0 +1,133 @@
+magnets:
+  QBP33:
+    controls_information:
+      PVs:
+        bact: QUAD:BSYS:820:BACT
+        bcon: QUAD:BSYS:820:BCON
+        bctrl: QUAD:BSYS:820:BCTRL
+        bdes: QUAD:BSYS:820:BDES
+        bmax: QUAD:BSYS:820:BMAX
+        bmin: QUAD:BSYS:820:BMIN
+        ctrl: QUAD:BSYS:820:CTRL
+      control_name: QUAD:BSYS:820
+    metadata:
+      area: BSYS
+      beam_path:
+      - CU_SXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 3197.224
+      type: QUAD
+  QBP34:
+    controls_information:
+      PVs:
+        bact: QUAD:BSYS:865:BACT
+        bcon: QUAD:BSYS:865:BCON
+        bctrl: QUAD:BSYS:865:BCTRL
+        bdes: QUAD:BSYS:865:BDES
+        bmax: QUAD:BSYS:865:BMAX
+        bmin: QUAD:BSYS:865:BMIN
+        ctrl: QUAD:BSYS:865:CTRL
+      control_name: QUAD:BSYS:865
+    metadata:
+      area: BSYS
+      beam_path:
+      - CU_SXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 3207.253
+      type: QUAD
+  XCBP33:
+    controls_information:
+      PVs:
+        bact: XCOR:BSYS:822:BACT
+        bcon: XCOR:BSYS:822:BCON
+        bctrl: XCOR:BSYS:822:BCTRL
+        bdes: XCOR:BSYS:822:BDES
+        bmax: XCOR:BSYS:822:BMAX
+        bmin: XCOR:BSYS:822:BMIN
+        ctrl: XCOR:BSYS:822:CTRL
+      control_name: XCOR:BSYS:822
+    metadata:
+      area: BSYS
+      beam_path:
+      - CU_SXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 3198.489
+      type: XCOR
+  XCBP34:
+    controls_information:
+      PVs:
+        bact: XCOR:BSYS:872:BACT
+        bcon: XCOR:BSYS:872:BCON
+        bctrl: XCOR:BSYS:872:BCTRL
+        bdes: XCOR:BSYS:872:BDES
+        bmax: XCOR:BSYS:872:BMAX
+        bmin: XCOR:BSYS:872:BMIN
+        ctrl: XCOR:BSYS:872:CTRL
+      control_name: XCOR:BSYS:872
+    metadata:
+      area: BSYS
+      beam_path:
+      - CU_SXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 3208.519
+      type: XCOR
+  YCBP33:
+    controls_information:
+      PVs:
+        bact: YCOR:BSYS:823:BACT
+        bcon: YCOR:BSYS:823:BCON
+        bctrl: YCOR:BSYS:823:BCTRL
+        bdes: YCOR:BSYS:823:BDES
+        bmax: YCOR:BSYS:823:BMAX
+        bmin: YCOR:BSYS:823:BMIN
+        ctrl: YCOR:BSYS:823:CTRL
+      control_name: YCOR:BSYS:823
+    metadata:
+      area: BSYS
+      beam_path:
+      - CU_SXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 3198.769
+      type: YCOR
+  YCBP34:
+    controls_information:
+      PVs:
+        bact: YCOR:BSYS:873:BACT
+        bcon: YCOR:BSYS:873:BCON
+        bctrl: YCOR:BSYS:873:BCTRL
+        bdes: YCOR:BSYS:873:BDES
+        bmax: YCOR:BSYS:873:BMAX
+        bmin: YCOR:BSYS:873:BMIN
+        ctrl: YCOR:BSYS:873:CTRL
+      control_name: YCOR:BSYS:873
+    metadata:
+      area: BSYS
+      beam_path:
+      - CU_SXR
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 3208.798
+      type: YCOR

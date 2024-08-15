@@ -1,0 +1,216 @@
+magnets:
+  CQ01:
+    controls_information:
+      PVs:
+        bact: QUAD:IN20:121:BACT
+        bcon: QUAD:IN20:121:BCON
+        bctrl: QUAD:IN20:121:BCTRL
+        bdes: QUAD:IN20:121:BDES
+        bmax: QUAD:IN20:121:BMAX
+        bmin: QUAD:IN20:121:BMIN
+        ctrl: QUAD:IN20:121:CTRL
+      control_name: QUAD:IN20:121
+    metadata:
+      area: GUN
+      beam_path:
+      - CU_ALINE
+      - CU_GSPEC
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SPEC
+      - CU_SXR
+      sum_l_meters: 0.196
+      type: QUAD
+  SOL1:
+    controls_information:
+      PVs:
+        bact: SOLN:IN20:121:BACT
+        bcon: SOLN:IN20:121:BCON
+        bctrl: SOLN:IN20:121:BCTRL
+        bdes: SOLN:IN20:121:BDES
+        bmax: SOLN:IN20:121:BMAX
+        bmin: SOLN:IN20:121:BMIN
+        ctrl: SOLN:IN20:121:CTRL
+      control_name: SOLN:IN20:121
+    metadata:
+      area: GUN
+      beam_path:
+      - CU_ALINE
+      - CU_GSPEC
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SPEC
+      - CU_SXR
+      sum_l_meters: 0.196
+      type: SOLE
+  SOL1BK:
+    controls_information:
+      PVs:
+        bact: SOLN:IN20:111:BACT
+        bcon: SOLN:IN20:111:BCON
+        bctrl: SOLN:IN20:111:BCTRL
+        bdes: SOLN:IN20:111:BDES
+        bmax: SOLN:IN20:111:BMAX
+        bmin: SOLN:IN20:111:BMIN
+        ctrl: SOLN:IN20:111:CTRL
+      control_name: SOLN:IN20:111
+    metadata:
+      area: GUN
+      beam_path:
+      - CU_ALINE
+      - CU_GSPEC
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SPEC
+      - CU_SXR
+      sum_l_meters: 0.0
+      type: SOLE
+  SQ01:
+    controls_information:
+      PVs:
+        bact: QUAD:IN20:122:BACT
+        bcon: QUAD:IN20:122:BCON
+        bctrl: QUAD:IN20:122:BCTRL
+        bdes: QUAD:IN20:122:BDES
+        bmax: QUAD:IN20:122:BMAX
+        bmin: QUAD:IN20:122:BMIN
+        ctrl: QUAD:IN20:122:CTRL
+      control_name: QUAD:IN20:122
+    metadata:
+      area: GUN
+      beam_path:
+      - CU_ALINE
+      - CU_GSPEC
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SPEC
+      - CU_SXR
+      sum_l_meters: 0.196
+      type: QUAD
+  XC00:
+    controls_information:
+      PVs:
+        bact: XCOR:IN20:121:BACT
+        bcon: XCOR:IN20:121:BCON
+        bctrl: XCOR:IN20:121:BCTRL
+        bdes: XCOR:IN20:121:BDES
+        bmax: XCOR:IN20:121:BMAX
+        bmin: XCOR:IN20:121:BMIN
+        ctrl: XCOR:IN20:121:CTRL
+      control_name: XCOR:IN20:121
+    metadata:
+      area: GUN
+      beam_path:
+      - CU_ALINE
+      - CU_GSPEC
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SPEC
+      - CU_SXR
+      sum_l_meters: 0.196
+      type: XCOR
+  XC01:
+    controls_information:
+      PVs:
+        bact: XCOR:IN20:221:BACT
+        bcon: XCOR:IN20:221:BCON
+        bctrl: XCOR:IN20:221:BCTRL
+        bdes: XCOR:IN20:221:BDES
+        bmax: XCOR:IN20:221:BMAX
+        bmin: XCOR:IN20:221:BMIN
+        ctrl: XCOR:IN20:221:CTRL
+      control_name: XCOR:IN20:221
+    metadata:
+      area: GUN
+      beam_path:
+      - CU_ALINE
+      - CU_GSPEC
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SPEC
+      - CU_SXR
+      sum_l_meters: 0.834
+      type: XCOR
+  YC00:
+    controls_information:
+      PVs:
+        bact: YCOR:IN20:122:BACT
+        bcon: YCOR:IN20:122:BCON
+        bctrl: YCOR:IN20:122:BCTRL
+        bdes: YCOR:IN20:122:BDES
+        bmax: YCOR:IN20:122:BMAX
+        bmin: YCOR:IN20:122:BMIN
+        ctrl: YCOR:IN20:122:CTRL
+      control_name: YCOR:IN20:122
+    metadata:
+      area: GUN
+      beam_path:
+      - CU_ALINE
+      - CU_GSPEC
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SPEC
+      - CU_SXR
+      sum_l_meters: 0.196
+      type: YCOR
+  YC01:
+    controls_information:
+      PVs:
+        bact: YCOR:IN20:222:BACT
+        bcon: YCOR:IN20:222:BCON
+        bctrl: YCOR:IN20:222:BCTRL
+        bdes: YCOR:IN20:222:BDES
+        bmax: YCOR:IN20:222:BMAX
+        bmin: YCOR:IN20:222:BMIN
+        ctrl: YCOR:IN20:222:CTRL
+      control_name: YCOR:IN20:222
+    metadata:
+      area: GUN
+      beam_path:
+      - CU_ALINE
+      - CU_GSPEC
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SPEC
+      - CU_SXR
+      sum_l_meters: 0.834
+      type: YCOR
+screens:
+  YAG01:
+    controls_information:
+      PVs:
+        image: YAGS:IN20:211:IMAGE
+        n_bits: YAGS:IN20:211:N_OF_BITS
+        n_col: YAGS:IN20:211:N_OF_COL
+        n_row: YAGS:IN20:211:N_OF_ROW
+        resolution: YAGS:IN20:211:RESOLUTION
+      control_name: YAGS:IN20:211
+    metadata:
+      area: GUN
+      beam_path:
+      - CU_ALINE
+      - CU_GSPEC
+      - CU_HTXI
+      - CU_HXR
+      - CU_HXTES
+      - CU_SFTH
+      - CU_SPEC
+      - CU_SXR
+      sum_l_meters: 0.614
+      type: PROF

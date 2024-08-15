@@ -1,0 +1,211 @@
+magnets:
+  QBP30:
+    controls_information:
+      PVs:
+        bact: QUAD:SLTS:180:BACT
+        bcon: QUAD:SLTS:180:BCON
+        bctrl: QUAD:SLTS:180:BCTRL
+        bdes: QUAD:SLTS:180:BDES
+        bmax: QUAD:SLTS:180:BMAX
+        bmin: QUAD:SLTS:180:BMIN
+        ctrl: QUAD:SLTS:180:CTRL
+      control_name: QUAD:SLTS:180
+    metadata:
+      area: SLTS
+      beam_path:
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 3067.374
+      type: QUAD
+  QBP31:
+    controls_information:
+      PVs:
+        bact: QUAD:SLTS:430:BACT
+        bcon: QUAD:SLTS:430:BCON
+        bctrl: QUAD:SLTS:430:BCTRL
+        bdes: QUAD:SLTS:430:BDES
+        bmax: QUAD:SLTS:430:BMAX
+        bmin: QUAD:SLTS:430:BMIN
+        ctrl: QUAD:SLTS:430:CTRL
+      control_name: QUAD:SLTS:430
+    metadata:
+      area: SLTS
+      beam_path:
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 3120.245
+      type: QUAD
+  QBP32:
+    controls_information:
+      PVs:
+        bact: QUAD:SLTS:460:BACT
+        bcon: QUAD:SLTS:460:BCON
+        bctrl: QUAD:SLTS:460:BCTRL
+        bdes: QUAD:SLTS:460:BDES
+        bmax: QUAD:SLTS:460:BMAX
+        bmin: QUAD:SLTS:460:BMIN
+        ctrl: QUAD:SLTS:460:CTRL
+      control_name: QUAD:SLTS:460
+    metadata:
+      area: SLTS
+      beam_path:
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 3124.841
+      type: QUAD
+  QBP36:
+    controls_information:
+      PVs:
+        bact: QUAD:SLTS:150:BACT
+        bcon: QUAD:SLTS:150:BCON
+        bctrl: QUAD:SLTS:150:BCTRL
+        bdes: QUAD:SLTS:150:BDES
+        bmax: QUAD:SLTS:150:BMAX
+        bmin: QUAD:SLTS:150:BMIN
+        ctrl: QUAD:SLTS:150:CTRL
+      control_name: QUAD:SLTS:150
+    metadata:
+      area: SLTS
+      beam_path:
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 3061.864
+      type: QUAD
+  XCBP30:
+    controls_information:
+      PVs:
+        bact: XCOR:SLTS:182:BACT
+        bcon: XCOR:SLTS:182:BCON
+        bctrl: XCOR:SLTS:182:BCTRL
+        bdes: XCOR:SLTS:182:BDES
+        bmax: XCOR:SLTS:182:BMAX
+        bmin: XCOR:SLTS:182:BMIN
+        ctrl: XCOR:SLTS:182:CTRL
+      control_name: XCOR:SLTS:182
+    metadata:
+      area: SLTS
+      beam_path:
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 3068.639
+      type: XCOR
+  XCBP31:
+    controls_information:
+      PVs:
+        bact: XCOR:SLTS:442:BACT
+        bcon: XCOR:SLTS:442:BCON
+        bctrl: XCOR:SLTS:442:BCTRL
+        bdes: XCOR:SLTS:442:BDES
+        bmax: XCOR:SLTS:442:BMAX
+        bmin: XCOR:SLTS:442:BMIN
+        ctrl: XCOR:SLTS:442:CTRL
+      control_name: XCOR:SLTS:442
+    metadata:
+      area: SLTS
+      beam_path:
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 3121.511
+      type: XCOR
+  XCBP32:
+    controls_information:
+      PVs:
+        bact: XCOR:SLTS:468:BACT
+        bcon: XCOR:SLTS:468:BCON
+        bctrl: XCOR:SLTS:468:BCTRL
+        bdes: XCOR:SLTS:468:BDES
+        bmax: XCOR:SLTS:468:BMAX
+        bmin: XCOR:SLTS:468:BMIN
+        ctrl: XCOR:SLTS:468:CTRL
+      control_name: XCOR:SLTS:468
+    metadata:
+      area: SLTS
+      beam_path:
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 3126.716
+      type: XCOR
+  YCBP30:
+    controls_information:
+      PVs:
+        bact: YCOR:SLTS:183:BACT
+        bcon: YCOR:SLTS:183:BCON
+        bctrl: YCOR:SLTS:183:BCTRL
+        bdes: YCOR:SLTS:183:BDES
+        bmax: YCOR:SLTS:183:BMAX
+        bmin: YCOR:SLTS:183:BMIN
+        ctrl: YCOR:SLTS:183:CTRL
+      control_name: YCOR:SLTS:183
+    metadata:
+      area: SLTS
+      beam_path:
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 3068.919
+      type: YCOR
+  YCBP31:
+    controls_information:
+      PVs:
+        bact: YCOR:SLTS:443:BACT
+        bcon: YCOR:SLTS:443:BCON
+        bctrl: YCOR:SLTS:443:BCTRL
+        bdes: YCOR:SLTS:443:BDES
+        bmax: YCOR:SLTS:443:BMAX
+        bmin: YCOR:SLTS:443:BMIN
+        ctrl: YCOR:SLTS:443:CTRL
+      control_name: YCOR:SLTS:443
+    metadata:
+      area: SLTS
+      beam_path:
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 3121.79
+      type: YCOR
+  YCBP32:
+    controls_information:
+      PVs:
+        bact: YCOR:SLTS:469:BACT
+        bcon: YCOR:SLTS:469:BCON
+        bctrl: YCOR:SLTS:469:BCTRL
+        bdes: YCOR:SLTS:469:BDES
+        bmax: YCOR:SLTS:469:BMAX
+        bmin: YCOR:SLTS:469:BMIN
+        ctrl: YCOR:SLTS:469:CTRL
+      control_name: YCOR:SLTS:469
+    metadata:
+      area: SLTS
+      beam_path:
+      - SC_S2_X
+      - SC_SFTS
+      - SC_STMO
+      - SC_STXI
+      - SC_SXR
+      sum_l_meters: 3126.995
+      type: YCOR

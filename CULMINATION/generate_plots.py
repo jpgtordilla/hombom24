@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from bs4 import BeautifulSoup
 import archiver_data_process as ap  # type: ignore
 
+
 def get_pairs_of_dates(file_path):
     """Gets all 10 minute time intervals before the dates listed in the LCLS-II logbook."""
     # read the html file locally
@@ -58,7 +59,10 @@ def plot_buncher_phase_scan_all(date_list, pv_list, label_list, unit_list):
     # correlation list for charge correlation
     correl_homc1_charge_list = []
 
-    for x in range(len(date_list)):
+    # only iterate through the desired buncher phase scans
+    start_index_inclusive = len(date_list) - END_SCAN
+    end_index_exclusive = start_index_inclusive + (END_SCAN - START_SCAN) + 1
+    for x in range(start_index_inclusive, end_index_exclusive):
         curr_start_date = date_list[x][0]
         curr_end_date = date_list[x][1]
 
@@ -135,7 +139,6 @@ def plot_xcor_long(xlabel, ylabel, xunits, yunits):
                                                           time_margin_seconds=TIME_MARGIN_SECONDS)
     df_correl_chrg_xcor_homc1 = plotter.merge_with_margin_on_timestamp(df_chrg_xcor, df_homc1,
                                                                        time_margin_seconds=TIME_MARGIN_SECONDS)
-    print(f"# of datapoints: {len(df_correl_chrg_xcor_homc1["Timestamp"])}")
     plotter.plot_correlation(df_correl_chrg_xcor_homc1,
                              pv_y=PV_HOM,
                              pv_x=PV_XCOR,
@@ -162,7 +165,6 @@ def plot_ycor_long(xlabel, ylabel, xunits, yunits):
                                                           time_margin_seconds=TIME_MARGIN_SECONDS)
     df_correl_chrg_ycor_homc1 = plotter.merge_with_margin_on_timestamp(df_chrg_ycor, df_homc1,
                                                                        time_margin_seconds=TIME_MARGIN_SECONDS)
-    print(f"# of datapoints: {len(df_correl_chrg_ycor_homc1["Timestamp"])}")
     plotter.plot_correlation(df_correl_chrg_ycor_homc1,
                              pv_y=PV_HOM,
                              pv_x=PV_YCOR,
@@ -189,7 +191,6 @@ def plot_bpmx_long(xlabel, ylabel, xunits, yunits):
                                                           time_margin_seconds=TIME_MARGIN_SECONDS)
     df_correl_chrg_bpmx_homc1 = plotter.merge_with_margin_on_timestamp(df_chrg_bpmx, df_homc1,
                                                                        time_margin_seconds=TIME_MARGIN_SECONDS)
-    print(f"# of datapoints: {len(df_correl_chrg_bpmx_homc1["Timestamp"])}")
     plotter.plot_correlation(df_correl_chrg_bpmx_homc1,
                              pv_y=PV_HOM,
                              pv_x=PV_BPMX,
@@ -216,7 +217,6 @@ def plot_bpmy_long(xlabel, ylabel, xunits, yunits):
                                                           time_margin_seconds=TIME_MARGIN_SECONDS)
     df_correl_chrg_bpmy_homc1 = plotter.merge_with_margin_on_timestamp(df_chrg_bpmy, df_homc1,
                                                                        time_margin_seconds=TIME_MARGIN_SECONDS)
-    print(f"# of datapoints: {len(df_correl_chrg_bpmy_homc1["Timestamp"])}")
     plotter.plot_correlation(df_correl_chrg_bpmy_homc1,
                              pv_y=PV_HOM,
                              pv_x=PV_BPMY,
@@ -263,16 +263,17 @@ if __name__ == '__main__':
     PV_YCOR = "YCOR:GUNB:713:BACT"  # YCOR 04
     PV_BPMY = "BPMS:GUNB:925:Y"  # BPMY 02
     PV_CHARGE = "TORO:GUNB:360:CHRG"
+    # change to your path to the HTML file for the LCLS-II logbook, search keyword: "Corrector XC04"
+    START_END_DATES = get_pairs_of_dates("/Users/jonathontordilla/Desktop/hombom24/CULMINATION/buncher_dates.html")
     START_TIME = "2024/03/21 00:00:00"
     END_TIME = "2024/04/21 23:59:59"
     MIN_CHARGE_VAL = 15.0  # minimum charge to include in the DataFrame of charges
     CHARGE_VAL = 50.0  # set this to separate out by charge (pC), all values are: 50, 60, 80, 100, 140
-    CHARGE_TOLERANCE = 0.1  # groups charges together within 10%, can set anywhere between 0-1
+    CHARGE_TOLERANCE = 0.2  # groups charges together within 10%, can set anywhere between 0-1
     TIME_MARGIN_SECONDS = 1.5  # amount of seconds between timestamps on which to merge DataFrames
     PHASE_TIME_RANGE = 10  # amount of minutes before the LCLS-II logbook date for the buncher phase scan (around 10m)
-
-    # change to your path to the HTML file for the LCLS-II logbook, search keyword: "Corrector XC04"
-    START_END_DATES = get_pairs_of_dates("/Users/jonathontordilla/Desktop/hombom24/CULMINATION/buncher_dates.html")
+    START_SCAN = 1  # which buncher phase scan to start assembling plots from, in chronological order
+    END_SCAN = 5  # which buncher phase scan to end assembling plots from, inclusive
 
     # DataFrames needed for every plot: HOM C1 and CHARGE
     df_homc1 = arch_plotter.create_df(arch_plotter.pv(PV_HOM, START_TIME, END_TIME))
