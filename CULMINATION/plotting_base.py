@@ -208,7 +208,7 @@ class PlottingBase(BaseModel):
         else:
             # create a title using the PV names
             pv_list = [df_curr.columns[1] for df_curr in self.pv_dataframes]
-            plt.title(f"{", ".join(pv_list)} vs. Time",
+            plt.title(f"{','.join(pv_list)} vs. Time",
                       fontdict=font_title.model_dump())
         plt.show()
 
