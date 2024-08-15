@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 from bs4 import BeautifulSoup
 import archiver_data_process as ap  # type: ignore
 
-
 def get_pairs_of_dates(file_path):
     """Gets all 10 minute time intervals before the dates listed in the LCLS-II logbook."""
     # read the html file locally
@@ -59,7 +58,7 @@ def plot_buncher_phase_scan_all(date_list, pv_list, label_list, unit_list):
     # correlation list for charge correlation
     correl_homc1_charge_list = []
 
-    for x in range(len(start_end_dates)):  # all times from the bunches_dates.html file
+    for x in range(len(date_list)):
         curr_start_date = date_list[x][0]
         curr_end_date = date_list[x][1]
 
@@ -93,9 +92,6 @@ def plot_buncher_phase_scan_all(date_list, pv_list, label_list, unit_list):
     # combine dataframes from list and sort
     df_correl_homc1_cor = pd.concat(correl_homc1_cor_list).sort_values(by=["Timestamp"])
     df_correl_homc1_bpm = pd.concat(correl_homc1_bpm_list).sort_values(by=["Timestamp"])
-
-    # charge correlation
-    df_correl_charge_homc1 = pd.concat(correl_homc1_charge_list).sort_values(by=["Timestamp"])
 
     # plot HOM vs. X/YCOR
     plotter.plot_correlation(df_correl_homc1_cor,
@@ -139,14 +135,15 @@ def plot_xcor_long(xlabel, ylabel, xunits, yunits):
                                                           time_margin_seconds=TIME_MARGIN_SECONDS)
     df_correl_chrg_xcor_homc1 = plotter.merge_with_margin_on_timestamp(df_chrg_xcor, df_homc1,
                                                                        time_margin_seconds=TIME_MARGIN_SECONDS)
+    print(f"# of datapoints: {len(df_correl_chrg_xcor_homc1["Timestamp"])}")
     plotter.plot_correlation(df_correl_chrg_xcor_homc1,
-                             pv_y=pv_hom,
-                             pv_x=pv_xcor,
-                             pv_charge=pv_charge,
+                             pv_y=PV_HOM,
+                             pv_x=PV_XCOR,
+                             pv_charge=PV_CHARGE,
                              charge_val=CHARGE_VAL,
                              charge_tolerance=CHARGE_TOLERANCE,
                              plot_error_bars=False,
-                             low_vary_column=pv_xcor,
+                             low_vary_column=PV_XCOR,
                              error_tolerance=0.000015,
                              x_label=xlabel,
                              y_label=ylabel,
@@ -165,14 +162,15 @@ def plot_ycor_long(xlabel, ylabel, xunits, yunits):
                                                           time_margin_seconds=TIME_MARGIN_SECONDS)
     df_correl_chrg_ycor_homc1 = plotter.merge_with_margin_on_timestamp(df_chrg_ycor, df_homc1,
                                                                        time_margin_seconds=TIME_MARGIN_SECONDS)
+    print(f"# of datapoints: {len(df_correl_chrg_ycor_homc1["Timestamp"])}")
     plotter.plot_correlation(df_correl_chrg_ycor_homc1,
-                             pv_y=pv_hom,
-                             pv_x=pv_ycor,
-                             pv_charge=pv_charge,
+                             pv_y=PV_HOM,
+                             pv_x=PV_YCOR,
+                             pv_charge=PV_CHARGE,
                              charge_val=CHARGE_VAL,
                              charge_tolerance=CHARGE_TOLERANCE,
                              plot_error_bars=False,
-                             low_vary_column=pv_ycor,
+                             low_vary_column=PV_YCOR,
                              error_tolerance=0.000015,
                              x_label=xlabel,
                              y_label=ylabel,
@@ -191,14 +189,15 @@ def plot_bpmx_long(xlabel, ylabel, xunits, yunits):
                                                           time_margin_seconds=TIME_MARGIN_SECONDS)
     df_correl_chrg_bpmx_homc1 = plotter.merge_with_margin_on_timestamp(df_chrg_bpmx, df_homc1,
                                                                        time_margin_seconds=TIME_MARGIN_SECONDS)
+    print(f"# of datapoints: {len(df_correl_chrg_bpmx_homc1["Timestamp"])}")
     plotter.plot_correlation(df_correl_chrg_bpmx_homc1,
-                             pv_y=pv_hom,
-                             pv_x=pv_bpmx,
-                             pv_charge=pv_charge,
+                             pv_y=PV_HOM,
+                             pv_x=PV_BPMX,
+                             pv_charge=PV_CHARGE,
                              charge_val=CHARGE_VAL,
                              charge_tolerance=CHARGE_TOLERANCE,
                              plot_error_bars=False,
-                             low_vary_column=pv_bpmx,
+                             low_vary_column=PV_BPMX,
                              error_tolerance=0.000015,
                              x_label=xlabel,
                              y_label=ylabel,
@@ -217,14 +216,15 @@ def plot_bpmy_long(xlabel, ylabel, xunits, yunits):
                                                           time_margin_seconds=TIME_MARGIN_SECONDS)
     df_correl_chrg_bpmy_homc1 = plotter.merge_with_margin_on_timestamp(df_chrg_bpmy, df_homc1,
                                                                        time_margin_seconds=TIME_MARGIN_SECONDS)
+    print(f"# of datapoints: {len(df_correl_chrg_bpmy_homc1["Timestamp"])}")
     plotter.plot_correlation(df_correl_chrg_bpmy_homc1,
-                             pv_y=pv_hom,
-                             pv_x=pv_bpmy,
-                             pv_charge=pv_charge,
+                             pv_y=PV_HOM,
+                             pv_x=PV_BPMY,
+                             pv_charge=PV_CHARGE,
                              charge_val=CHARGE_VAL,
                              charge_tolerance=CHARGE_TOLERANCE,
                              plot_error_bars=False,
-                             low_vary_column=pv_bpmy,
+                             low_vary_column=PV_BPMY,
                              error_tolerance=0.000015,
                              x_label=xlabel,
                              y_label=ylabel,
@@ -238,18 +238,18 @@ def plot_bpmy_long(xlabel, ylabel, xunits, yunits):
 
 def plot_xcor_bpmx_phase(labels, units):
     """HOM VS. XCOR, BPM X for XCOR/BPMX Buncher Phase Scan."""
-    pvs_xcor_bpmx_phase = [pv_xcor, pv_bpmx, pv_hom, pv_charge]
+    pvs_xcor_bpmx_phase = [PV_XCOR, PV_BPMX, PV_HOM, PV_CHARGE]
     labels_xcor_bpmx_phase = labels
     units_xcor_bpmx_phase = units
-    plot_buncher_phase_scan_all(start_end_dates, pvs_xcor_bpmx_phase, labels_xcor_bpmx_phase, units_xcor_bpmx_phase)
+    plot_buncher_phase_scan_all(START_END_DATES, pvs_xcor_bpmx_phase, labels_xcor_bpmx_phase, units_xcor_bpmx_phase)
 
 
 def plot_ycor_bpmy_phase(labels, units):
     """HOM VS. YCOR, BPM Y for XCOR/BPMX Buncher Phase Scan."""
-    pvs_ycor_bpmy_phase = [pv_ycor, pv_bpmy, pv_hom, pv_charge]
+    pvs_ycor_bpmy_phase = [PV_YCOR, PV_BPMY, PV_HOM, PV_CHARGE]
     labels_ycor_bpmy_phase = labels
     units_ycor_bpmy_phase = units
-    plot_buncher_phase_scan_all(start_end_dates, pvs_ycor_bpmy_phase, labels_ycor_bpmy_phase, units_ycor_bpmy_phase)
+    plot_buncher_phase_scan_all(START_END_DATES, pvs_ycor_bpmy_phase, labels_ycor_bpmy_phase, units_ycor_bpmy_phase)
 
 
 if __name__ == '__main__':
@@ -263,13 +263,14 @@ if __name__ == '__main__':
     PV_YCOR = "YCOR:GUNB:713:BACT"  # YCOR 04
     PV_BPMY = "BPMS:GUNB:925:Y"  # BPMY 02
     PV_CHARGE = "TORO:GUNB:360:CHRG"
-    START_TIME = "2024/01/01 00:00:00"
-    END_TIME = "2024/07/02 23:59:59"
+    START_TIME = "2024/03/21 00:00:00"
+    END_TIME = "2024/04/21 23:59:59"
     MIN_CHARGE_VAL = 15.0  # minimum charge to include in the DataFrame of charges
-    CHARGE_VAL = 50.0  # set this to separate out by charge (pC), all values are: 50, 60, 80, 100, 140, 160, 220
+    CHARGE_VAL = 50.0  # set this to separate out by charge (pC), all values are: 50, 60, 80, 100, 140
     CHARGE_TOLERANCE = 0.1  # groups charges together within 10%, can set anywhere between 0-1
     TIME_MARGIN_SECONDS = 1.5  # amount of seconds between timestamps on which to merge DataFrames
     PHASE_TIME_RANGE = 10  # amount of minutes before the LCLS-II logbook date for the buncher phase scan (around 10m)
+
     # change to your path to the HTML file for the LCLS-II logbook, search keyword: "Corrector XC04"
     START_END_DATES = get_pairs_of_dates("/Users/jonathontordilla/Desktop/hombom24/CULMINATION/buncher_dates.html")
 
@@ -277,17 +278,17 @@ if __name__ == '__main__':
     df_homc1 = arch_plotter.create_df(arch_plotter.pv(PV_HOM, START_TIME, END_TIME))
     df_homc1 = filter_hom(df_homc1)
     df_chrg = arch_plotter.create_df(arch_plotter.pv(PV_CHARGE, START_TIME, END_TIME))
-    df_chrg_filtered = plotter.remove_charges_below_value(df_chrg, pv_charge, min_charge_value=MIN_CHARGE_VAL)
+    df_chrg_filtered = plotter.remove_charges_below_value(df_chrg, PV_CHARGE, min_charge_value=MIN_CHARGE_VAL)
 
     df_charge_homc1 = arch_plotter.merge_dfs_with_margin_by_timestamp_column(df_chrg_filtered, df_homc1,
                                                                              time_margin_seconds=TIME_MARGIN_SECONDS)
 
     # GENERATE PLOTS: uncomment one at a time, CHANGE LABELS to match your short PV names
-    # plot_xcor_5_mon("XCOR 04 Magnet", "HOM C1 Signal", "(g/m)", "(arb. units)")
-    # plot_ycor_5_mon("YCOR 04 Magnet", "HOM C1 Signal", "(g/m)", "(arb. units)")
-    # plot_bpmx_5_mon("BPM 02 X", "HOM C1 Signal", "(mm)", "(arb. units)")
-    # plot_bpmy_5_mon("BPM 02 Y", "HOM C1 Signal", "(mm)", "(arb. units)")
+    plot_xcor_long("XCOR 04 Magnet", "HOM C1 Signal", "(G*m)", "(arb. units)")
+    # plot_ycor_long("YCOR 04 Magnet", "HOM C1 Signal", "(G*m)", "(arb. units)")
+    # plot_bpmx_long("BPM 02 X", "HOM C1 Signal", "(mm)", "(arb. units)")
+    # plot_bpmy_long("BPM 02 Y", "HOM C1 Signal", "(mm)", "(arb. units)")
     # plot_xcor_bpmx_phase(["XCOR 04 Magnet", "BPM 02 X", "HOM C1 Signal", "Charge"],
-    #                      ["(g/m)", "(mm)", "(arbitrary units)"])
+    #                      ["(G*m)", "(mm)", "(arbitrary units)"])
     # plot_ycor_bpmy_phase(["YCOR 04 Magnet", "BPM 02 Y", "HOM C1 Signal", "Charge"],
-    #                      ["(g/m)", "(mm)", "(arbitrary units)"])
+    #                      ["(G*m)", "(mm)", "(arbitrary units)"])
