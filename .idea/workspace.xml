@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="921fffcd-2132-4ce5-accc-e90368313128" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CULMINATION/generate_plots.py" beforeDir="false" afterPath="$PROJECT_DIR$/CULMINATION/generate_plots.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scope-analysis/scope_data_processing.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/scope-analysis/scope_data_processing.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,74 +36,74 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Python tests.Python tests for archiver_data_process_tests.TestPVModel.executor": "Run",
-    "Python tests.Python tests for plotting_base_tests.TestPlottingBase.executor": "Run",
-    "Python tests.Python tests for plotting_base_tests.TestPlottingBase.test_plot_correlation_with_colormap.executor": "Run",
-    "Python tests.Python tests for plotting_base_tests.TestPlottingBase.test_plot_pv_over_time.executor": "Run",
-    "Python tests.Python tests for plotting_base_tests.TestPlottingBase.test_plot_pvs_correlation.executor": "Run",
-    "Python tests.Python tests for plotting_base_tests.TestPlottingBase.test_plottingbase_initialization.executor": "Run",
-    "Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.executor": "Debug",
-    "Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_create_correlation_df_different_timestamps.executor": "Run",
-    "Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_create_correlation_df_empty_df.executor": "Run",
-    "Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_create_correlation_df_mismatched_timestamps.executor": "Run",
-    "Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_create_df.executor": "Debug",
-    "Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_create_df_empty_date_str.executor": "Run",
-    "Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_create_df_empty_pv_str.executor": "Run",
-    "Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_create_df_invalid_date_format.executor": "Run",
-    "Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_create_df_invalid_pv.executor": "Run",
-    "Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_plot_correl_empty_df.executor": "Run",
-    "Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_plot_correl_no_labels.executor": "Run",
-    "Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_plot_pv_over_time.executor": "Run",
-    "Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_plot_pv_over_time_different_lengths.executor": "Run",
-    "Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_plot_pv_over_time_empty_df_list.executor": "Run",
-    "Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_plot_pv_over_time_no_labels.executor": "Run",
-    "Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_set_fonts.executor": "Run",
-    "Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_set_fonts_partial_input.executor": "Run",
-    "Python tests.Python tests in archiver_data_process_tests.py.executor": "Run",
-    "Python tests.Python tests in plotting_base_tests.py.executor": "Run",
-    "Python tests.Python tests in test_archiver_data_process.py.executor": "Run",
-    "Python tests.Python tests in test_archiver_plotter.py.executor": "Run",
-    "Python tests.Python tests in test_plotting_base.py.executor": "Run",
-    "Python._pydev_execfile.executor": "Debug",
-    "Python.archiver_data_process.executor": "Run",
-    "Python.archiver_plotter.executor": "Run",
-    "Python.archiver_plotter_example (1).executor": "Run",
-    "Python.archiver_plotter_example.executor": "Run",
-    "Python.archiver_plotter_examples.executor": "Run",
-    "Python.archiver_plotter_test.executor": "Run",
-    "Python.automate_generate_plots.executor": "Run",
-    "Python.chao_dataprocess_script.executor": "Run",
-    "Python.charge_plotter.executor": "Run",
-    "Python.charge_sep_correlations.executor": "Run",
-    "Python.charge_separator.executor": "Run",
-    "Python.cluster_test.executor": "Run",
-    "Python.fruit.executor": "Run",
-    "Python.generate_plots.executor": "Run",
-    "Python.lcls_test.executor": "Run",
-    "Python.meeting.executor": "Run",
-    "Python.performance_test.executor": "Run",
-    "Python.plotting_base.executor": "Run",
-    "Python.plotting_example.executor": "Run",
-    "Python.run_files.executor": "Run",
-    "Python.user.executor": "Run",
-    "Python.visual_test_intervals.executor": "Debug",
-    "Python.visual_test_intervals_3.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/jonathontordilla/Desktop/hombom24",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Python tests.Python tests for archiver_data_process_tests.TestPVModel.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for plotting_base_tests.TestPlottingBase.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for plotting_base_tests.TestPlottingBase.test_plot_correlation_with_colormap.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for plotting_base_tests.TestPlottingBase.test_plot_pv_over_time.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for plotting_base_tests.TestPlottingBase.test_plot_pvs_correlation.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for plotting_base_tests.TestPlottingBase.test_plottingbase_initialization.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.executor&quot;: &quot;Debug&quot;,
+    &quot;Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_create_correlation_df_different_timestamps.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_create_correlation_df_empty_df.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_create_correlation_df_mismatched_timestamps.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_create_df.executor&quot;: &quot;Debug&quot;,
+    &quot;Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_create_df_empty_date_str.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_create_df_empty_pv_str.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_create_df_invalid_date_format.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_create_df_invalid_pv.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_plot_correl_empty_df.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_plot_correl_no_labels.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_plot_pv_over_time.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_plot_pv_over_time_different_lengths.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_plot_pv_over_time_empty_df_list.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_plot_pv_over_time_no_labels.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_set_fonts.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_archiver_plotter.TestArchiverPlotter.test_set_fonts_partial_input.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in archiver_data_process_tests.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in plotting_base_tests.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_archiver_data_process.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_archiver_plotter.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_plotting_base.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python._pydev_execfile.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.archiver_data_process.executor&quot;: &quot;Run&quot;,
+    &quot;Python.archiver_plotter.executor&quot;: &quot;Run&quot;,
+    &quot;Python.archiver_plotter_example (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.archiver_plotter_example.executor&quot;: &quot;Run&quot;,
+    &quot;Python.archiver_plotter_examples.executor&quot;: &quot;Run&quot;,
+    &quot;Python.archiver_plotter_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.automate_generate_plots.executor&quot;: &quot;Run&quot;,
+    &quot;Python.chao_dataprocess_script.executor&quot;: &quot;Run&quot;,
+    &quot;Python.charge_plotter.executor&quot;: &quot;Run&quot;,
+    &quot;Python.charge_sep_correlations.executor&quot;: &quot;Run&quot;,
+    &quot;Python.charge_separator.executor&quot;: &quot;Run&quot;,
+    &quot;Python.cluster_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.fruit.executor&quot;: &quot;Run&quot;,
+    &quot;Python.generate_plots.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lcls_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.meeting.executor&quot;: &quot;Run&quot;,
+    &quot;Python.performance_test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.plotting_base.executor&quot;: &quot;Run&quot;,
+    &quot;Python.plotting_example.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run_files.executor&quot;: &quot;Run&quot;,
+    &quot;Python.user.executor&quot;: &quot;Run&quot;,
+    &quot;Python.visual_test_intervals.executor&quot;: &quot;Debug&quot;,
+    &quot;Python.visual_test_intervals_3.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/jonathontordilla/Desktop/hombom24&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/CULMINATION" />
@@ -121,7 +120,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.plotting_example">
     <configuration name="plotting_example" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="hombom24" />
       <option name="ENV_FILES" value="" />
@@ -358,7 +357,8 @@
       <workItem from="1723680828394" duration="1272000" />
       <workItem from="1723682110778" duration="610000" />
       <workItem from="1723739929272" duration="11643000" />
-      <workItem from="1723762434249" duration="2958000" />
+      <workItem from="1723762434249" duration="2975000" />
+      <workItem from="1723829711700" duration="3389000" />
     </task>
     <servers />
   </component>
