@@ -265,14 +265,14 @@ if __name__ == '__main__':
     PV_BPMY = "BPMS:GUNB:925:Y"  # BPMY 02
     PV_CHARGE = "TORO:GUNB:360:CHRG"
     START_TIME = "2024/03/21 00:00:00"
-    END_TIME = "2024/04/02 23:59:59"
+    END_TIME = "2024/03/29 23:59:59"
     MIN_CHARGE_VAL = 15.0  # minimum charge to include in the DataFrame of charges
     CHARGE_VAL = 50.0  # set this to separate out by charge (pC), all values are: 50, 60, 80, 100, 140
     CHARGE_TOLERANCE = 0.1  # groups charges together within 10%, can set anywhere between 0-1
     TIME_MARGIN_SECONDS = 0.5  # amount of seconds between timestamps on which to merge DataFrames
     PHASE_TIME_RANGE = 10  # amount of minutes before the LCLS-II logbook date for the buncher phase scan (around 10m)
     START_SCAN = 1  # which buncher phase scan to start assembling plots from, in chronological order
-    END_SCAN = 10  # which buncher phase scan to end assembling plots from, inclusive
+    END_SCAN = 5  # which buncher phase scan to end assembling plots from, inclusive
     # change to your path to the HTML file for the LCLS-II logbook, search keyword: "Corrector XC04"
     START_END_DATES = get_pairs_of_dates("/Users/jonathontordilla/Desktop/hombom24/CULMINATION/buncher_dates.html")
 
