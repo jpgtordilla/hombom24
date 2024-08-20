@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="921fffcd-2132-4ce5-accc-e90368313128" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/CULMINATION/generate_multiplots.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CULMINATION/generate_multiplots.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/CULMINATION/generate_multiplots.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CULMINATION/generate_plots.py" beforeDir="false" afterPath="$PROJECT_DIR$/CULMINATION/generate_plots.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -345,7 +345,7 @@
       <workItem from="1723847574998" duration="861000" />
       <workItem from="1724089238064" duration="7277000" />
       <workItem from="1724099530761" duration="1289000" />
-      <workItem from="1724174976151" duration="5177000" />
+      <workItem from="1724174976151" duration="7256000" />
     </task>
     <servers />
   </component>
@@ -391,7 +391,7 @@
     <SUITE FILE_PATH="coverage/hombom24$archiver_data_process.coverage" NAME="archiver_data_process Coverage Results" MODIFIED="1723757865957" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/CULMINATION" />
     <SUITE FILE_PATH="coverage/hombom24$charge_separator.coverage" NAME="charge_separator Coverage Results" MODIFIED="1723592284582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/IMPORTANT_FILES" />
     <SUITE FILE_PATH="coverage/hombom24$run_files.coverage" NAME="run_files Coverage Results" MODIFIED="1723660763309" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python-learning" />
-    <SUITE FILE_PATH="coverage/hombom24$generate_plots.coverage" NAME="generate_plots Coverage Results" MODIFIED="1724179364445" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/CULMINATION" />
+    <SUITE FILE_PATH="coverage/hombom24$generate_plots.coverage" NAME="generate_plots Coverage Results" MODIFIED="1724185288989" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/CULMINATION" />
     <SUITE FILE_PATH="coverage/hombom24$user.coverage" NAME="user Coverage Results" MODIFIED="1723482501936" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python-learning" />
     <SUITE FILE_PATH="coverage/hombom24$plotting_example.coverage" NAME="plotting_example Coverage Results" MODIFIED="1723762769120" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/CULMINATION" />
     <SUITE FILE_PATH="coverage/hombom24$archiver_plotter_examples.coverage" NAME="archiver_plotter_examples Coverage Results" MODIFIED="1723496332848" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/archiver_plotter/old_archiver_plotters" />

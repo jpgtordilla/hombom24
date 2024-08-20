@@ -264,12 +264,12 @@ if __name__ == '__main__':
     PV_YCOR = "YCOR:GUNB:713:BACT"  # YCOR 04
     PV_BPMY = "BPMS:GUNB:925:Y"  # BPMY 02
     PV_CHARGE = "TORO:GUNB:360:CHRG"
-    START_TIME = "2024/03/21 00:00:00"
-    END_TIME = "2024/03/21 00:00:01"
+    START_TIME = "2024/06/12 00:00:00"
+    END_TIME = "2024/06/12 23:59:59"
     MIN_CHARGE_VAL = 15.0  # minimum charge to include in the DataFrame of charges
     CHARGE_VAL = 80.0  # set this to separate out by charge (pC), all values are: 50, 60, 80, 100, 140
     CHARGE_TOLERANCE = 0.2  # groups charges together within 10%, can set anywhere between 0-1
-    TIME_MARGIN_SECONDS = 3  # amount of seconds between timestamps on which to merge DataFrames
+    TIME_MARGIN_SECONDS = 5  # amount of seconds between timestamps on which to merge DataFrames
     PHASE_TIME_RANGE = 10  # amount of minutes before the LCLS-II logbook date for the buncher phase scan (around 10m)
     START_SCAN = 76  # which buncher phase scan to start assembling plots from, in chronological order
     END_SCAN = START_SCAN  # which buncher phase scan to end assembling plots from, inclusive
@@ -287,10 +287,10 @@ if __name__ == '__main__':
 
     # GENERATE PLOTS
     plot_functions = [
-        # plot_xcor_long("XCOR 04 Magnet", "HOM C1 Signal", "(G*m)", "(arb. units)"),
-        # plot_ycor_long("YCOR 04 Magnet", "HOM C1 Signal", "(G*m)", "(arb. units)"),
-        # plot_bpmx_long("BPM 02 X", "HOM C1 Signal", "(mm)", "(arb. units)"),
-        # plot_bpmy_long("BPM 02 Y", "HOM C1 Signal", "(mm)", "(arb. units)"),
+        plot_xcor_long("XCOR 04 Magnet", "HOM C1 Signal", "(G*m)", "(arb. units)"),
+        plot_ycor_long("YCOR 04 Magnet", "HOM C1 Signal", "(G*m)", "(arb. units)"),
+        plot_bpmx_long("BPM 02 X", "HOM C1 Signal", "(mm)", "(arb. units)"),
+        plot_bpmy_long("BPM 02 Y", "HOM C1 Signal", "(mm)", "(arb. units)"),
         plot_xcor_bpmx_phase(["XCOR 04 Magnet", "BPM 02 X", "HOM C1 Signal", "Charge"],
                              ["(G*m)", "(mm)", "(arbitrary units)"]),
         plot_ycor_bpmy_phase(["YCOR 04 Magnet", "BPM 02 Y", "HOM C1 Signal", "Charge"],
