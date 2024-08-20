@@ -5,86 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="921fffcd-2132-4ce5-accc-e90368313128" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/simulation/course-1/1-oscillators.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CULMINATION/generate_multiplots.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CULMINATION/generate_plots.py" beforeDir="false" afterPath="$PROJECT_DIR$/CULMINATION/generate_plots.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/board-analysis/board_analysis.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/board-analysis/chao_dataprocess_notebook.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/board-analysis/chao_dataprocess_notebook.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/board-analysis/chao_dataprocess_script.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/board-analysis/hom_data_txt/HOM_dataprocess.py" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/board-analysis/hom_data_txt/HOM_dataprocess.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/board-analysis/hom_data_txt/hom1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/board-analysis/hom_data_txt/hom1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/board-analysis/hom_data_txt/hom2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/board-analysis/hom_data_txt/hom2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/board-analysis/hom_data_txt/hom3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/board-analysis/hom_data_txt/hom3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/board-analysis/hom_data_txt/hom4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/board-analysis/hom_data_txt/hom4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/board-analysis/hom_data_txt/hom5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/board-analysis/hom_data_txt/hom5.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/board-analysis/hom_data_txt/homtrigger2_1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/board-analysis/hom_data_txt/homtrigger2_1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/board-analysis/hom_data_txt/homtrigger2_2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/board-analysis/hom_data_txt/homtrigger2_2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/board-analysis/hom_data_txt/homtrigger2_3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/board-analysis/hom_data_txt/homtrigger2_3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/board-analysis/hom_data_txt/homtrigger2_4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/board-analysis/hom_data_txt/homtrigger2_4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/board-analysis/hom_data_txt/homtrigger2_5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/board-analysis/hom_data_txt/homtrigger2_5.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hom-plots/big-data/bpmx-long-cmap.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hom-plots/big-data/bpmy-long-cmap.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hom-plots/big-data/xcor-long-cmap.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hom-plots/big-data/ycor-long-cmap.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hom-plots/bpmx-long-cmap.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hom-plots/bpmx-phase-cmap.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hom-plots/bpmy-long-cmap.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hom-plots/bpmy-phase-cmap.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hom-plots/xcor-long-cmap.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hom-plots/xcor-phase-cmap.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hom-plots/ycor-long-cmap.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/hom-plots/ycor-phase-cmap.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/python-learning/fruit.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/python-learning/meeting.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/python-learning/process_1.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/python-learning/process_2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/python-learning/run_files.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/python-learning/user.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/240703_093530.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/240703_093530.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/240703_093646.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/240703_093646.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/240703_093650.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/240703_093650.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/240703_093700.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/240703_093700.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/cav1_average.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/cav1_average.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/cav1_fullscale_ref.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/cav1_fullscale_ref.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/cav2_average.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/cav2_average.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/cav2_fullscale_ref.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/cav2_fullscale_ref.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/readme.docx" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/readme.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set10_cav1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set10_cav1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set10_cav2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set10_cav2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set10_trig.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set10_trig.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set11_cav1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set11_cav1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set11_cav2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set11_cav2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set11_trig.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set11_trig.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set12_cav1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set12_cav1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set12_cav2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set12_cav2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set12_trig.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set12_trig.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set2_cav1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set2_cav1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set2_cav2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set2_cav2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set2_trig.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set2_trig.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set3_cav1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set3_cav1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set3_cav2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set3_cav2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set3_trig.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set3_trig.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set4_cav1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set4_cav1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set4_cav2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set4_cav2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set4_trig.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set4_trig.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set5_cav1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set5_cav1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set5_cav2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set5_cav2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set5_trig.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set5_trig.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set6_cav1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set6_cav1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set6_cav2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set6_cav2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set6_trig.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set6_trig.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set7_cav1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set7_cav1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set7_cav2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set7_cav2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set7_trig.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set7_trig.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set8_cav1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set8_cav1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set8_cav2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set8_cav2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set8_trig.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set8_trig.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set9_cav1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set9_cav1.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set9_cav2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set9_cav2.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/set9_trig.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/set9_trig.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/2024-07-03_fast_scope/trig_average.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/2024-07-03_fast_scope/trig_average.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/scope_analysis.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scope-analysis/scope_data_processing.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/data-collection/scope-analysis/scope_data_processing.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,8 +18,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="Jupyter Notebook" />
         <option value="Python Script" />
+        <option value="Jupyter Notebook" />
       </list>
     </option>
   </component>
@@ -199,7 +122,30 @@
       <recent name="$PROJECT_DIR$/CULMINATION/plotting_scripts" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.scope_analysis">
+  <component name="RunManager" selected="Python.generate_plots">
+    <configuration name="generate_plots" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="hombom24" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CULMINATION" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CULMINATION/generate_plots.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="plotting_example" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="hombom24" />
       <option name="ENV_FILES" value="" />
@@ -246,22 +192,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for CULMINATION.plotting_base_tests.TestPlottingBase" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
-      <module name="hombom24" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CULMINATION/tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;CULMINATION.plotting_base_tests.TestPlottingBase&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
     <configuration name="Python tests for CULMINATION.test_plotting_base.TestPlottingBase.test_plot_correlation_with_colormap" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="hombom24" />
       <option name="ENV_FILES" value="" />
@@ -295,19 +225,19 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.generate_plots" />
       <item itemvalue="Python.scope_analysis" />
       <item itemvalue="Python.plotting_example" />
-      <item itemvalue="Python tests.Python tests for CULMINATION.plotting_base_tests.TestPlottingBase" />
       <item itemvalue="Python tests.Python tests for CULMINATION.test_plotting_base.TestPlottingBase.test_plot_correlation_with_colormap" />
       <item itemvalue="Python tests.Python tests for CULMINATION.test_plotting_base.TestPlottingBase.test_plot_pvs_correlation" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.generate_plots" />
         <item itemvalue="Python.scope_analysis" />
         <item itemvalue="Python.plotting_example" />
         <item itemvalue="Python tests.Python tests for CULMINATION.test_plotting_base.TestPlottingBase.test_plot_pvs_correlation" />
         <item itemvalue="Python tests.Python tests for CULMINATION.test_plotting_base.TestPlottingBase.test_plot_correlation_with_colormap" />
-        <item itemvalue="Python tests.Python tests for CULMINATION.plotting_base_tests.TestPlottingBase" />
       </list>
     </recent_temporary>
   </component>
@@ -415,6 +345,7 @@
       <workItem from="1723847574998" duration="861000" />
       <workItem from="1724089238064" duration="7277000" />
       <workItem from="1724099530761" duration="1289000" />
+      <workItem from="1724174976151" duration="5177000" />
     </task>
     <servers />
   </component>
@@ -460,7 +391,7 @@
     <SUITE FILE_PATH="coverage/hombom24$archiver_data_process.coverage" NAME="archiver_data_process Coverage Results" MODIFIED="1723757865957" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/CULMINATION" />
     <SUITE FILE_PATH="coverage/hombom24$charge_separator.coverage" NAME="charge_separator Coverage Results" MODIFIED="1723592284582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/IMPORTANT_FILES" />
     <SUITE FILE_PATH="coverage/hombom24$run_files.coverage" NAME="run_files Coverage Results" MODIFIED="1723660763309" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python-learning" />
-    <SUITE FILE_PATH="coverage/hombom24$generate_plots.coverage" NAME="generate_plots Coverage Results" MODIFIED="1724099267701" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/CULMINATION" />
+    <SUITE FILE_PATH="coverage/hombom24$generate_plots.coverage" NAME="generate_plots Coverage Results" MODIFIED="1724179364445" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/CULMINATION" />
     <SUITE FILE_PATH="coverage/hombom24$user.coverage" NAME="user Coverage Results" MODIFIED="1723482501936" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python-learning" />
     <SUITE FILE_PATH="coverage/hombom24$plotting_example.coverage" NAME="plotting_example Coverage Results" MODIFIED="1723762769120" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/CULMINATION" />
     <SUITE FILE_PATH="coverage/hombom24$archiver_plotter_examples.coverage" NAME="archiver_plotter_examples Coverage Results" MODIFIED="1723496332848" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/archive-analysis/lcls-tools-plots/archiver_plotter/old_archiver_plotters" />
