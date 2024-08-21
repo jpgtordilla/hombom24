@@ -1,0 +1,31 @@
+ModelInfo : {
+    File: ./pillbox-rtop4.ncdf
+
+    BoundaryCondition : {
+        Magnetic: 1, 2
+        Exterior: 6
+    }
+    SurfaceMaterial : {
+        ReferenceNumber: 6
+        Sigma: 5.8e7
+    }
+}
+
+FiniteElement: {
+    Order: 2
+    CurvedSurfaces: on
+}
+
+EigenSolver : {
+    NumEigenvalues: 2
+    FrequencyShift: 1.0e9
+    // Tolerance: 1e7
+    // MaxIterations: 300 // default: 200
+}
+
+/*
+PostProcess : {
+Toggle: on //switch, set off to turn off postprocessing
+ModeFile: mode //mode file prefix (default: omega3p)
+}
+*/
